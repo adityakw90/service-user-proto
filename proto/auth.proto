@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/adityakw90/service-user-proto/gen/go/auth";
+
+import "proto/user.proto";
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message RegisterResponse {
+  string uid = 1;
+  string token = 2; // JWT Access Token
+}
+
+message LoginRequest {
+  string identifier = 1; // Username or Email
+  string password = 2;
+  string device_fingerprint = 3;
+  string device_name = 4;
+}
+
+message LoginResponse {
+  string token = 1;
+  string refresh_token = 2;
+  user.User user = 3;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  string token = 1;
+  string refresh_token = 2;
+}
+
+message VerifyPinRequest {
+  string pin = 1;
+}
+
+message VerifyPinResponse {
+  bool valid = 1;
+}
+
+service AuthService {
+  // Registers a new user and returns a session token.
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+
+  // Authenticates a user and returns session tokens.
+  rpc Login(LoginRequest) returns (LoginResponse);
+
+  // Refreshes the access token using a refresh token.
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+
+  // Validate the Access Token
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+
+  // Verifies the User PIN for sensitive actions.
+  rpc VerifyPin(VerifyPinRequest) returns (VerifyPinResponse);
+}

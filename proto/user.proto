@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/adityakw90/service-user-proto/gen/go/user";
+
+import "proto/common.proto";
+
+message User {
+  string uid = 1;           // UUIDv7
+  string username = 2;
+  string email = 3;
+  string first_name = 4;
+  string last_name = 5;
+  string bio = 6;
+  string avatar_url = 7;    // Computed URL from file path
+  int32 status = 8;         // 1=Active, 0=Inactive, etc.
+  string created_at = 9;    // ISO 8601
+  string updated_at = 10;   // ISO 8601
+}
+
+message GetUserRequest {
+  string uid = 1;
+}
+
+message UpdateProfileRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string bio = 3;
+}
+
+message UpdateProfileResponse {
+  User user = 1;
+}
+
+message SetPinRequest {
+  string pin = 1;
+}
+
+message SetPinResponse {
+  bool success = 1;
+}
+
+message ListDevicesResponse {
+  message Device {
+    string device_id = 1;
+    string device_name = 2;
+    string last_login = 3;
+    bool current_device = 5;
+  }
+  repeated Device devices = 1;
+}
+
+message RevokeDeviceRequest {
+  string device_id = 1;
+}
+
+service UserService {
+  // Gets the current authenticated user's profile.
+  rpc GetMe(common.Empty) returns (User);
+
+  // Gets a specific user by UID (public info only).
+  rpc GetUser(GetUserRequest) returns (User);
+
+  // Updates the current user's profile.
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+
+  // Updates the security PIN.
+  rpc SetPin(SetPinRequest) returns (SetPinResponse);
+
+  // Lists active devices for the current user.
+  rpc ListDevices(common.Empty) returns (ListDevicesResponse);
+
+  // Revokes access for a specific device.
+  rpc RevokeDevice(RevokeDeviceRequest) returns (common.Empty);
+}
