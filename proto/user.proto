@@ -64,7 +64,7 @@ message ListResponse {
   common.Meta meta = 2;  // Use Meta from the imported common.proto
 }
 
-message GetUserRequest {
+message GetRequest {
   string uid = 1;
 }
 
@@ -150,6 +150,6 @@ service UserService {
   rpc UpdatePin(UpdatePinRequest) returns (common.Success);
 
   // user device
-  rpc ListDevice(ListDeviceRequest) returns (ListDeviceResponse);
-  rpc RemoveDevice(RemoveDeviceRequest) returns (common.Success);
+  rpc ListDevice(ListDevicesRequest) returns (ListDevicesResponse);
+  rpc RevokeDevice(RevokeDeviceRequest) returns (common.Success);
 }

@@ -4,7 +4,7 @@ package device;
 
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/device";
 
-import "google/protobuf/struct.proto";
+
 import "google/protobuf/timestamp.proto";
 import "proto/common.proto";
 

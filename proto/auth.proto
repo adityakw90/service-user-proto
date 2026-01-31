@@ -4,7 +4,7 @@ package auth;
 
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/auth";
 
-import "proto/user.proto";
+
 import "google/protobuf/struct.proto";
 
 // Token message.

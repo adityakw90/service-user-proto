@@ -20,11 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_GetMe_FullMethodName         = "/user.UserService/GetMe"
-	UserService_GetUser_FullMethodName       = "/user.UserService/GetUser"
+	UserService_List_FullMethodName          = "/user.UserService/List"
+	UserService_Get_FullMethodName           = "/user.UserService/Get"
+	UserService_Add_FullMethodName           = "/user.UserService/Add"
+	UserService_Update_FullMethodName        = "/user.UserService/Update"
+	UserService_Delete_FullMethodName        = "/user.UserService/Delete"
+	UserService_GetProfile_FullMethodName    = "/user.UserService/GetProfile"
 	UserService_UpdateProfile_FullMethodName = "/user.UserService/UpdateProfile"
-	UserService_SetPin_FullMethodName        = "/user.UserService/SetPin"
-	UserService_ListDevices_FullMethodName   = "/user.UserService/ListDevices"
+	UserService_UpdatePin_FullMethodName     = "/user.UserService/UpdatePin"
+	UserService_ListDevice_FullMethodName    = "/user.UserService/ListDevice"
 	UserService_RevokeDevice_FullMethodName  = "/user.UserService/RevokeDevice"
 )
 
@@ -32,18 +36,22 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	// Gets the current authenticated user's profile.
-	GetMe(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*User, error)
-	// Gets a specific user by UID (public info only).
-	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*User, error)
-	// Updates the current user's profile.
-	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
-	// Updates the security PIN.
-	SetPin(ctx context.Context, in *SetPinRequest, opts ...grpc.CallOption) (*SetPinResponse, error)
-	// Lists active devices for the current user.
-	ListDevices(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*ListDevicesResponse, error)
-	// Revokes access for a specific device.
-	RevokeDevice(ctx context.Context, in *RevokeDeviceRequest, opts ...grpc.CallOption) (*common.Empty, error)
+	// list user
+	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
+	// GET user
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*User, error)
+	// Crud method
+	Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*common.Success, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*common.Success, error)
+	// user profile
+	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error)
+	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*common.Success, error)
+	// user pin
+	UpdatePin(ctx context.Context, in *UpdatePinRequest, opts ...grpc.CallOption) (*common.Success, error)
+	// user device
+	ListDevice(ctx context.Context, in *ListDevicesRequest, opts ...grpc.CallOption) (*ListDevicesResponse, error)
+	RevokeDevice(ctx context.Context, in *RevokeDeviceRequest, opts ...grpc.CallOption) (*common.Success, error)
 }
 
 type userServiceClient struct {
@@ -54,29 +62,69 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) GetMe(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*User, error) {
+func (c *userServiceClient) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(User)
-	err := c.cc.Invoke(ctx, UserService_GetMe_FullMethodName, in, out, cOpts...)
+	out := new(ListResponse)
+	err := c.cc.Invoke(ctx, UserService_List_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userServiceClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*User, error) {
+func (c *userServiceClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*User, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(User)
-	err := c.cc.Invoke(ctx, UserService_GetUser_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_Get_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userServiceClient) UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error) {
+func (c *userServiceClient) Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateProfileResponse)
+	out := new(AddResponse)
+	err := c.cc.Invoke(ctx, UserService_Add_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*common.Success, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(common.Success)
+	err := c.cc.Invoke(ctx, UserService_Update_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*common.Success, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(common.Success)
+	err := c.cc.Invoke(ctx, UserService_Delete_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Profile)
+	err := c.cc.Invoke(ctx, UserService_GetProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*common.Success, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(common.Success)
 	err := c.cc.Invoke(ctx, UserService_UpdateProfile_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -84,29 +132,29 @@ func (c *userServiceClient) UpdateProfile(ctx context.Context, in *UpdateProfile
 	return out, nil
 }
 
-func (c *userServiceClient) SetPin(ctx context.Context, in *SetPinRequest, opts ...grpc.CallOption) (*SetPinResponse, error) {
+func (c *userServiceClient) UpdatePin(ctx context.Context, in *UpdatePinRequest, opts ...grpc.CallOption) (*common.Success, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SetPinResponse)
-	err := c.cc.Invoke(ctx, UserService_SetPin_FullMethodName, in, out, cOpts...)
+	out := new(common.Success)
+	err := c.cc.Invoke(ctx, UserService_UpdatePin_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userServiceClient) ListDevices(ctx context.Context, in *common.Empty, opts ...grpc.CallOption) (*ListDevicesResponse, error) {
+func (c *userServiceClient) ListDevice(ctx context.Context, in *ListDevicesRequest, opts ...grpc.CallOption) (*ListDevicesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListDevicesResponse)
-	err := c.cc.Invoke(ctx, UserService_ListDevices_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_ListDevice_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userServiceClient) RevokeDevice(ctx context.Context, in *RevokeDeviceRequest, opts ...grpc.CallOption) (*common.Empty, error) {
+func (c *userServiceClient) RevokeDevice(ctx context.Context, in *RevokeDeviceRequest, opts ...grpc.CallOption) (*common.Success, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.Empty)
+	out := new(common.Success)
 	err := c.cc.Invoke(ctx, UserService_RevokeDevice_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -118,18 +166,22 @@ func (c *userServiceClient) RevokeDevice(ctx context.Context, in *RevokeDeviceRe
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
-	// Gets the current authenticated user's profile.
-	GetMe(context.Context, *common.Empty) (*User, error)
-	// Gets a specific user by UID (public info only).
-	GetUser(context.Context, *GetUserRequest) (*User, error)
-	// Updates the current user's profile.
-	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
-	// Updates the security PIN.
-	SetPin(context.Context, *SetPinRequest) (*SetPinResponse, error)
-	// Lists active devices for the current user.
-	ListDevices(context.Context, *common.Empty) (*ListDevicesResponse, error)
-	// Revokes access for a specific device.
-	RevokeDevice(context.Context, *RevokeDeviceRequest) (*common.Empty, error)
+	// list user
+	List(context.Context, *ListRequest) (*ListResponse, error)
+	// GET user
+	Get(context.Context, *GetRequest) (*User, error)
+	// Crud method
+	Add(context.Context, *AddRequest) (*AddResponse, error)
+	Update(context.Context, *UpdateRequest) (*common.Success, error)
+	Delete(context.Context, *DeleteRequest) (*common.Success, error)
+	// user profile
+	GetProfile(context.Context, *GetProfileRequest) (*Profile, error)
+	UpdateProfile(context.Context, *UpdateProfileRequest) (*common.Success, error)
+	// user pin
+	UpdatePin(context.Context, *UpdatePinRequest) (*common.Success, error)
+	// user device
+	ListDevice(context.Context, *ListDevicesRequest) (*ListDevicesResponse, error)
+	RevokeDevice(context.Context, *RevokeDeviceRequest) (*common.Success, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -140,22 +192,34 @@ type UserServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserServiceServer struct{}
 
-func (UnimplementedUserServiceServer) GetMe(context.Context, *common.Empty) (*User, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetMe not implemented")
+func (UnimplementedUserServiceServer) List(context.Context, *ListRequest) (*ListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method List not implemented")
 }
-func (UnimplementedUserServiceServer) GetUser(context.Context, *GetUserRequest) (*User, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetUser not implemented")
+func (UnimplementedUserServiceServer) Get(context.Context, *GetRequest) (*User, error) {
+	return nil, status.Error(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedUserServiceServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error) {
+func (UnimplementedUserServiceServer) Add(context.Context, *AddRequest) (*AddResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
+}
+func (UnimplementedUserServiceServer) Update(context.Context, *UpdateRequest) (*common.Success, error) {
+	return nil, status.Error(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedUserServiceServer) Delete(context.Context, *DeleteRequest) (*common.Success, error) {
+	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedUserServiceServer) GetProfile(context.Context, *GetProfileRequest) (*Profile, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetProfile not implemented")
+}
+func (UnimplementedUserServiceServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*common.Success, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateProfile not implemented")
 }
-func (UnimplementedUserServiceServer) SetPin(context.Context, *SetPinRequest) (*SetPinResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method SetPin not implemented")
+func (UnimplementedUserServiceServer) UpdatePin(context.Context, *UpdatePinRequest) (*common.Success, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdatePin not implemented")
 }
-func (UnimplementedUserServiceServer) ListDevices(context.Context, *common.Empty) (*ListDevicesResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method ListDevices not implemented")
+func (UnimplementedUserServiceServer) ListDevice(context.Context, *ListDevicesRequest) (*ListDevicesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListDevice not implemented")
 }
-func (UnimplementedUserServiceServer) RevokeDevice(context.Context, *RevokeDeviceRequest) (*common.Empty, error) {
+func (UnimplementedUserServiceServer) RevokeDevice(context.Context, *RevokeDeviceRequest) (*common.Success, error) {
 	return nil, status.Error(codes.Unimplemented, "method RevokeDevice not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
@@ -179,38 +243,110 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_GetMe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.Empty)
+func _UserService_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).GetMe(ctx, in)
+		return srv.(UserServiceServer).List(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_GetMe_FullMethodName,
+		FullMethod: UserService_List_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetMe(ctx, req.(*common.Empty))
+		return srv.(UserServiceServer).List(ctx, req.(*ListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserRequest)
+func _UserService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).GetUser(ctx, in)
+		return srv.(UserServiceServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_GetUser_FullMethodName,
+		FullMethod: UserService_Get_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetUser(ctx, req.(*GetUserRequest))
+		return srv.(UserServiceServer).Get(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).Add(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_Add_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).Add(ctx, req.(*AddRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_Update_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).Update(ctx, req.(*UpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_Delete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetProfile(ctx, req.(*GetProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -233,38 +369,38 @@ func _UserService_UpdateProfile_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_SetPin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetPinRequest)
+func _UserService_UpdatePin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePinRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).SetPin(ctx, in)
+		return srv.(UserServiceServer).UpdatePin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_SetPin_FullMethodName,
+		FullMethod: UserService_UpdatePin_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).SetPin(ctx, req.(*SetPinRequest))
+		return srv.(UserServiceServer).UpdatePin(ctx, req.(*UpdatePinRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_ListDevices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.Empty)
+func _UserService_ListDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDevicesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).ListDevices(ctx, in)
+		return srv.(UserServiceServer).ListDevice(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_ListDevices_FullMethodName,
+		FullMethod: UserService_ListDevice_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).ListDevices(ctx, req.(*common.Empty))
+		return srv.(UserServiceServer).ListDevice(ctx, req.(*ListDevicesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -295,24 +431,40 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetMe",
-			Handler:    _UserService_GetMe_Handler,
+			MethodName: "List",
+			Handler:    _UserService_List_Handler,
 		},
 		{
-			MethodName: "GetUser",
-			Handler:    _UserService_GetUser_Handler,
+			MethodName: "Get",
+			Handler:    _UserService_Get_Handler,
+		},
+		{
+			MethodName: "Add",
+			Handler:    _UserService_Add_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _UserService_Update_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _UserService_Delete_Handler,
+		},
+		{
+			MethodName: "GetProfile",
+			Handler:    _UserService_GetProfile_Handler,
 		},
 		{
 			MethodName: "UpdateProfile",
 			Handler:    _UserService_UpdateProfile_Handler,
 		},
 		{
-			MethodName: "SetPin",
-			Handler:    _UserService_SetPin_Handler,
+			MethodName: "UpdatePin",
+			Handler:    _UserService_UpdatePin_Handler,
 		},
 		{
-			MethodName: "ListDevices",
-			Handler:    _UserService_ListDevices_Handler,
+			MethodName: "ListDevice",
+			Handler:    _UserService_ListDevice_Handler,
 		},
 		{
 			MethodName: "RevokeDevice",

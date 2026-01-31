@@ -10,6 +10,8 @@ import (
 	common "github.com/adityakw90/service-user-proto/gen/go/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	structpb "google.golang.org/protobuf/types/known/structpb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -27,13 +29,10 @@ type User struct {
 	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"` // UUIDv7
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	FirstName     string                 `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName      string                 `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Bio           string                 `protobuf:"bytes,6,opt,name=bio,proto3" json:"bio,omitempty"`
-	AvatarUrl     string                 `protobuf:"bytes,7,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`  // Computed URL from file path
-	Status        int32                  `protobuf:"varint,8,opt,name=status,proto3" json:"status,omitempty"`                        // 1=Active, 0=Inactive, etc.
-	CreatedAt     string                 `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`  // ISO 8601
-	UpdatedAt     string                 `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"` // ISO 8601
+	Status        int32                  `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`                       // 1=Active, 0=Inactive, etc.
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"` // ISO 8601
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"` // ISO 8601
+	DeletedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"` // ISO 8601
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -89,34 +88,6 @@ func (x *User) GetEmail() string {
 	return ""
 }
 
-func (x *User) GetFirstName() string {
-	if x != nil {
-		return x.FirstName
-	}
-	return ""
-}
-
-func (x *User) GetLastName() string {
-	if x != nil {
-		return x.LastName
-	}
-	return ""
-}
-
-func (x *User) GetBio() string {
-	if x != nil {
-		return x.Bio
-	}
-	return ""
-}
-
-func (x *User) GetAvatarUrl() string {
-	if x != nil {
-		return x.AvatarUrl
-	}
-	return ""
-}
-
 func (x *User) GetStatus() int32 {
 	if x != nil {
 		return x.Status
@@ -124,41 +95,53 @@ func (x *User) GetStatus() int32 {
 	return 0
 }
 
-func (x *User) GetCreatedAt() string {
+func (x *User) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
-	return ""
+	return nil
 }
 
-func (x *User) GetUpdatedAt() string {
+func (x *User) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
 	}
-	return ""
+	return nil
 }
 
-type GetUserRequest struct {
+func (x *User) GetDeletedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DeletedAt
+	}
+	return nil
+}
+
+type Profile struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"` // user uid
+	FirstName     string                 `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName      string                 `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Bio           string                 `protobuf:"bytes,4,opt,name=bio,proto3" json:"bio,omitempty"`
+	Avatar        *Avatar                `protobuf:"bytes,5,opt,name=avatar,proto3,oneof" json:"avatar,omitempty"` // computed avatar url
+	Attributes    *structpb.Struct       `protobuf:"bytes,6,opt,name=attributes,proto3" json:"attributes,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetUserRequest) Reset() {
-	*x = GetUserRequest{}
+func (x *Profile) Reset() {
+	*x = Profile{}
 	mi := &file_proto_user_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetUserRequest) String() string {
+func (x *Profile) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserRequest) ProtoMessage() {}
+func (*Profile) ProtoMessage() {}
 
-func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
+func (x *Profile) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_user_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -170,30 +153,715 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
-func (*GetUserRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Profile.ProtoReflect.Descriptor instead.
+func (*Profile) Descriptor() ([]byte, []int) {
 	return file_proto_user_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetUserRequest) GetUid() string {
+func (x *Profile) GetUid() string {
 	if x != nil {
 		return x.Uid
 	}
 	return ""
 }
 
+func (x *Profile) GetFirstName() string {
+	if x != nil {
+		return x.FirstName
+	}
+	return ""
+}
+
+func (x *Profile) GetLastName() string {
+	if x != nil {
+		return x.LastName
+	}
+	return ""
+}
+
+func (x *Profile) GetBio() string {
+	if x != nil {
+		return x.Bio
+	}
+	return ""
+}
+
+func (x *Profile) GetAvatar() *Avatar {
+	if x != nil {
+		return x.Avatar
+	}
+	return nil
+}
+
+func (x *Profile) GetAttributes() *structpb.Struct {
+	if x != nil {
+		return x.Attributes
+	}
+	return nil
+}
+
+type Avatar struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Url           string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	Thumbnail     *structpb.Struct       `protobuf:"bytes,9,opt,name=thumbnail,proto3,oneof" json:"thumbnail,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Avatar) Reset() {
+	*x = Avatar{}
+	mi := &file_proto_user_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Avatar) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Avatar) ProtoMessage() {}
+
+func (x *Avatar) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Avatar.ProtoReflect.Descriptor instead.
+func (*Avatar) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Avatar) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+func (x *Avatar) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *Avatar) GetThumbnail() *structpb.Struct {
+	if x != nil {
+		return x.Thumbnail
+	}
+	return nil
+}
+
+type Device struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DeviceUid     string                 `protobuf:"bytes,1,opt,name=device_uid,json=deviceUid,proto3" json:"device_uid,omitempty"`
+	DeviceName    string                 `protobuf:"bytes,2,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
+	IpAddress     string                 `protobuf:"bytes,3,opt,name=ip_address,json=ipAddress,proto3" json:"ip_address,omitempty"`
+	LastActiveAt  *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=last_active_at,json=lastActiveAt,proto3" json:"last_active_at,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	RevokedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=revoked_at,json=revokedAt,proto3" json:"revoked_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Device) Reset() {
+	*x = Device{}
+	mi := &file_proto_user_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Device) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Device) ProtoMessage() {}
+
+func (x *Device) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Device.ProtoReflect.Descriptor instead.
+func (*Device) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Device) GetDeviceUid() string {
+	if x != nil {
+		return x.DeviceUid
+	}
+	return ""
+}
+
+func (x *Device) GetDeviceName() string {
+	if x != nil {
+		return x.DeviceName
+	}
+	return ""
+}
+
+func (x *Device) GetIpAddress() string {
+	if x != nil {
+		return x.IpAddress
+	}
+	return ""
+}
+
+func (x *Device) GetLastActiveAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.LastActiveAt
+	}
+	return nil
+}
+
+func (x *Device) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *Device) GetRevokedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RevokedAt
+	}
+	return nil
+}
+
+// Request message for List User.
+type ListRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Pagination    *common.Pagination     `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Filter        *FilterRequest         `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListRequest) Reset() {
+	*x = ListRequest{}
+	mi := &file_proto_user_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRequest) ProtoMessage() {}
+
+func (x *ListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListRequest.ProtoReflect.Descriptor instead.
+func (*ListRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ListRequest) GetPagination() *common.Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+func (x *ListRequest) GetFilter() *FilterRequest {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
+// Filter message for request List User.
+type FilterRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uids          []string               `protobuf:"bytes,1,rep,name=uids,proto3" json:"uids,omitempty"`
+	Username      *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Email         *string                `protobuf:"bytes,3,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	Exists        *bool                  `protobuf:"varint,4,opt,name=exists,proto3,oneof" json:"exists,omitempty"`
+	Active        *bool                  `protobuf:"varint,5,opt,name=active,proto3,oneof" json:"active,omitempty"`
+	Query         *string                `protobuf:"bytes,6,opt,name=query,proto3,oneof" json:"query,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FilterRequest) Reset() {
+	*x = FilterRequest{}
+	mi := &file_proto_user_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FilterRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FilterRequest) ProtoMessage() {}
+
+func (x *FilterRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FilterRequest.ProtoReflect.Descriptor instead.
+func (*FilterRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *FilterRequest) GetUids() []string {
+	if x != nil {
+		return x.Uids
+	}
+	return nil
+}
+
+func (x *FilterRequest) GetUsername() string {
+	if x != nil && x.Username != nil {
+		return *x.Username
+	}
+	return ""
+}
+
+func (x *FilterRequest) GetEmail() string {
+	if x != nil && x.Email != nil {
+		return *x.Email
+	}
+	return ""
+}
+
+func (x *FilterRequest) GetExists() bool {
+	if x != nil && x.Exists != nil {
+		return *x.Exists
+	}
+	return false
+}
+
+func (x *FilterRequest) GetActive() bool {
+	if x != nil && x.Active != nil {
+		return *x.Active
+	}
+	return false
+}
+
+func (x *FilterRequest) GetQuery() string {
+	if x != nil && x.Query != nil {
+		return *x.Query
+	}
+	return ""
+}
+
+// Response message containing a list of items.
+type ListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Items         []*User                `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	Meta          *common.Meta           `protobuf:"bytes,2,opt,name=meta,proto3" json:"meta,omitempty"` // Use Meta from the imported common.proto
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListResponse) Reset() {
+	*x = ListResponse{}
+	mi := &file_proto_user_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListResponse) ProtoMessage() {}
+
+func (x *ListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListResponse.ProtoReflect.Descriptor instead.
+func (*ListResponse) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ListResponse) GetItems() []*User {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+func (x *ListResponse) GetMeta() *common.Meta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+type GetRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRequest) Reset() {
+	*x = GetRequest{}
+	mi := &file_proto_user_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRequest) ProtoMessage() {}
+
+func (x *GetRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRequest.ProtoReflect.Descriptor instead.
+func (*GetRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetRequest) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+type AddRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddRequest) Reset() {
+	*x = AddRequest{}
+	mi := &file_proto_user_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddRequest) ProtoMessage() {}
+
+func (x *AddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddRequest.ProtoReflect.Descriptor instead.
+func (*AddRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *AddRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *AddRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *AddRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type AddResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddResponse) Reset() {
+	*x = AddResponse{}
+	mi := &file_proto_user_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddResponse) ProtoMessage() {}
+
+func (x *AddResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddResponse.ProtoReflect.Descriptor instead.
+func (*AddResponse) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *AddResponse) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+type UpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Username      *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Email         *string                `protobuf:"bytes,3,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	Password      *string                `protobuf:"bytes,4,opt,name=password,proto3,oneof" json:"password,omitempty"`
+	Status        *int32                 `protobuf:"varint,5,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateRequest) Reset() {
+	*x = UpdateRequest{}
+	mi := &file_proto_user_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRequest) ProtoMessage() {}
+
+func (x *UpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRequest.ProtoReflect.Descriptor instead.
+func (*UpdateRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *UpdateRequest) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetUsername() string {
+	if x != nil && x.Username != nil {
+		return *x.Username
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetEmail() string {
+	if x != nil && x.Email != nil {
+		return *x.Email
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetPassword() string {
+	if x != nil && x.Password != nil {
+		return *x.Password
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+type DeleteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteRequest) Reset() {
+	*x = DeleteRequest{}
+	mi := &file_proto_user_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRequest) ProtoMessage() {}
+
+func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
+func (*DeleteRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *DeleteRequest) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+type GetProfileRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserUid       string                 `protobuf:"bytes,1,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProfileRequest) Reset() {
+	*x = GetProfileRequest{}
+	mi := &file_proto_user_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProfileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProfileRequest) ProtoMessage() {}
+
+func (x *GetProfileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProfileRequest.ProtoReflect.Descriptor instead.
+func (*GetProfileRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetProfileRequest) GetUserUid() string {
+	if x != nil {
+		return x.UserUid
+	}
+	return ""
+}
+
 type UpdateProfileRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	FirstName     string                 `protobuf:"bytes,1,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName      string                 `protobuf:"bytes,2,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Bio           string                 `protobuf:"bytes,3,opt,name=bio,proto3" json:"bio,omitempty"`
+	UserUid       string                 `protobuf:"bytes,1,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
+	FirstName     string                 `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName      string                 `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Bio           string                 `protobuf:"bytes,4,opt,name=bio,proto3" json:"bio,omitempty"`
+	Avatar        []byte                 `protobuf:"bytes,5,opt,name=avatar,proto3,oneof" json:"avatar,omitempty"`
+	Attributes    *structpb.Struct       `protobuf:"bytes,6,opt,name=attributes,proto3" json:"attributes,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateProfileRequest) Reset() {
 	*x = UpdateProfileRequest{}
-	mi := &file_proto_user_proto_msgTypes[2]
+	mi := &file_proto_user_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -205,7 +873,7 @@ func (x *UpdateProfileRequest) String() string {
 func (*UpdateProfileRequest) ProtoMessage() {}
 
 func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[2]
+	mi := &file_proto_user_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -218,7 +886,14 @@ func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateProfileRequest.ProtoReflect.Descriptor instead.
 func (*UpdateProfileRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{2}
+	return file_proto_user_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *UpdateProfileRequest) GetUserUid() string {
+	if x != nil {
+		return x.UserUid
+	}
+	return ""
 }
 
 func (x *UpdateProfileRequest) GetFirstName() string {
@@ -242,72 +917,43 @@ func (x *UpdateProfileRequest) GetBio() string {
 	return ""
 }
 
-type UpdateProfileResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateProfileResponse) Reset() {
-	*x = UpdateProfileResponse{}
-	mi := &file_proto_user_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateProfileResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateProfileResponse) ProtoMessage() {}
-
-func (x *UpdateProfileResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[3]
+func (x *UpdateProfileRequest) GetAvatar() []byte {
 	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateProfileResponse.ProtoReflect.Descriptor instead.
-func (*UpdateProfileResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *UpdateProfileResponse) GetUser() *User {
-	if x != nil {
-		return x.User
+		return x.Avatar
 	}
 	return nil
 }
 
-type SetPinRequest struct {
+func (x *UpdateProfileRequest) GetAttributes() *structpb.Struct {
+	if x != nil {
+		return x.Attributes
+	}
+	return nil
+}
+
+type UpdatePinRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Pin           string                 `protobuf:"bytes,1,opt,name=pin,proto3" json:"pin,omitempty"`
+	UserUid       string                 `protobuf:"bytes,1,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
+	Pin           string                 `protobuf:"bytes,2,opt,name=pin,proto3" json:"pin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SetPinRequest) Reset() {
-	*x = SetPinRequest{}
-	mi := &file_proto_user_proto_msgTypes[4]
+func (x *UpdatePinRequest) Reset() {
+	*x = UpdatePinRequest{}
+	mi := &file_proto_user_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *SetPinRequest) String() string {
+func (x *UpdatePinRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SetPinRequest) ProtoMessage() {}
+func (*UpdatePinRequest) ProtoMessage() {}
 
-func (x *SetPinRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[4]
+func (x *UpdatePinRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -318,40 +964,49 @@ func (x *SetPinRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SetPinRequest.ProtoReflect.Descriptor instead.
-func (*SetPinRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{4}
+// Deprecated: Use UpdatePinRequest.ProtoReflect.Descriptor instead.
+func (*UpdatePinRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *SetPinRequest) GetPin() string {
+func (x *UpdatePinRequest) GetUserUid() string {
+	if x != nil {
+		return x.UserUid
+	}
+	return ""
+}
+
+func (x *UpdatePinRequest) GetPin() string {
 	if x != nil {
 		return x.Pin
 	}
 	return ""
 }
 
-type SetPinResponse struct {
+type ListDevicesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	UserUid       string                 `protobuf:"bytes,1,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
+	Pagination    *common.Pagination     `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	Filter        *FilterDeviceRequest   `protobuf:"bytes,3,opt,name=filter,proto3" json:"filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SetPinResponse) Reset() {
-	*x = SetPinResponse{}
-	mi := &file_proto_user_proto_msgTypes[5]
+func (x *ListDevicesRequest) Reset() {
+	*x = ListDevicesRequest{}
+	mi := &file_proto_user_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *SetPinResponse) String() string {
+func (x *ListDevicesRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SetPinResponse) ProtoMessage() {}
+func (*ListDevicesRequest) ProtoMessage() {}
 
-func (x *SetPinResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[5]
+func (x *ListDevicesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -362,28 +1017,103 @@ func (x *SetPinResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SetPinResponse.ProtoReflect.Descriptor instead.
-func (*SetPinResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{5}
+// Deprecated: Use ListDevicesRequest.ProtoReflect.Descriptor instead.
+func (*ListDevicesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{15}
 }
 
-func (x *SetPinResponse) GetSuccess() bool {
+func (x *ListDevicesRequest) GetUserUid() string {
 	if x != nil {
-		return x.Success
+		return x.UserUid
+	}
+	return ""
+}
+
+func (x *ListDevicesRequest) GetPagination() *common.Pagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+func (x *ListDevicesRequest) GetFilter() *FilterDeviceRequest {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
+type FilterDeviceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	DeviceUids    []string               `protobuf:"bytes,1,rep,name=device_uids,json=deviceUids,proto3" json:"device_uids,omitempty"`
+	DeviceName    *string                `protobuf:"bytes,2,opt,name=device_name,json=deviceName,proto3,oneof" json:"device_name,omitempty"`
+	Revoked       *bool                  `protobuf:"varint,3,opt,name=revoked,proto3,oneof" json:"revoked,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FilterDeviceRequest) Reset() {
+	*x = FilterDeviceRequest{}
+	mi := &file_proto_user_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FilterDeviceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FilterDeviceRequest) ProtoMessage() {}
+
+func (x *FilterDeviceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FilterDeviceRequest.ProtoReflect.Descriptor instead.
+func (*FilterDeviceRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *FilterDeviceRequest) GetDeviceUids() []string {
+	if x != nil {
+		return x.DeviceUids
+	}
+	return nil
+}
+
+func (x *FilterDeviceRequest) GetDeviceName() string {
+	if x != nil && x.DeviceName != nil {
+		return *x.DeviceName
+	}
+	return ""
+}
+
+func (x *FilterDeviceRequest) GetRevoked() bool {
+	if x != nil && x.Revoked != nil {
+		return *x.Revoked
 	}
 	return false
 }
 
 type ListDevicesResponse struct {
-	state         protoimpl.MessageState        `protogen:"open.v1"`
-	Devices       []*ListDevicesResponse_Device `protobuf:"bytes,1,rep,name=devices,proto3" json:"devices,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Items         []*Device              `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	Meta          *common.Meta           `protobuf:"bytes,2,opt,name=meta,proto3" json:"meta,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ListDevicesResponse) Reset() {
 	*x = ListDevicesResponse{}
-	mi := &file_proto_user_proto_msgTypes[6]
+	mi := &file_proto_user_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -395,7 +1125,7 @@ func (x *ListDevicesResponse) String() string {
 func (*ListDevicesResponse) ProtoMessage() {}
 
 func (x *ListDevicesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[6]
+	mi := &file_proto_user_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -408,26 +1138,34 @@ func (x *ListDevicesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListDevicesResponse.ProtoReflect.Descriptor instead.
 func (*ListDevicesResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{6}
+	return file_proto_user_proto_rawDescGZIP(), []int{17}
 }
 
-func (x *ListDevicesResponse) GetDevices() []*ListDevicesResponse_Device {
+func (x *ListDevicesResponse) GetItems() []*Device {
 	if x != nil {
-		return x.Devices
+		return x.Items
+	}
+	return nil
+}
+
+func (x *ListDevicesResponse) GetMeta() *common.Meta {
+	if x != nil {
+		return x.Meta
 	}
 	return nil
 }
 
 type RevokeDeviceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	DeviceId      string                 `protobuf:"bytes,1,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	UserUid       string                 `protobuf:"bytes,1,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
+	DeviceUid     string                 `protobuf:"bytes,2,opt,name=device_uid,json=deviceUid,proto3" json:"device_uid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *RevokeDeviceRequest) Reset() {
 	*x = RevokeDeviceRequest{}
-	mi := &file_proto_user_proto_msgTypes[7]
+	mi := &file_proto_user_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -439,7 +1177,7 @@ func (x *RevokeDeviceRequest) String() string {
 func (*RevokeDeviceRequest) ProtoMessage() {}
 
 func (x *RevokeDeviceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[7]
+	mi := &file_proto_user_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -452,139 +1190,163 @@ func (x *RevokeDeviceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RevokeDeviceRequest.ProtoReflect.Descriptor instead.
 func (*RevokeDeviceRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{7}
+	return file_proto_user_proto_rawDescGZIP(), []int{18}
 }
 
-func (x *RevokeDeviceRequest) GetDeviceId() string {
+func (x *RevokeDeviceRequest) GetUserUid() string {
 	if x != nil {
-		return x.DeviceId
+		return x.UserUid
 	}
 	return ""
 }
 
-type ListDevicesResponse_Device struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	DeviceId      string                 `protobuf:"bytes,1,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	DeviceName    string                 `protobuf:"bytes,2,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
-	LastLogin     string                 `protobuf:"bytes,3,opt,name=last_login,json=lastLogin,proto3" json:"last_login,omitempty"`
-	CurrentDevice bool                   `protobuf:"varint,5,opt,name=current_device,json=currentDevice,proto3" json:"current_device,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListDevicesResponse_Device) Reset() {
-	*x = ListDevicesResponse_Device{}
-	mi := &file_proto_user_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListDevicesResponse_Device) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListDevicesResponse_Device) ProtoMessage() {}
-
-func (x *ListDevicesResponse_Device) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[8]
+func (x *RevokeDeviceRequest) GetDeviceUid() string {
 	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListDevicesResponse_Device.ProtoReflect.Descriptor instead.
-func (*ListDevicesResponse_Device) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{6, 0}
-}
-
-func (x *ListDevicesResponse_Device) GetDeviceId() string {
-	if x != nil {
-		return x.DeviceId
+		return x.DeviceUid
 	}
 	return ""
-}
-
-func (x *ListDevicesResponse_Device) GetDeviceName() string {
-	if x != nil {
-		return x.DeviceName
-	}
-	return ""
-}
-
-func (x *ListDevicesResponse_Device) GetLastLogin() string {
-	if x != nil {
-		return x.LastLogin
-	}
-	return ""
-}
-
-func (x *ListDevicesResponse_Device) GetCurrentDevice() bool {
-	if x != nil {
-		return x.CurrentDevice
-	}
-	return false
 }
 
 var File_proto_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_proto_rawDesc = "" +
 	"\n" +
-	"\x10proto/user.proto\x12\x04user\x1a\x12proto/common.proto\"\x8d\x02\n" +
+	"\x10proto/user.proto\x12\x04user\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x12proto/common.proto\"\x93\x02\n" +
 	"\x04User\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1d\n" +
+	"\x05email\x18\x03 \x01(\tR\x05email\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\x05R\x06status\x129\n" +
 	"\n" +
-	"first_name\x18\x04 \x01(\tR\tfirstName\x12\x1b\n" +
-	"\tlast_name\x18\x05 \x01(\tR\blastName\x12\x10\n" +
-	"\x03bio\x18\x06 \x01(\tR\x03bio\x12\x1d\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"avatar_url\x18\a \x01(\tR\tavatarUrl\x12\x16\n" +
-	"\x06status\x18\b \x01(\x05R\x06status\x12\x1d\n" +
+	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x129\n" +
 	"\n" +
-	"created_at\x18\t \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"deleted_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tdeletedAt\"\xd8\x01\n" +
+	"\aProfile\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\n" +
-	" \x01(\tR\tupdatedAt\"\"\n" +
-	"\x0eGetUserRequest\x12\x10\n" +
-	"\x03uid\x18\x01 \x01(\tR\x03uid\"d\n" +
-	"\x14UpdateProfileRequest\x12\x1d\n" +
+	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x1b\n" +
+	"\tlast_name\x18\x03 \x01(\tR\blastName\x12\x10\n" +
+	"\x03bio\x18\x04 \x01(\tR\x03bio\x12)\n" +
+	"\x06avatar\x18\x05 \x01(\v2\f.user.AvatarH\x00R\x06avatar\x88\x01\x01\x127\n" +
 	"\n" +
-	"first_name\x18\x01 \x01(\tR\tfirstName\x12\x1b\n" +
-	"\tlast_name\x18\x02 \x01(\tR\blastName\x12\x10\n" +
-	"\x03bio\x18\x03 \x01(\tR\x03bio\"7\n" +
-	"\x15UpdateProfileResponse\x12\x1e\n" +
-	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user\"!\n" +
-	"\rSetPinRequest\x12\x10\n" +
-	"\x03pin\x18\x01 \x01(\tR\x03pin\"*\n" +
-	"\x0eSetPinResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"\xe0\x01\n" +
-	"\x13ListDevicesResponse\x12:\n" +
-	"\adevices\x18\x01 \x03(\v2 .user.ListDevicesResponse.DeviceR\adevices\x1a\x8c\x01\n" +
-	"\x06Device\x12\x1b\n" +
-	"\tdevice_id\x18\x01 \x01(\tR\bdeviceId\x12\x1f\n" +
+	"attributes\x18\x06 \x01(\v2\x17.google.protobuf.StructR\n" +
+	"attributesB\t\n" +
+	"\a_avatar\"v\n" +
+	"\x06Avatar\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x10\n" +
+	"\x03url\x18\x02 \x01(\tR\x03url\x12:\n" +
+	"\tthumbnail\x18\t \x01(\v2\x17.google.protobuf.StructH\x00R\tthumbnail\x88\x01\x01B\f\n" +
+	"\n" +
+	"_thumbnail\"\x9f\x02\n" +
+	"\x06Device\x12\x1d\n" +
+	"\n" +
+	"device_uid\x18\x01 \x01(\tR\tdeviceUid\x12\x1f\n" +
 	"\vdevice_name\x18\x02 \x01(\tR\n" +
 	"deviceName\x12\x1d\n" +
 	"\n" +
-	"last_login\x18\x03 \x01(\tR\tlastLogin\x12%\n" +
-	"\x0ecurrent_device\x18\x05 \x01(\bR\rcurrentDevice\"2\n" +
-	"\x13RevokeDeviceRequest\x12\x1b\n" +
-	"\tdevice_id\x18\x01 \x01(\tR\bdeviceId2\xd0\x02\n" +
-	"\vUserService\x12\"\n" +
-	"\x05GetMe\x12\r.common.Empty\x1a\n" +
-	".user.User\x12+\n" +
-	"\aGetUser\x12\x14.user.GetUserRequest\x1a\n" +
-	".user.User\x12H\n" +
-	"\rUpdateProfile\x12\x1a.user.UpdateProfileRequest\x1a\x1b.user.UpdateProfileResponse\x123\n" +
-	"\x06SetPin\x12\x13.user.SetPinRequest\x1a\x14.user.SetPinResponse\x127\n" +
-	"\vListDevices\x12\r.common.Empty\x1a\x19.user.ListDevicesResponse\x128\n" +
-	"\fRevokeDevice\x12\x19.user.RevokeDeviceRequest\x1a\r.common.EmptyB6Z4github.com/adityakw90/service-user-proto/gen/go/userb\x06proto3"
+	"ip_address\x18\x03 \x01(\tR\tipAddress\x12@\n" +
+	"\x0elast_active_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\flastActiveAt\x129\n" +
+	"\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"revoked_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\trevokedAt\"n\n" +
+	"\vListRequest\x122\n" +
+	"\n" +
+	"pagination\x18\x01 \x01(\v2\x12.common.PaginationR\n" +
+	"pagination\x12+\n" +
+	"\x06filter\x18\x02 \x01(\v2\x13.user.FilterRequestR\x06filter\"\xeb\x01\n" +
+	"\rFilterRequest\x12\x12\n" +
+	"\x04uids\x18\x01 \x03(\tR\x04uids\x12\x1f\n" +
+	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12\x19\n" +
+	"\x05email\x18\x03 \x01(\tH\x01R\x05email\x88\x01\x01\x12\x1b\n" +
+	"\x06exists\x18\x04 \x01(\bH\x02R\x06exists\x88\x01\x01\x12\x1b\n" +
+	"\x06active\x18\x05 \x01(\bH\x03R\x06active\x88\x01\x01\x12\x19\n" +
+	"\x05query\x18\x06 \x01(\tH\x04R\x05query\x88\x01\x01B\v\n" +
+	"\t_usernameB\b\n" +
+	"\x06_emailB\t\n" +
+	"\a_existsB\t\n" +
+	"\a_activeB\b\n" +
+	"\x06_query\"R\n" +
+	"\fListResponse\x12 \n" +
+	"\x05items\x18\x01 \x03(\v2\n" +
+	".user.UserR\x05items\x12 \n" +
+	"\x04meta\x18\x02 \x01(\v2\f.common.MetaR\x04meta\"\x1e\n" +
+	"\n" +
+	"GetRequest\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\"Z\n" +
+	"\n" +
+	"AddRequest\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"\x1f\n" +
+	"\vAddResponse\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\"\xca\x01\n" +
+	"\rUpdateRequest\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x1f\n" +
+	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12\x19\n" +
+	"\x05email\x18\x03 \x01(\tH\x01R\x05email\x88\x01\x01\x12\x1f\n" +
+	"\bpassword\x18\x04 \x01(\tH\x02R\bpassword\x88\x01\x01\x12\x1b\n" +
+	"\x06status\x18\x05 \x01(\x05H\x03R\x06status\x88\x01\x01B\v\n" +
+	"\t_usernameB\b\n" +
+	"\x06_emailB\v\n" +
+	"\t_passwordB\t\n" +
+	"\a_status\"!\n" +
+	"\rDeleteRequest\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\".\n" +
+	"\x11GetProfileRequest\x12\x19\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\"\xe0\x01\n" +
+	"\x14UpdateProfileRequest\x12\x19\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x1d\n" +
+	"\n" +
+	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x1b\n" +
+	"\tlast_name\x18\x03 \x01(\tR\blastName\x12\x10\n" +
+	"\x03bio\x18\x04 \x01(\tR\x03bio\x12\x1b\n" +
+	"\x06avatar\x18\x05 \x01(\fH\x00R\x06avatar\x88\x01\x01\x127\n" +
+	"\n" +
+	"attributes\x18\x06 \x01(\v2\x17.google.protobuf.StructR\n" +
+	"attributesB\t\n" +
+	"\a_avatar\"?\n" +
+	"\x10UpdatePinRequest\x12\x19\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x10\n" +
+	"\x03pin\x18\x02 \x01(\tR\x03pin\"\x96\x01\n" +
+	"\x12ListDevicesRequest\x12\x19\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\x122\n" +
+	"\n" +
+	"pagination\x18\x02 \x01(\v2\x12.common.PaginationR\n" +
+	"pagination\x121\n" +
+	"\x06filter\x18\x03 \x01(\v2\x19.user.FilterDeviceRequestR\x06filter\"\x97\x01\n" +
+	"\x13FilterDeviceRequest\x12\x1f\n" +
+	"\vdevice_uids\x18\x01 \x03(\tR\n" +
+	"deviceUids\x12$\n" +
+	"\vdevice_name\x18\x02 \x01(\tH\x00R\n" +
+	"deviceName\x88\x01\x01\x12\x1d\n" +
+	"\arevoked\x18\x03 \x01(\bH\x01R\arevoked\x88\x01\x01B\x0e\n" +
+	"\f_device_nameB\n" +
+	"\n" +
+	"\b_revoked\"[\n" +
+	"\x13ListDevicesResponse\x12\"\n" +
+	"\x05items\x18\x01 \x03(\v2\f.user.DeviceR\x05items\x12 \n" +
+	"\x04meta\x18\x02 \x01(\v2\f.common.MetaR\x04meta\"O\n" +
+	"\x13RevokeDeviceRequest\x12\x19\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x1d\n" +
+	"\n" +
+	"device_uid\x18\x02 \x01(\tR\tdeviceUid2\x96\x04\n" +
+	"\vUserService\x12-\n" +
+	"\x04List\x12\x11.user.ListRequest\x1a\x12.user.ListResponse\x12#\n" +
+	"\x03Get\x12\x10.user.GetRequest\x1a\n" +
+	".user.User\x12*\n" +
+	"\x03Add\x12\x10.user.AddRequest\x1a\x11.user.AddResponse\x12.\n" +
+	"\x06Update\x12\x13.user.UpdateRequest\x1a\x0f.common.Success\x12.\n" +
+	"\x06Delete\x12\x13.user.DeleteRequest\x1a\x0f.common.Success\x124\n" +
+	"\n" +
+	"GetProfile\x12\x17.user.GetProfileRequest\x1a\r.user.Profile\x12<\n" +
+	"\rUpdateProfile\x12\x1a.user.UpdateProfileRequest\x1a\x0f.common.Success\x124\n" +
+	"\tUpdatePin\x12\x16.user.UpdatePinRequest\x1a\x0f.common.Success\x12A\n" +
+	"\n" +
+	"ListDevice\x12\x18.user.ListDevicesRequest\x1a\x19.user.ListDevicesResponse\x12:\n" +
+	"\fRevokeDevice\x12\x19.user.RevokeDeviceRequest\x1a\x0f.common.SuccessB6Z4github.com/adityakw90/service-user-proto/gen/go/userb\x06proto3"
 
 var (
 	file_proto_user_proto_rawDescOnce sync.Once
@@ -598,39 +1360,77 @@ func file_proto_user_proto_rawDescGZIP() []byte {
 	return file_proto_user_proto_rawDescData
 }
 
-var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_proto_user_proto_goTypes = []any{
-	(*User)(nil),                       // 0: user.User
-	(*GetUserRequest)(nil),             // 1: user.GetUserRequest
-	(*UpdateProfileRequest)(nil),       // 2: user.UpdateProfileRequest
-	(*UpdateProfileResponse)(nil),      // 3: user.UpdateProfileResponse
-	(*SetPinRequest)(nil),              // 4: user.SetPinRequest
-	(*SetPinResponse)(nil),             // 5: user.SetPinResponse
-	(*ListDevicesResponse)(nil),        // 6: user.ListDevicesResponse
-	(*RevokeDeviceRequest)(nil),        // 7: user.RevokeDeviceRequest
-	(*ListDevicesResponse_Device)(nil), // 8: user.ListDevicesResponse.Device
-	(*common.Empty)(nil),               // 9: common.Empty
+	(*User)(nil),                  // 0: user.User
+	(*Profile)(nil),               // 1: user.Profile
+	(*Avatar)(nil),                // 2: user.Avatar
+	(*Device)(nil),                // 3: user.Device
+	(*ListRequest)(nil),           // 4: user.ListRequest
+	(*FilterRequest)(nil),         // 5: user.FilterRequest
+	(*ListResponse)(nil),          // 6: user.ListResponse
+	(*GetRequest)(nil),            // 7: user.GetRequest
+	(*AddRequest)(nil),            // 8: user.AddRequest
+	(*AddResponse)(nil),           // 9: user.AddResponse
+	(*UpdateRequest)(nil),         // 10: user.UpdateRequest
+	(*DeleteRequest)(nil),         // 11: user.DeleteRequest
+	(*GetProfileRequest)(nil),     // 12: user.GetProfileRequest
+	(*UpdateProfileRequest)(nil),  // 13: user.UpdateProfileRequest
+	(*UpdatePinRequest)(nil),      // 14: user.UpdatePinRequest
+	(*ListDevicesRequest)(nil),    // 15: user.ListDevicesRequest
+	(*FilterDeviceRequest)(nil),   // 16: user.FilterDeviceRequest
+	(*ListDevicesResponse)(nil),   // 17: user.ListDevicesResponse
+	(*RevokeDeviceRequest)(nil),   // 18: user.RevokeDeviceRequest
+	(*timestamppb.Timestamp)(nil), // 19: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),       // 20: google.protobuf.Struct
+	(*common.Pagination)(nil),     // 21: common.Pagination
+	(*common.Meta)(nil),           // 22: common.Meta
+	(*common.Success)(nil),        // 23: common.Success
 }
 var file_proto_user_proto_depIdxs = []int32{
-	0, // 0: user.UpdateProfileResponse.user:type_name -> user.User
-	8, // 1: user.ListDevicesResponse.devices:type_name -> user.ListDevicesResponse.Device
-	9, // 2: user.UserService.GetMe:input_type -> common.Empty
-	1, // 3: user.UserService.GetUser:input_type -> user.GetUserRequest
-	2, // 4: user.UserService.UpdateProfile:input_type -> user.UpdateProfileRequest
-	4, // 5: user.UserService.SetPin:input_type -> user.SetPinRequest
-	9, // 6: user.UserService.ListDevices:input_type -> common.Empty
-	7, // 7: user.UserService.RevokeDevice:input_type -> user.RevokeDeviceRequest
-	0, // 8: user.UserService.GetMe:output_type -> user.User
-	0, // 9: user.UserService.GetUser:output_type -> user.User
-	3, // 10: user.UserService.UpdateProfile:output_type -> user.UpdateProfileResponse
-	5, // 11: user.UserService.SetPin:output_type -> user.SetPinResponse
-	6, // 12: user.UserService.ListDevices:output_type -> user.ListDevicesResponse
-	9, // 13: user.UserService.RevokeDevice:output_type -> common.Empty
-	8, // [8:14] is the sub-list for method output_type
-	2, // [2:8] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	19, // 0: user.User.created_at:type_name -> google.protobuf.Timestamp
+	19, // 1: user.User.updated_at:type_name -> google.protobuf.Timestamp
+	19, // 2: user.User.deleted_at:type_name -> google.protobuf.Timestamp
+	2,  // 3: user.Profile.avatar:type_name -> user.Avatar
+	20, // 4: user.Profile.attributes:type_name -> google.protobuf.Struct
+	20, // 5: user.Avatar.thumbnail:type_name -> google.protobuf.Struct
+	19, // 6: user.Device.last_active_at:type_name -> google.protobuf.Timestamp
+	19, // 7: user.Device.created_at:type_name -> google.protobuf.Timestamp
+	19, // 8: user.Device.revoked_at:type_name -> google.protobuf.Timestamp
+	21, // 9: user.ListRequest.pagination:type_name -> common.Pagination
+	5,  // 10: user.ListRequest.filter:type_name -> user.FilterRequest
+	0,  // 11: user.ListResponse.items:type_name -> user.User
+	22, // 12: user.ListResponse.meta:type_name -> common.Meta
+	20, // 13: user.UpdateProfileRequest.attributes:type_name -> google.protobuf.Struct
+	21, // 14: user.ListDevicesRequest.pagination:type_name -> common.Pagination
+	16, // 15: user.ListDevicesRequest.filter:type_name -> user.FilterDeviceRequest
+	3,  // 16: user.ListDevicesResponse.items:type_name -> user.Device
+	22, // 17: user.ListDevicesResponse.meta:type_name -> common.Meta
+	4,  // 18: user.UserService.List:input_type -> user.ListRequest
+	7,  // 19: user.UserService.Get:input_type -> user.GetRequest
+	8,  // 20: user.UserService.Add:input_type -> user.AddRequest
+	10, // 21: user.UserService.Update:input_type -> user.UpdateRequest
+	11, // 22: user.UserService.Delete:input_type -> user.DeleteRequest
+	12, // 23: user.UserService.GetProfile:input_type -> user.GetProfileRequest
+	13, // 24: user.UserService.UpdateProfile:input_type -> user.UpdateProfileRequest
+	14, // 25: user.UserService.UpdatePin:input_type -> user.UpdatePinRequest
+	15, // 26: user.UserService.ListDevice:input_type -> user.ListDevicesRequest
+	18, // 27: user.UserService.RevokeDevice:input_type -> user.RevokeDeviceRequest
+	6,  // 28: user.UserService.List:output_type -> user.ListResponse
+	0,  // 29: user.UserService.Get:output_type -> user.User
+	9,  // 30: user.UserService.Add:output_type -> user.AddResponse
+	23, // 31: user.UserService.Update:output_type -> common.Success
+	23, // 32: user.UserService.Delete:output_type -> common.Success
+	1,  // 33: user.UserService.GetProfile:output_type -> user.Profile
+	23, // 34: user.UserService.UpdateProfile:output_type -> common.Success
+	23, // 35: user.UserService.UpdatePin:output_type -> common.Success
+	17, // 36: user.UserService.ListDevice:output_type -> user.ListDevicesResponse
+	23, // 37: user.UserService.RevokeDevice:output_type -> common.Success
+	28, // [28:38] is the sub-list for method output_type
+	18, // [18:28] is the sub-list for method input_type
+	18, // [18:18] is the sub-list for extension type_name
+	18, // [18:18] is the sub-list for extension extendee
+	0,  // [0:18] is the sub-list for field type_name
 }
 
 func init() { file_proto_user_proto_init() }
@@ -638,13 +1438,19 @@ func file_proto_user_proto_init() {
 	if File_proto_user_proto != nil {
 		return
 	}
+	file_proto_user_proto_msgTypes[1].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[2].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[5].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[10].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[13].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[16].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_proto_rawDesc), len(file_proto_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

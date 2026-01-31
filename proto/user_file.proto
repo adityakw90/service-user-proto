@@ -22,7 +22,7 @@ message UserFile {
   google.protobuf.Timestamp created_at = 9;
 
   // extra
-  optional google.protobuf.Struct thumbnail = 9;
+  optional google.protobuf.Struct thumbnail = 10;
 }
 
 // Request message for Get UserFile.
