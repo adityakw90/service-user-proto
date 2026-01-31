@@ -5,42 +5,40 @@ package auth;
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/auth";
 
 import "proto/user.proto";
+import "google/protobuf/struct.proto";
 
-message RegisterRequest {
-  string username = 1;
-  string email = 2;
-  string password = 3;
-}
-
-message RegisterResponse {
-  string uid = 1;
-  string token = 2; // JWT Access Token
-}
-
-message LoginRequest {
-  string identifier = 1; // Username or Email
-  string password = 2;
-  string device_fingerprint = 3;
-  string device_name = 4;
-}
-
-message LoginResponse {
-  string token = 1;
+// Token message.
+message Token {
+  string access_token = 1;
   string refresh_token = 2;
-  user.User user = 3;
+}
+
+message AuthRequest {
+  string identifier = 1; // Username or Email
+  string identifier_type = 2; // Username or Email
+  string password = 3;
+  string device_fingerprint = 4;
+  string device_name = 5;
 }
 
 message RefreshTokenRequest {
   string refresh_token = 1;
 }
 
-message RefreshTokenResponse {
-  string token = 1;
-  string refresh_token = 2;
+message ValidateTokenRequest {
+  string access_token = 1;
+}
+
+message ValidateTokenResponse {
+  string uid = 1;
+  string identifier = 2;
+  string identifier_type = 3;
+  optional google.protobuf.Struct claims = 4;
 }
 
 message VerifyPinRequest {
-  string pin = 1;
+  string uid = 1; // user uid
+  string code = 2; // pin code
 }
 
 message VerifyPinResponse {
@@ -48,14 +46,11 @@ message VerifyPinResponse {
 }
 
 service AuthService {
-  // Registers a new user and returns a session token.
-  rpc Register(RegisterRequest) returns (RegisterResponse);
-
-  // Authenticates a user and returns session tokens.
-  rpc Login(LoginRequest) returns (LoginResponse);
+  // Authenticates a user and returns tokens.
+  rpc Auth(AuthRequest) returns (Token);
 
   // Refreshes the access token using a refresh token.
-  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (Token);
 
   // Validate the Access Token
   rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);

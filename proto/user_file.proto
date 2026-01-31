@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package user_file;
+
+option go_package = "github.com/adityakw90/service-user-proto/gen/go/user_file";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "proto/common.proto";  // Import the common proto
+
+
+// UserFile message.
+message UserFile {
+  string uid = 1;
+  string user_uid = 2;
+  string file_type = 3;
+  string file_name = 4;
+  string file_path = 5;
+  string mime_type = 6;
+  int64 size_bytes = 7;
+  string visibility = 8;
+  google.protobuf.Timestamp created_at = 9;
+
+  // extra
+  optional google.protobuf.Struct thumbnail = 9;
+}
+
+// Request message for Get UserFile.
+message GetRequest {
+  string uid = 1;
+}
+
+// Request message for List UserFile.
+message ListRequest {
+  common.Pagination pagination = 1;
+  FilterRequest filter=2;
+}
+
+// Filter message for request List UserFile.
+message FilterRequest {
+  repeated string uids = 1;
+  repeated string user_uid = 2;
+  optional bool public = 3;
+  optional string name = 4;
+  optional string query = 5;
+}
+
+// Response message containing a list of items.
+message ListResponse {
+  repeated UserFile items = 1;
+  common.Meta meta = 2;  // Use Meta from the imported common.proto
+}
+
+// Request message for Add UserFile.
+message AddRequest {
+  string user_uid = 1;          // The UID of the user to associate with the file.
+  string name = 2;              // The display name of the file.
+  string filename = 3;          // The actual filename (e.g., "profile.jpg").
+  bytes filedata = 4;          // File content as binary (for small files).
+  optional bool public = 5;     // Flag for public
+}
+
+// Response message for Add UserFile.
+message AddResponse {
+  string uid = 1;  // The UID of the newly added user_file.
+}
+
+// Request message for Update UserFile.
+message UpdateRequest {
+  string uid = 1;                        // The UID of the file
+  optional string name = 2;              // The display name of the file.
+  optional string filename = 3;          // The actual filename (e.g., "profile.jpg").
+  optional bytes filedata = 4;          // File content as binary (for small files).
+  optional bool public = 5;     // Flag for public
+}
+
+// Response message for Update UserFile.
+message UpdateResponse {
+  bool success = 1;  // Indicates whether the update was successful.
+}
+
+// Request message for Delete UserFile.
+message DeleteRequest {
+  string uid = 1;        // Unique identifier for the user_file to be deleted.
+}
+
+// Response message for Delete UserFile.
+message DeleteResponse {
+  bool success = 1;      // Indicate whether the user_file was successfully deleted.
+}
+
+
+
+// UserFile service definition.
+service UserFileService {
+  rpc Get(GetRequest) returns (UserFile);
+  rpc List(ListRequest) returns (ListResponse);
+
+  // crud method
+  rpc Add(AddRequest) returns (AddResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}

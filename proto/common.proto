@@ -6,6 +6,10 @@ option go_package = "github.com/adityakw90/service-user-proto/gen/go/common";
 
 message Empty {}
 
+message Success {
+  bool success = 1;
+}
+
 // Metadata message for pagination.
 message Meta {
   int32 page = 1;  // The current page of result
