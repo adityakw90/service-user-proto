@@ -45,15 +45,48 @@ message VerifyPinResponse {
   bool valid = 1;
 }
 
+// OAuth messages
+message GoogleOAuthRequest {
+  string redirect_uri = 1;
+}
+
+message GoogleOAuthResponse {
+  string authorization_url = 1;
+}
+
+message HandleGoogleOAuthRequest {
+  string code = 1;
+  string redirect_uri = 2;
+}
+
+// Token revocation messages
+message RevokeTokenRequest {
+  string token = 1;
+  string token_type = 2; // "access" or "refresh"
+}
+
+message RevokeTokenResponse {
+  bool success = 1;
+}
+
 service AuthService {
   // Authenticates a user and returns tokens.
   rpc Auth(AuthRequest) returns (Token);
+
+  // Initiates Google OAuth flow.
+  rpc GoogleOAuth(GoogleOAuthRequest) returns (GoogleOAuthResponse);
+
+  // Handles the OAuth callback.
+  rpc HandleGoogleOAuth(HandleGoogleOAuthRequest) returns (Token);
 
   // Refreshes the access token using a refresh token.
   rpc RefreshToken(RefreshTokenRequest) returns (Token);
 
   // Validate the Access Token
   rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+
+  // Revokes a token.
+  rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
 
   // Verifies the User PIN for sensitive actions.
   rpc VerifyPin(VerifyPinRequest) returns (VerifyPinResponse);

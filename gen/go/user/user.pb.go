@@ -847,6 +847,74 @@ func (x *GetProfileRequest) GetUserUid() string {
 	return ""
 }
 
+type ChangePasswordRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Uid             string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"` // user uid
+	CurrentPassword string                 `protobuf:"bytes,2,opt,name=current_password,json=currentPassword,proto3" json:"current_password,omitempty"`
+	NewPassword     string                 `protobuf:"bytes,3,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	ConfirmPassword string                 `protobuf:"bytes,4,opt,name=confirm_password,json=confirmPassword,proto3" json:"confirm_password,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ChangePasswordRequest) Reset() {
+	*x = ChangePasswordRequest{}
+	mi := &file_proto_user_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangePasswordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangePasswordRequest) ProtoMessage() {}
+
+func (x *ChangePasswordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangePasswordRequest.ProtoReflect.Descriptor instead.
+func (*ChangePasswordRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ChangePasswordRequest) GetUid() string {
+	if x != nil {
+		return x.Uid
+	}
+	return ""
+}
+
+func (x *ChangePasswordRequest) GetCurrentPassword() string {
+	if x != nil {
+		return x.CurrentPassword
+	}
+	return ""
+}
+
+func (x *ChangePasswordRequest) GetNewPassword() string {
+	if x != nil {
+		return x.NewPassword
+	}
+	return ""
+}
+
+func (x *ChangePasswordRequest) GetConfirmPassword() string {
+	if x != nil {
+		return x.ConfirmPassword
+	}
+	return ""
+}
+
 type UpdateProfileRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserUid       string                 `protobuf:"bytes,1,opt,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
@@ -861,7 +929,7 @@ type UpdateProfileRequest struct {
 
 func (x *UpdateProfileRequest) Reset() {
 	*x = UpdateProfileRequest{}
-	mi := &file_proto_user_proto_msgTypes[13]
+	mi := &file_proto_user_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -873,7 +941,7 @@ func (x *UpdateProfileRequest) String() string {
 func (*UpdateProfileRequest) ProtoMessage() {}
 
 func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[13]
+	mi := &file_proto_user_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -886,7 +954,7 @@ func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateProfileRequest.ProtoReflect.Descriptor instead.
 func (*UpdateProfileRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{13}
+	return file_proto_user_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UpdateProfileRequest) GetUserUid() string {
@@ -941,7 +1009,7 @@ type UpdatePinRequest struct {
 
 func (x *UpdatePinRequest) Reset() {
 	*x = UpdatePinRequest{}
-	mi := &file_proto_user_proto_msgTypes[14]
+	mi := &file_proto_user_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -953,7 +1021,7 @@ func (x *UpdatePinRequest) String() string {
 func (*UpdatePinRequest) ProtoMessage() {}
 
 func (x *UpdatePinRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[14]
+	mi := &file_proto_user_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -966,7 +1034,7 @@ func (x *UpdatePinRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePinRequest.ProtoReflect.Descriptor instead.
 func (*UpdatePinRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{14}
+	return file_proto_user_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *UpdatePinRequest) GetUserUid() string {
@@ -994,7 +1062,7 @@ type ListDevicesRequest struct {
 
 func (x *ListDevicesRequest) Reset() {
 	*x = ListDevicesRequest{}
-	mi := &file_proto_user_proto_msgTypes[15]
+	mi := &file_proto_user_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1006,7 +1074,7 @@ func (x *ListDevicesRequest) String() string {
 func (*ListDevicesRequest) ProtoMessage() {}
 
 func (x *ListDevicesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[15]
+	mi := &file_proto_user_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1019,7 +1087,7 @@ func (x *ListDevicesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListDevicesRequest.ProtoReflect.Descriptor instead.
 func (*ListDevicesRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{15}
+	return file_proto_user_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ListDevicesRequest) GetUserUid() string {
@@ -1054,7 +1122,7 @@ type FilterDeviceRequest struct {
 
 func (x *FilterDeviceRequest) Reset() {
 	*x = FilterDeviceRequest{}
-	mi := &file_proto_user_proto_msgTypes[16]
+	mi := &file_proto_user_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1066,7 +1134,7 @@ func (x *FilterDeviceRequest) String() string {
 func (*FilterDeviceRequest) ProtoMessage() {}
 
 func (x *FilterDeviceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[16]
+	mi := &file_proto_user_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1079,7 +1147,7 @@ func (x *FilterDeviceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FilterDeviceRequest.ProtoReflect.Descriptor instead.
 func (*FilterDeviceRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{16}
+	return file_proto_user_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *FilterDeviceRequest) GetDeviceUids() []string {
@@ -1113,7 +1181,7 @@ type ListDevicesResponse struct {
 
 func (x *ListDevicesResponse) Reset() {
 	*x = ListDevicesResponse{}
-	mi := &file_proto_user_proto_msgTypes[17]
+	mi := &file_proto_user_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1125,7 +1193,7 @@ func (x *ListDevicesResponse) String() string {
 func (*ListDevicesResponse) ProtoMessage() {}
 
 func (x *ListDevicesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[17]
+	mi := &file_proto_user_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1138,7 +1206,7 @@ func (x *ListDevicesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListDevicesResponse.ProtoReflect.Descriptor instead.
 func (*ListDevicesResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{17}
+	return file_proto_user_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *ListDevicesResponse) GetItems() []*Device {
@@ -1165,7 +1233,7 @@ type RevokeDeviceRequest struct {
 
 func (x *RevokeDeviceRequest) Reset() {
 	*x = RevokeDeviceRequest{}
-	mi := &file_proto_user_proto_msgTypes[18]
+	mi := &file_proto_user_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1177,7 +1245,7 @@ func (x *RevokeDeviceRequest) String() string {
 func (*RevokeDeviceRequest) ProtoMessage() {}
 
 func (x *RevokeDeviceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_proto_msgTypes[18]
+	mi := &file_proto_user_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1190,7 +1258,7 @@ func (x *RevokeDeviceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RevokeDeviceRequest.ProtoReflect.Descriptor instead.
 func (*RevokeDeviceRequest) Descriptor() ([]byte, []int) {
-	return file_proto_user_proto_rawDescGZIP(), []int{18}
+	return file_proto_user_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *RevokeDeviceRequest) GetUserUid() string {
@@ -1296,7 +1364,12 @@ const file_proto_user_proto_rawDesc = "" +
 	"\rDeleteRequest\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\".\n" +
 	"\x11GetProfileRequest\x12\x19\n" +
-	"\buser_uid\x18\x01 \x01(\tR\auserUid\"\xe0\x01\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\"\xa2\x01\n" +
+	"\x15ChangePasswordRequest\x12\x10\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\x12)\n" +
+	"\x10current_password\x18\x02 \x01(\tR\x0fcurrentPassword\x12!\n" +
+	"\fnew_password\x18\x03 \x01(\tR\vnewPassword\x12)\n" +
+	"\x10confirm_password\x18\x04 \x01(\tR\x0fconfirmPassword\"\xe0\x01\n" +
 	"\x14UpdateProfileRequest\x12\x19\n" +
 	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x1d\n" +
 	"\n" +
@@ -1332,14 +1405,15 @@ const file_proto_user_proto_rawDesc = "" +
 	"\x13RevokeDeviceRequest\x12\x19\n" +
 	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x1d\n" +
 	"\n" +
-	"device_uid\x18\x02 \x01(\tR\tdeviceUid2\x96\x04\n" +
+	"device_uid\x18\x02 \x01(\tR\tdeviceUid2\xd6\x04\n" +
 	"\vUserService\x12-\n" +
 	"\x04List\x12\x11.user.ListRequest\x1a\x12.user.ListResponse\x12#\n" +
 	"\x03Get\x12\x10.user.GetRequest\x1a\n" +
 	".user.User\x12*\n" +
 	"\x03Add\x12\x10.user.AddRequest\x1a\x11.user.AddResponse\x12.\n" +
 	"\x06Update\x12\x13.user.UpdateRequest\x1a\x0f.common.Success\x12.\n" +
-	"\x06Delete\x12\x13.user.DeleteRequest\x1a\x0f.common.Success\x124\n" +
+	"\x06Delete\x12\x13.user.DeleteRequest\x1a\x0f.common.Success\x12>\n" +
+	"\x0eChangePassword\x12\x1b.user.ChangePasswordRequest\x1a\x0f.common.Success\x124\n" +
 	"\n" +
 	"GetProfile\x12\x17.user.GetProfileRequest\x1a\r.user.Profile\x12<\n" +
 	"\rUpdateProfile\x12\x1a.user.UpdateProfileRequest\x1a\x0f.common.Success\x124\n" +
@@ -1360,7 +1434,7 @@ func file_proto_user_proto_rawDescGZIP() []byte {
 	return file_proto_user_proto_rawDescData
 }
 
-var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_proto_user_proto_goTypes = []any{
 	(*User)(nil),                  // 0: user.User
 	(*Profile)(nil),               // 1: user.Profile
@@ -1375,59 +1449,62 @@ var file_proto_user_proto_goTypes = []any{
 	(*UpdateRequest)(nil),         // 10: user.UpdateRequest
 	(*DeleteRequest)(nil),         // 11: user.DeleteRequest
 	(*GetProfileRequest)(nil),     // 12: user.GetProfileRequest
-	(*UpdateProfileRequest)(nil),  // 13: user.UpdateProfileRequest
-	(*UpdatePinRequest)(nil),      // 14: user.UpdatePinRequest
-	(*ListDevicesRequest)(nil),    // 15: user.ListDevicesRequest
-	(*FilterDeviceRequest)(nil),   // 16: user.FilterDeviceRequest
-	(*ListDevicesResponse)(nil),   // 17: user.ListDevicesResponse
-	(*RevokeDeviceRequest)(nil),   // 18: user.RevokeDeviceRequest
-	(*timestamppb.Timestamp)(nil), // 19: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),       // 20: google.protobuf.Struct
-	(*common.Pagination)(nil),     // 21: common.Pagination
-	(*common.Meta)(nil),           // 22: common.Meta
-	(*common.Success)(nil),        // 23: common.Success
+	(*ChangePasswordRequest)(nil), // 13: user.ChangePasswordRequest
+	(*UpdateProfileRequest)(nil),  // 14: user.UpdateProfileRequest
+	(*UpdatePinRequest)(nil),      // 15: user.UpdatePinRequest
+	(*ListDevicesRequest)(nil),    // 16: user.ListDevicesRequest
+	(*FilterDeviceRequest)(nil),   // 17: user.FilterDeviceRequest
+	(*ListDevicesResponse)(nil),   // 18: user.ListDevicesResponse
+	(*RevokeDeviceRequest)(nil),   // 19: user.RevokeDeviceRequest
+	(*timestamppb.Timestamp)(nil), // 20: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),       // 21: google.protobuf.Struct
+	(*common.Pagination)(nil),     // 22: common.Pagination
+	(*common.Meta)(nil),           // 23: common.Meta
+	(*common.Success)(nil),        // 24: common.Success
 }
 var file_proto_user_proto_depIdxs = []int32{
-	19, // 0: user.User.created_at:type_name -> google.protobuf.Timestamp
-	19, // 1: user.User.updated_at:type_name -> google.protobuf.Timestamp
-	19, // 2: user.User.deleted_at:type_name -> google.protobuf.Timestamp
+	20, // 0: user.User.created_at:type_name -> google.protobuf.Timestamp
+	20, // 1: user.User.updated_at:type_name -> google.protobuf.Timestamp
+	20, // 2: user.User.deleted_at:type_name -> google.protobuf.Timestamp
 	2,  // 3: user.Profile.avatar:type_name -> user.Avatar
-	20, // 4: user.Profile.attributes:type_name -> google.protobuf.Struct
-	20, // 5: user.Avatar.thumbnail:type_name -> google.protobuf.Struct
-	19, // 6: user.Device.last_active_at:type_name -> google.protobuf.Timestamp
-	19, // 7: user.Device.created_at:type_name -> google.protobuf.Timestamp
-	19, // 8: user.Device.revoked_at:type_name -> google.protobuf.Timestamp
-	21, // 9: user.ListRequest.pagination:type_name -> common.Pagination
+	21, // 4: user.Profile.attributes:type_name -> google.protobuf.Struct
+	21, // 5: user.Avatar.thumbnail:type_name -> google.protobuf.Struct
+	20, // 6: user.Device.last_active_at:type_name -> google.protobuf.Timestamp
+	20, // 7: user.Device.created_at:type_name -> google.protobuf.Timestamp
+	20, // 8: user.Device.revoked_at:type_name -> google.protobuf.Timestamp
+	22, // 9: user.ListRequest.pagination:type_name -> common.Pagination
 	5,  // 10: user.ListRequest.filter:type_name -> user.FilterRequest
 	0,  // 11: user.ListResponse.items:type_name -> user.User
-	22, // 12: user.ListResponse.meta:type_name -> common.Meta
-	20, // 13: user.UpdateProfileRequest.attributes:type_name -> google.protobuf.Struct
-	21, // 14: user.ListDevicesRequest.pagination:type_name -> common.Pagination
-	16, // 15: user.ListDevicesRequest.filter:type_name -> user.FilterDeviceRequest
+	23, // 12: user.ListResponse.meta:type_name -> common.Meta
+	21, // 13: user.UpdateProfileRequest.attributes:type_name -> google.protobuf.Struct
+	22, // 14: user.ListDevicesRequest.pagination:type_name -> common.Pagination
+	17, // 15: user.ListDevicesRequest.filter:type_name -> user.FilterDeviceRequest
 	3,  // 16: user.ListDevicesResponse.items:type_name -> user.Device
-	22, // 17: user.ListDevicesResponse.meta:type_name -> common.Meta
+	23, // 17: user.ListDevicesResponse.meta:type_name -> common.Meta
 	4,  // 18: user.UserService.List:input_type -> user.ListRequest
 	7,  // 19: user.UserService.Get:input_type -> user.GetRequest
 	8,  // 20: user.UserService.Add:input_type -> user.AddRequest
 	10, // 21: user.UserService.Update:input_type -> user.UpdateRequest
 	11, // 22: user.UserService.Delete:input_type -> user.DeleteRequest
-	12, // 23: user.UserService.GetProfile:input_type -> user.GetProfileRequest
-	13, // 24: user.UserService.UpdateProfile:input_type -> user.UpdateProfileRequest
-	14, // 25: user.UserService.UpdatePin:input_type -> user.UpdatePinRequest
-	15, // 26: user.UserService.ListDevice:input_type -> user.ListDevicesRequest
-	18, // 27: user.UserService.RevokeDevice:input_type -> user.RevokeDeviceRequest
-	6,  // 28: user.UserService.List:output_type -> user.ListResponse
-	0,  // 29: user.UserService.Get:output_type -> user.User
-	9,  // 30: user.UserService.Add:output_type -> user.AddResponse
-	23, // 31: user.UserService.Update:output_type -> common.Success
-	23, // 32: user.UserService.Delete:output_type -> common.Success
-	1,  // 33: user.UserService.GetProfile:output_type -> user.Profile
-	23, // 34: user.UserService.UpdateProfile:output_type -> common.Success
-	23, // 35: user.UserService.UpdatePin:output_type -> common.Success
-	17, // 36: user.UserService.ListDevice:output_type -> user.ListDevicesResponse
-	23, // 37: user.UserService.RevokeDevice:output_type -> common.Success
-	28, // [28:38] is the sub-list for method output_type
-	18, // [18:28] is the sub-list for method input_type
+	13, // 23: user.UserService.ChangePassword:input_type -> user.ChangePasswordRequest
+	12, // 24: user.UserService.GetProfile:input_type -> user.GetProfileRequest
+	14, // 25: user.UserService.UpdateProfile:input_type -> user.UpdateProfileRequest
+	15, // 26: user.UserService.UpdatePin:input_type -> user.UpdatePinRequest
+	16, // 27: user.UserService.ListDevice:input_type -> user.ListDevicesRequest
+	19, // 28: user.UserService.RevokeDevice:input_type -> user.RevokeDeviceRequest
+	6,  // 29: user.UserService.List:output_type -> user.ListResponse
+	0,  // 30: user.UserService.Get:output_type -> user.User
+	9,  // 31: user.UserService.Add:output_type -> user.AddResponse
+	24, // 32: user.UserService.Update:output_type -> common.Success
+	24, // 33: user.UserService.Delete:output_type -> common.Success
+	24, // 34: user.UserService.ChangePassword:output_type -> common.Success
+	1,  // 35: user.UserService.GetProfile:output_type -> user.Profile
+	24, // 36: user.UserService.UpdateProfile:output_type -> common.Success
+	24, // 37: user.UserService.UpdatePin:output_type -> common.Success
+	18, // 38: user.UserService.ListDevice:output_type -> user.ListDevicesResponse
+	24, // 39: user.UserService.RevokeDevice:output_type -> common.Success
+	29, // [29:40] is the sub-list for method output_type
+	18, // [18:29] is the sub-list for method input_type
 	18, // [18:18] is the sub-list for extension type_name
 	18, // [18:18] is the sub-list for extension extendee
 	0,  // [0:18] is the sub-list for field type_name
@@ -1442,15 +1519,15 @@ func file_proto_user_proto_init() {
 	file_proto_user_proto_msgTypes[2].OneofWrappers = []any{}
 	file_proto_user_proto_msgTypes[5].OneofWrappers = []any{}
 	file_proto_user_proto_msgTypes[10].OneofWrappers = []any{}
-	file_proto_user_proto_msgTypes[13].OneofWrappers = []any{}
-	file_proto_user_proto_msgTypes[16].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[14].OneofWrappers = []any{}
+	file_proto_user_proto_msgTypes[17].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_proto_rawDesc), len(file_proto_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

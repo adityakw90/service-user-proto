@@ -94,6 +94,13 @@ message GetProfileRequest {
   string user_uid = 1;
 }
 
+message ChangePasswordRequest {
+  string uid = 1; // user uid
+  string current_password = 2;
+  string new_password = 3;
+  string confirm_password = 4;
+}
+
 message UpdateProfileRequest {
   string user_uid = 1;
   string first_name = 2;
@@ -141,6 +148,9 @@ service UserService {
   rpc Add(AddRequest) returns (AddResponse);
   rpc Update(UpdateRequest) returns (common.Success);
   rpc Delete(DeleteRequest) returns (common.Success);
+
+  // user password
+  rpc ChangePassword(ChangePasswordRequest) returns (common.Success);
 
   // user profile
   rpc GetProfile(GetProfileRequest) returns (Profile);

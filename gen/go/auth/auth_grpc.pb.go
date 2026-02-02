@@ -19,10 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_Auth_FullMethodName          = "/auth.AuthService/Auth"
-	AuthService_RefreshToken_FullMethodName  = "/auth.AuthService/RefreshToken"
-	AuthService_ValidateToken_FullMethodName = "/auth.AuthService/ValidateToken"
-	AuthService_VerifyPin_FullMethodName     = "/auth.AuthService/VerifyPin"
+	AuthService_Auth_FullMethodName              = "/auth.AuthService/Auth"
+	AuthService_GoogleOAuth_FullMethodName       = "/auth.AuthService/GoogleOAuth"
+	AuthService_HandleGoogleOAuth_FullMethodName = "/auth.AuthService/HandleGoogleOAuth"
+	AuthService_RefreshToken_FullMethodName      = "/auth.AuthService/RefreshToken"
+	AuthService_ValidateToken_FullMethodName     = "/auth.AuthService/ValidateToken"
+	AuthService_RevokeToken_FullMethodName       = "/auth.AuthService/RevokeToken"
+	AuthService_VerifyPin_FullMethodName         = "/auth.AuthService/VerifyPin"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -31,10 +34,16 @@ const (
 type AuthServiceClient interface {
 	// Authenticates a user and returns tokens.
 	Auth(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*Token, error)
+	// Initiates Google OAuth flow.
+	GoogleOAuth(ctx context.Context, in *GoogleOAuthRequest, opts ...grpc.CallOption) (*GoogleOAuthResponse, error)
+	// Handles the OAuth callback.
+	HandleGoogleOAuth(ctx context.Context, in *HandleGoogleOAuthRequest, opts ...grpc.CallOption) (*Token, error)
 	// Refreshes the access token using a refresh token.
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*Token, error)
 	// Validate the Access Token
 	ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error)
+	// Revokes a token.
+	RevokeToken(ctx context.Context, in *RevokeTokenRequest, opts ...grpc.CallOption) (*RevokeTokenResponse, error)
 	// Verifies the User PIN for sensitive actions.
 	VerifyPin(ctx context.Context, in *VerifyPinRequest, opts ...grpc.CallOption) (*VerifyPinResponse, error)
 }
@@ -51,6 +60,26 @@ func (c *authServiceClient) Auth(ctx context.Context, in *AuthRequest, opts ...g
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Token)
 	err := c.cc.Invoke(ctx, AuthService_Auth_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) GoogleOAuth(ctx context.Context, in *GoogleOAuthRequest, opts ...grpc.CallOption) (*GoogleOAuthResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GoogleOAuthResponse)
+	err := c.cc.Invoke(ctx, AuthService_GoogleOAuth_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) HandleGoogleOAuth(ctx context.Context, in *HandleGoogleOAuthRequest, opts ...grpc.CallOption) (*Token, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Token)
+	err := c.cc.Invoke(ctx, AuthService_HandleGoogleOAuth_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,6 +106,16 @@ func (c *authServiceClient) ValidateToken(ctx context.Context, in *ValidateToken
 	return out, nil
 }
 
+func (c *authServiceClient) RevokeToken(ctx context.Context, in *RevokeTokenRequest, opts ...grpc.CallOption) (*RevokeTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeTokenResponse)
+	err := c.cc.Invoke(ctx, AuthService_RevokeToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *authServiceClient) VerifyPin(ctx context.Context, in *VerifyPinRequest, opts ...grpc.CallOption) (*VerifyPinResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(VerifyPinResponse)
@@ -93,10 +132,16 @@ func (c *authServiceClient) VerifyPin(ctx context.Context, in *VerifyPinRequest,
 type AuthServiceServer interface {
 	// Authenticates a user and returns tokens.
 	Auth(context.Context, *AuthRequest) (*Token, error)
+	// Initiates Google OAuth flow.
+	GoogleOAuth(context.Context, *GoogleOAuthRequest) (*GoogleOAuthResponse, error)
+	// Handles the OAuth callback.
+	HandleGoogleOAuth(context.Context, *HandleGoogleOAuthRequest) (*Token, error)
 	// Refreshes the access token using a refresh token.
 	RefreshToken(context.Context, *RefreshTokenRequest) (*Token, error)
 	// Validate the Access Token
 	ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error)
+	// Revokes a token.
+	RevokeToken(context.Context, *RevokeTokenRequest) (*RevokeTokenResponse, error)
 	// Verifies the User PIN for sensitive actions.
 	VerifyPin(context.Context, *VerifyPinRequest) (*VerifyPinResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
@@ -112,11 +157,20 @@ type UnimplementedAuthServiceServer struct{}
 func (UnimplementedAuthServiceServer) Auth(context.Context, *AuthRequest) (*Token, error) {
 	return nil, status.Error(codes.Unimplemented, "method Auth not implemented")
 }
+func (UnimplementedAuthServiceServer) GoogleOAuth(context.Context, *GoogleOAuthRequest) (*GoogleOAuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GoogleOAuth not implemented")
+}
+func (UnimplementedAuthServiceServer) HandleGoogleOAuth(context.Context, *HandleGoogleOAuthRequest) (*Token, error) {
+	return nil, status.Error(codes.Unimplemented, "method HandleGoogleOAuth not implemented")
+}
 func (UnimplementedAuthServiceServer) RefreshToken(context.Context, *RefreshTokenRequest) (*Token, error) {
 	return nil, status.Error(codes.Unimplemented, "method RefreshToken not implemented")
 }
 func (UnimplementedAuthServiceServer) ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ValidateToken not implemented")
+}
+func (UnimplementedAuthServiceServer) RevokeToken(context.Context, *RevokeTokenRequest) (*RevokeTokenResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RevokeToken not implemented")
 }
 func (UnimplementedAuthServiceServer) VerifyPin(context.Context, *VerifyPinRequest) (*VerifyPinResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method VerifyPin not implemented")
@@ -160,6 +214,42 @@ func _AuthService_Auth_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_GoogleOAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GoogleOAuthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GoogleOAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GoogleOAuth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GoogleOAuth(ctx, req.(*GoogleOAuthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_HandleGoogleOAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HandleGoogleOAuthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).HandleGoogleOAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_HandleGoogleOAuth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).HandleGoogleOAuth(ctx, req.(*HandleGoogleOAuthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AuthService_RefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RefreshTokenRequest)
 	if err := dec(in); err != nil {
@@ -196,6 +286,24 @@ func _AuthService_ValidateToken_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_RevokeToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).RevokeToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_RevokeToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).RevokeToken(ctx, req.(*RevokeTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AuthService_VerifyPin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifyPinRequest)
 	if err := dec(in); err != nil {
@@ -226,12 +334,24 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthService_Auth_Handler,
 		},
 		{
+			MethodName: "GoogleOAuth",
+			Handler:    _AuthService_GoogleOAuth_Handler,
+		},
+		{
+			MethodName: "HandleGoogleOAuth",
+			Handler:    _AuthService_HandleGoogleOAuth_Handler,
+		},
+		{
 			MethodName: "RefreshToken",
 			Handler:    _AuthService_RefreshToken_Handler,
 		},
 		{
 			MethodName: "ValidateToken",
 			Handler:    _AuthService_ValidateToken_Handler,
+		},
+		{
+			MethodName: "RevokeToken",
+			Handler:    _AuthService_RevokeToken_Handler,
 		},
 		{
 			MethodName: "VerifyPin",

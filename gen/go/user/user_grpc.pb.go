@@ -20,16 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_List_FullMethodName          = "/user.UserService/List"
-	UserService_Get_FullMethodName           = "/user.UserService/Get"
-	UserService_Add_FullMethodName           = "/user.UserService/Add"
-	UserService_Update_FullMethodName        = "/user.UserService/Update"
-	UserService_Delete_FullMethodName        = "/user.UserService/Delete"
-	UserService_GetProfile_FullMethodName    = "/user.UserService/GetProfile"
-	UserService_UpdateProfile_FullMethodName = "/user.UserService/UpdateProfile"
-	UserService_UpdatePin_FullMethodName     = "/user.UserService/UpdatePin"
-	UserService_ListDevice_FullMethodName    = "/user.UserService/ListDevice"
-	UserService_RevokeDevice_FullMethodName  = "/user.UserService/RevokeDevice"
+	UserService_List_FullMethodName           = "/user.UserService/List"
+	UserService_Get_FullMethodName            = "/user.UserService/Get"
+	UserService_Add_FullMethodName            = "/user.UserService/Add"
+	UserService_Update_FullMethodName         = "/user.UserService/Update"
+	UserService_Delete_FullMethodName         = "/user.UserService/Delete"
+	UserService_ChangePassword_FullMethodName = "/user.UserService/ChangePassword"
+	UserService_GetProfile_FullMethodName     = "/user.UserService/GetProfile"
+	UserService_UpdateProfile_FullMethodName  = "/user.UserService/UpdateProfile"
+	UserService_UpdatePin_FullMethodName      = "/user.UserService/UpdatePin"
+	UserService_ListDevice_FullMethodName     = "/user.UserService/ListDevice"
+	UserService_RevokeDevice_FullMethodName   = "/user.UserService/RevokeDevice"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -44,6 +45,8 @@ type UserServiceClient interface {
 	Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*common.Success, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*common.Success, error)
+	// user password
+	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*common.Success, error)
 	// user profile
 	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error)
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*common.Success, error)
@@ -112,6 +115,16 @@ func (c *userServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts 
 	return out, nil
 }
 
+func (c *userServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*common.Success, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(common.Success)
+	err := c.cc.Invoke(ctx, UserService_ChangePassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Profile)
@@ -174,6 +187,8 @@ type UserServiceServer interface {
 	Add(context.Context, *AddRequest) (*AddResponse, error)
 	Update(context.Context, *UpdateRequest) (*common.Success, error)
 	Delete(context.Context, *DeleteRequest) (*common.Success, error)
+	// user password
+	ChangePassword(context.Context, *ChangePasswordRequest) (*common.Success, error)
 	// user profile
 	GetProfile(context.Context, *GetProfileRequest) (*Profile, error)
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*common.Success, error)
@@ -206,6 +221,9 @@ func (UnimplementedUserServiceServer) Update(context.Context, *UpdateRequest) (*
 }
 func (UnimplementedUserServiceServer) Delete(context.Context, *DeleteRequest) (*common.Success, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedUserServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*common.Success, error) {
+	return nil, status.Error(codes.Unimplemented, "method ChangePassword not implemented")
 }
 func (UnimplementedUserServiceServer) GetProfile(context.Context, *GetProfileRequest) (*Profile, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProfile not implemented")
@@ -333,6 +351,24 @@ func _UserService_Delete_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ChangePassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_GetProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetProfileRequest)
 	if err := dec(in); err != nil {
@@ -449,6 +485,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _UserService_Delete_Handler,
+		},
+		{
+			MethodName: "ChangePassword",
+			Handler:    _UserService_ChangePassword_Handler,
 		},
 		{
 			MethodName: "GetProfile",

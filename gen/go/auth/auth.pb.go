@@ -403,6 +403,244 @@ func (x *VerifyPinResponse) GetValid() bool {
 	return false
 }
 
+// OAuth messages
+type GoogleOAuthRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RedirectUri   string                 `protobuf:"bytes,1,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GoogleOAuthRequest) Reset() {
+	*x = GoogleOAuthRequest{}
+	mi := &file_proto_auth_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GoogleOAuthRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GoogleOAuthRequest) ProtoMessage() {}
+
+func (x *GoogleOAuthRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GoogleOAuthRequest.ProtoReflect.Descriptor instead.
+func (*GoogleOAuthRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GoogleOAuthRequest) GetRedirectUri() string {
+	if x != nil {
+		return x.RedirectUri
+	}
+	return ""
+}
+
+type GoogleOAuthResponse struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	AuthorizationUrl string                 `protobuf:"bytes,1,opt,name=authorization_url,json=authorizationUrl,proto3" json:"authorization_url,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *GoogleOAuthResponse) Reset() {
+	*x = GoogleOAuthResponse{}
+	mi := &file_proto_auth_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GoogleOAuthResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GoogleOAuthResponse) ProtoMessage() {}
+
+func (x *GoogleOAuthResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GoogleOAuthResponse.ProtoReflect.Descriptor instead.
+func (*GoogleOAuthResponse) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GoogleOAuthResponse) GetAuthorizationUrl() string {
+	if x != nil {
+		return x.AuthorizationUrl
+	}
+	return ""
+}
+
+type HandleGoogleOAuthRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	RedirectUri   string                 `protobuf:"bytes,2,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HandleGoogleOAuthRequest) Reset() {
+	*x = HandleGoogleOAuthRequest{}
+	mi := &file_proto_auth_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HandleGoogleOAuthRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HandleGoogleOAuthRequest) ProtoMessage() {}
+
+func (x *HandleGoogleOAuthRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HandleGoogleOAuthRequest.ProtoReflect.Descriptor instead.
+func (*HandleGoogleOAuthRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *HandleGoogleOAuthRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+func (x *HandleGoogleOAuthRequest) GetRedirectUri() string {
+	if x != nil {
+		return x.RedirectUri
+	}
+	return ""
+}
+
+// Token revocation messages
+type RevokeTokenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	TokenType     string                 `protobuf:"bytes,2,opt,name=token_type,json=tokenType,proto3" json:"token_type,omitempty"` // "access" or "refresh"
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeTokenRequest) Reset() {
+	*x = RevokeTokenRequest{}
+	mi := &file_proto_auth_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeTokenRequest) ProtoMessage() {}
+
+func (x *RevokeTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeTokenRequest.ProtoReflect.Descriptor instead.
+func (*RevokeTokenRequest) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *RevokeTokenRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *RevokeTokenRequest) GetTokenType() string {
+	if x != nil {
+		return x.TokenType
+	}
+	return ""
+}
+
+type RevokeTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeTokenResponse) Reset() {
+	*x = RevokeTokenResponse{}
+	mi := &file_proto_auth_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeTokenResponse) ProtoMessage() {}
+
+func (x *RevokeTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_auth_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeTokenResponse.ProtoReflect.Descriptor instead.
+func (*RevokeTokenResponse) Descriptor() ([]byte, []int) {
+	return file_proto_auth_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *RevokeTokenResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_proto_auth_proto protoreflect.FileDescriptor
 
 const file_proto_auth_proto_rawDesc = "" +
@@ -436,11 +674,27 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\")\n" +
 	"\x11VerifyPinResponse\x12\x14\n" +
-	"\x05valid\x18\x01 \x01(\bR\x05valid2\xf5\x01\n" +
+	"\x05valid\x18\x01 \x01(\bR\x05valid\"7\n" +
+	"\x12GoogleOAuthRequest\x12!\n" +
+	"\fredirect_uri\x18\x01 \x01(\tR\vredirectUri\"B\n" +
+	"\x13GoogleOAuthResponse\x12+\n" +
+	"\x11authorization_url\x18\x01 \x01(\tR\x10authorizationUrl\"Q\n" +
+	"\x18HandleGoogleOAuthRequest\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\tR\x04code\x12!\n" +
+	"\fredirect_uri\x18\x02 \x01(\tR\vredirectUri\"I\n" +
+	"\x12RevokeTokenRequest\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x1d\n" +
+	"\n" +
+	"token_type\x18\x02 \x01(\tR\ttokenType\"/\n" +
+	"\x13RevokeTokenResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xbf\x03\n" +
 	"\vAuthService\x12&\n" +
-	"\x04Auth\x12\x11.auth.AuthRequest\x1a\v.auth.Token\x126\n" +
+	"\x04Auth\x12\x11.auth.AuthRequest\x1a\v.auth.Token\x12B\n" +
+	"\vGoogleOAuth\x12\x18.auth.GoogleOAuthRequest\x1a\x19.auth.GoogleOAuthResponse\x12@\n" +
+	"\x11HandleGoogleOAuth\x12\x1e.auth.HandleGoogleOAuthRequest\x1a\v.auth.Token\x126\n" +
 	"\fRefreshToken\x12\x19.auth.RefreshTokenRequest\x1a\v.auth.Token\x12H\n" +
-	"\rValidateToken\x12\x1a.auth.ValidateTokenRequest\x1a\x1b.auth.ValidateTokenResponse\x12<\n" +
+	"\rValidateToken\x12\x1a.auth.ValidateTokenRequest\x1a\x1b.auth.ValidateTokenResponse\x12B\n" +
+	"\vRevokeToken\x12\x18.auth.RevokeTokenRequest\x1a\x19.auth.RevokeTokenResponse\x12<\n" +
 	"\tVerifyPin\x12\x16.auth.VerifyPinRequest\x1a\x17.auth.VerifyPinResponseB6Z4github.com/adityakw90/service-user-proto/gen/go/authb\x06proto3"
 
 var (
@@ -455,32 +709,43 @@ func file_proto_auth_proto_rawDescGZIP() []byte {
 	return file_proto_auth_proto_rawDescData
 }
 
-var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_proto_auth_proto_goTypes = []any{
-	(*Token)(nil),                 // 0: auth.Token
-	(*AuthRequest)(nil),           // 1: auth.AuthRequest
-	(*RefreshTokenRequest)(nil),   // 2: auth.RefreshTokenRequest
-	(*ValidateTokenRequest)(nil),  // 3: auth.ValidateTokenRequest
-	(*ValidateTokenResponse)(nil), // 4: auth.ValidateTokenResponse
-	(*VerifyPinRequest)(nil),      // 5: auth.VerifyPinRequest
-	(*VerifyPinResponse)(nil),     // 6: auth.VerifyPinResponse
-	(*structpb.Struct)(nil),       // 7: google.protobuf.Struct
+	(*Token)(nil),                    // 0: auth.Token
+	(*AuthRequest)(nil),              // 1: auth.AuthRequest
+	(*RefreshTokenRequest)(nil),      // 2: auth.RefreshTokenRequest
+	(*ValidateTokenRequest)(nil),     // 3: auth.ValidateTokenRequest
+	(*ValidateTokenResponse)(nil),    // 4: auth.ValidateTokenResponse
+	(*VerifyPinRequest)(nil),         // 5: auth.VerifyPinRequest
+	(*VerifyPinResponse)(nil),        // 6: auth.VerifyPinResponse
+	(*GoogleOAuthRequest)(nil),       // 7: auth.GoogleOAuthRequest
+	(*GoogleOAuthResponse)(nil),      // 8: auth.GoogleOAuthResponse
+	(*HandleGoogleOAuthRequest)(nil), // 9: auth.HandleGoogleOAuthRequest
+	(*RevokeTokenRequest)(nil),       // 10: auth.RevokeTokenRequest
+	(*RevokeTokenResponse)(nil),      // 11: auth.RevokeTokenResponse
+	(*structpb.Struct)(nil),          // 12: google.protobuf.Struct
 }
 var file_proto_auth_proto_depIdxs = []int32{
-	7, // 0: auth.ValidateTokenResponse.claims:type_name -> google.protobuf.Struct
-	1, // 1: auth.AuthService.Auth:input_type -> auth.AuthRequest
-	2, // 2: auth.AuthService.RefreshToken:input_type -> auth.RefreshTokenRequest
-	3, // 3: auth.AuthService.ValidateToken:input_type -> auth.ValidateTokenRequest
-	5, // 4: auth.AuthService.VerifyPin:input_type -> auth.VerifyPinRequest
-	0, // 5: auth.AuthService.Auth:output_type -> auth.Token
-	0, // 6: auth.AuthService.RefreshToken:output_type -> auth.Token
-	4, // 7: auth.AuthService.ValidateToken:output_type -> auth.ValidateTokenResponse
-	6, // 8: auth.AuthService.VerifyPin:output_type -> auth.VerifyPinResponse
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	12, // 0: auth.ValidateTokenResponse.claims:type_name -> google.protobuf.Struct
+	1,  // 1: auth.AuthService.Auth:input_type -> auth.AuthRequest
+	7,  // 2: auth.AuthService.GoogleOAuth:input_type -> auth.GoogleOAuthRequest
+	9,  // 3: auth.AuthService.HandleGoogleOAuth:input_type -> auth.HandleGoogleOAuthRequest
+	2,  // 4: auth.AuthService.RefreshToken:input_type -> auth.RefreshTokenRequest
+	3,  // 5: auth.AuthService.ValidateToken:input_type -> auth.ValidateTokenRequest
+	10, // 6: auth.AuthService.RevokeToken:input_type -> auth.RevokeTokenRequest
+	5,  // 7: auth.AuthService.VerifyPin:input_type -> auth.VerifyPinRequest
+	0,  // 8: auth.AuthService.Auth:output_type -> auth.Token
+	8,  // 9: auth.AuthService.GoogleOAuth:output_type -> auth.GoogleOAuthResponse
+	0,  // 10: auth.AuthService.HandleGoogleOAuth:output_type -> auth.Token
+	0,  // 11: auth.AuthService.RefreshToken:output_type -> auth.Token
+	4,  // 12: auth.AuthService.ValidateToken:output_type -> auth.ValidateTokenResponse
+	11, // 13: auth.AuthService.RevokeToken:output_type -> auth.RevokeTokenResponse
+	6,  // 14: auth.AuthService.VerifyPin:output_type -> auth.VerifyPinResponse
+	8,  // [8:15] is the sub-list for method output_type
+	1,  // [1:8] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proto_auth_proto_init() }
@@ -495,7 +760,7 @@ func file_proto_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_auth_proto_rawDesc), len(file_proto_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
