@@ -17,8 +17,10 @@ message AuthRequest {
   string identifier = 1; // Username or Email
   string identifier_type = 2; // Username or Email
   string password = 3;
-  string device_fingerprint = 4;
-  string device_name = 5;
+  optional string device_fingerprint = 4;
+  optional string device_name = 5;
+  optional string device_ip = 6;
+  optional google.protobuf.Struct extra = 7;
 }
 
 message RefreshTokenRequest {

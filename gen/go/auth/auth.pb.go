@@ -80,8 +80,10 @@ type AuthRequest struct {
 	Identifier        string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`                               // Username or Email
 	IdentifierType    string                 `protobuf:"bytes,2,opt,name=identifier_type,json=identifierType,proto3" json:"identifier_type,omitempty"` // Username or Email
 	Password          string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	DeviceFingerprint string                 `protobuf:"bytes,4,opt,name=device_fingerprint,json=deviceFingerprint,proto3" json:"device_fingerprint,omitempty"`
-	DeviceName        string                 `protobuf:"bytes,5,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
+	DeviceFingerprint *string                `protobuf:"bytes,4,opt,name=device_fingerprint,json=deviceFingerprint,proto3,oneof" json:"device_fingerprint,omitempty"`
+	DeviceName        *string                `protobuf:"bytes,5,opt,name=device_name,json=deviceName,proto3,oneof" json:"device_name,omitempty"`
+	DeviceIp          *string                `protobuf:"bytes,6,opt,name=device_ip,json=deviceIp,proto3,oneof" json:"device_ip,omitempty"`
+	Extra             *structpb.Struct       `protobuf:"bytes,7,opt,name=extra,proto3,oneof" json:"extra,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -138,17 +140,31 @@ func (x *AuthRequest) GetPassword() string {
 }
 
 func (x *AuthRequest) GetDeviceFingerprint() string {
-	if x != nil {
-		return x.DeviceFingerprint
+	if x != nil && x.DeviceFingerprint != nil {
+		return *x.DeviceFingerprint
 	}
 	return ""
 }
 
 func (x *AuthRequest) GetDeviceName() string {
-	if x != nil {
-		return x.DeviceName
+	if x != nil && x.DeviceName != nil {
+		return *x.DeviceName
 	}
 	return ""
+}
+
+func (x *AuthRequest) GetDeviceIp() string {
+	if x != nil && x.DeviceIp != nil {
+		return *x.DeviceIp
+	}
+	return ""
+}
+
+func (x *AuthRequest) GetExtra() *structpb.Struct {
+	if x != nil {
+		return x.Extra
+	}
+	return nil
 }
 
 type RefreshTokenRequest struct {
@@ -648,16 +664,23 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\x10proto/auth.proto\x12\x04auth\x1a\x1cgoogle/protobuf/struct.proto\"O\n" +
 	"\x05Token\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\xc2\x01\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\xe1\x02\n" +
 	"\vAuthRequest\x12\x1e\n" +
 	"\n" +
 	"identifier\x18\x01 \x01(\tR\n" +
 	"identifier\x12'\n" +
 	"\x0fidentifier_type\x18\x02 \x01(\tR\x0eidentifierType\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\x12-\n" +
-	"\x12device_fingerprint\x18\x04 \x01(\tR\x11deviceFingerprint\x12\x1f\n" +
-	"\vdevice_name\x18\x05 \x01(\tR\n" +
-	"deviceName\":\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\x122\n" +
+	"\x12device_fingerprint\x18\x04 \x01(\tH\x00R\x11deviceFingerprint\x88\x01\x01\x12$\n" +
+	"\vdevice_name\x18\x05 \x01(\tH\x01R\n" +
+	"deviceName\x88\x01\x01\x12 \n" +
+	"\tdevice_ip\x18\x06 \x01(\tH\x02R\bdeviceIp\x88\x01\x01\x122\n" +
+	"\x05extra\x18\a \x01(\v2\x17.google.protobuf.StructH\x03R\x05extra\x88\x01\x01B\x15\n" +
+	"\x13_device_fingerprintB\x0e\n" +
+	"\f_device_nameB\f\n" +
+	"\n" +
+	"_device_ipB\b\n" +
+	"\x06_extra\":\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"9\n" +
 	"\x14ValidateTokenRequest\x12!\n" +
@@ -726,26 +749,27 @@ var file_proto_auth_proto_goTypes = []any{
 	(*structpb.Struct)(nil),          // 12: google.protobuf.Struct
 }
 var file_proto_auth_proto_depIdxs = []int32{
-	12, // 0: auth.ValidateTokenResponse.claims:type_name -> google.protobuf.Struct
-	1,  // 1: auth.AuthService.Auth:input_type -> auth.AuthRequest
-	7,  // 2: auth.AuthService.GoogleOAuth:input_type -> auth.GoogleOAuthRequest
-	9,  // 3: auth.AuthService.HandleGoogleOAuth:input_type -> auth.HandleGoogleOAuthRequest
-	2,  // 4: auth.AuthService.RefreshToken:input_type -> auth.RefreshTokenRequest
-	3,  // 5: auth.AuthService.ValidateToken:input_type -> auth.ValidateTokenRequest
-	10, // 6: auth.AuthService.RevokeToken:input_type -> auth.RevokeTokenRequest
-	5,  // 7: auth.AuthService.VerifyPin:input_type -> auth.VerifyPinRequest
-	0,  // 8: auth.AuthService.Auth:output_type -> auth.Token
-	8,  // 9: auth.AuthService.GoogleOAuth:output_type -> auth.GoogleOAuthResponse
-	0,  // 10: auth.AuthService.HandleGoogleOAuth:output_type -> auth.Token
-	0,  // 11: auth.AuthService.RefreshToken:output_type -> auth.Token
-	4,  // 12: auth.AuthService.ValidateToken:output_type -> auth.ValidateTokenResponse
-	11, // 13: auth.AuthService.RevokeToken:output_type -> auth.RevokeTokenResponse
-	6,  // 14: auth.AuthService.VerifyPin:output_type -> auth.VerifyPinResponse
-	8,  // [8:15] is the sub-list for method output_type
-	1,  // [1:8] is the sub-list for method input_type
-	1,  // [1:1] is the sub-list for extension type_name
-	1,  // [1:1] is the sub-list for extension extendee
-	0,  // [0:1] is the sub-list for field type_name
+	12, // 0: auth.AuthRequest.extra:type_name -> google.protobuf.Struct
+	12, // 1: auth.ValidateTokenResponse.claims:type_name -> google.protobuf.Struct
+	1,  // 2: auth.AuthService.Auth:input_type -> auth.AuthRequest
+	7,  // 3: auth.AuthService.GoogleOAuth:input_type -> auth.GoogleOAuthRequest
+	9,  // 4: auth.AuthService.HandleGoogleOAuth:input_type -> auth.HandleGoogleOAuthRequest
+	2,  // 5: auth.AuthService.RefreshToken:input_type -> auth.RefreshTokenRequest
+	3,  // 6: auth.AuthService.ValidateToken:input_type -> auth.ValidateTokenRequest
+	10, // 7: auth.AuthService.RevokeToken:input_type -> auth.RevokeTokenRequest
+	5,  // 8: auth.AuthService.VerifyPin:input_type -> auth.VerifyPinRequest
+	0,  // 9: auth.AuthService.Auth:output_type -> auth.Token
+	8,  // 10: auth.AuthService.GoogleOAuth:output_type -> auth.GoogleOAuthResponse
+	0,  // 11: auth.AuthService.HandleGoogleOAuth:output_type -> auth.Token
+	0,  // 12: auth.AuthService.RefreshToken:output_type -> auth.Token
+	4,  // 13: auth.AuthService.ValidateToken:output_type -> auth.ValidateTokenResponse
+	11, // 14: auth.AuthService.RevokeToken:output_type -> auth.RevokeTokenResponse
+	6,  // 15: auth.AuthService.VerifyPin:output_type -> auth.VerifyPinResponse
+	9,  // [9:16] is the sub-list for method output_type
+	2,  // [2:9] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_auth_proto_init() }
@@ -753,6 +777,7 @@ func file_proto_auth_proto_init() {
 	if File_proto_auth_proto != nil {
 		return
 	}
+	file_proto_auth_proto_msgTypes[1].OneofWrappers = []any{}
 	file_proto_auth_proto_msgTypes[4].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
