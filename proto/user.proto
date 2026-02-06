@@ -53,8 +53,8 @@ message FilterRequest {
   repeated string uids = 1;
   optional string username = 2;
   optional string email = 3;
-  optional bool exists = 4;
-  optional bool active = 5;
+  optional int32 status = 4;
+  optional bool exists = 5;
   optional string query = 6;
 }
 

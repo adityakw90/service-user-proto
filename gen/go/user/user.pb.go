@@ -403,8 +403,8 @@ type FilterRequest struct {
 	Uids          []string               `protobuf:"bytes,1,rep,name=uids,proto3" json:"uids,omitempty"`
 	Username      *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
 	Email         *string                `protobuf:"bytes,3,opt,name=email,proto3,oneof" json:"email,omitempty"`
-	Exists        *bool                  `protobuf:"varint,4,opt,name=exists,proto3,oneof" json:"exists,omitempty"`
-	Active        *bool                  `protobuf:"varint,5,opt,name=active,proto3,oneof" json:"active,omitempty"`
+	Status        *int32                 `protobuf:"varint,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Exists        *bool                  `protobuf:"varint,5,opt,name=exists,proto3,oneof" json:"exists,omitempty"`
 	Query         *string                `protobuf:"bytes,6,opt,name=query,proto3,oneof" json:"query,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -461,16 +461,16 @@ func (x *FilterRequest) GetEmail() string {
 	return ""
 }
 
+func (x *FilterRequest) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
 func (x *FilterRequest) GetExists() bool {
 	if x != nil && x.Exists != nil {
 		return *x.Exists
-	}
-	return false
-}
-
-func (x *FilterRequest) GetActive() bool {
-	if x != nil && x.Active != nil {
-		return *x.Active
 	}
 	return false
 }
@@ -1329,13 +1329,13 @@ const file_proto_user_proto_rawDesc = "" +
 	"\x04uids\x18\x01 \x03(\tR\x04uids\x12\x1f\n" +
 	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12\x19\n" +
 	"\x05email\x18\x03 \x01(\tH\x01R\x05email\x88\x01\x01\x12\x1b\n" +
-	"\x06exists\x18\x04 \x01(\bH\x02R\x06exists\x88\x01\x01\x12\x1b\n" +
-	"\x06active\x18\x05 \x01(\bH\x03R\x06active\x88\x01\x01\x12\x19\n" +
+	"\x06status\x18\x04 \x01(\x05H\x02R\x06status\x88\x01\x01\x12\x1b\n" +
+	"\x06exists\x18\x05 \x01(\bH\x03R\x06exists\x88\x01\x01\x12\x19\n" +
 	"\x05query\x18\x06 \x01(\tH\x04R\x05query\x88\x01\x01B\v\n" +
 	"\t_usernameB\b\n" +
 	"\x06_emailB\t\n" +
-	"\a_existsB\t\n" +
-	"\a_activeB\b\n" +
+	"\a_statusB\t\n" +
+	"\a_existsB\b\n" +
 	"\x06_query\"R\n" +
 	"\fListResponse\x12 \n" +
 	"\x05items\x18\x01 \x03(\v2\n" +

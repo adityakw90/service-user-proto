@@ -245,9 +245,8 @@ type FilterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Uids          []string               `protobuf:"bytes,1,rep,name=uids,proto3" json:"uids,omitempty"`
 	UserUid       []string               `protobuf:"bytes,2,rep,name=user_uid,json=userUid,proto3" json:"user_uid,omitempty"`
-	Public        *bool                  `protobuf:"varint,3,opt,name=public,proto3,oneof" json:"public,omitempty"`
-	Name          *string                `protobuf:"bytes,4,opt,name=name,proto3,oneof" json:"name,omitempty"`
-	Query         *string                `protobuf:"bytes,5,opt,name=query,proto3,oneof" json:"query,omitempty"`
+	Filetype      *string                `protobuf:"bytes,3,opt,name=filetype,proto3,oneof" json:"filetype,omitempty"`
+	Visibility    *string                `protobuf:"bytes,4,opt,name=visibility,proto3,oneof" json:"visibility,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -296,23 +295,16 @@ func (x *FilterRequest) GetUserUid() []string {
 	return nil
 }
 
-func (x *FilterRequest) GetPublic() bool {
-	if x != nil && x.Public != nil {
-		return *x.Public
-	}
-	return false
-}
-
-func (x *FilterRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+func (x *FilterRequest) GetFiletype() string {
+	if x != nil && x.Filetype != nil {
+		return *x.Filetype
 	}
 	return ""
 }
 
-func (x *FilterRequest) GetQuery() string {
-	if x != nil && x.Query != nil {
-		return *x.Query
+func (x *FilterRequest) GetVisibility() string {
+	if x != nil && x.Visibility != nil {
+		return *x.Visibility
 	}
 	return ""
 }
@@ -734,16 +726,16 @@ const file_proto_user_file_proto_rawDesc = "" +
 	"\n" +
 	"pagination\x18\x01 \x01(\v2\x12.common.PaginationR\n" +
 	"pagination\x120\n" +
-	"\x06filter\x18\x02 \x01(\v2\x18.user_file.FilterRequestR\x06filter\"\xad\x01\n" +
+	"\x06filter\x18\x02 \x01(\v2\x18.user_file.FilterRequestR\x06filter\"\xa0\x01\n" +
 	"\rFilterRequest\x12\x12\n" +
 	"\x04uids\x18\x01 \x03(\tR\x04uids\x12\x19\n" +
-	"\buser_uid\x18\x02 \x03(\tR\auserUid\x12\x1b\n" +
-	"\x06public\x18\x03 \x01(\bH\x00R\x06public\x88\x01\x01\x12\x17\n" +
-	"\x04name\x18\x04 \x01(\tH\x01R\x04name\x88\x01\x01\x12\x19\n" +
-	"\x05query\x18\x05 \x01(\tH\x02R\x05query\x88\x01\x01B\t\n" +
-	"\a_publicB\a\n" +
-	"\x05_nameB\b\n" +
-	"\x06_query\"[\n" +
+	"\buser_uid\x18\x02 \x03(\tR\auserUid\x12\x1f\n" +
+	"\bfiletype\x18\x03 \x01(\tH\x00R\bfiletype\x88\x01\x01\x12#\n" +
+	"\n" +
+	"visibility\x18\x04 \x01(\tH\x01R\n" +
+	"visibility\x88\x01\x01B\v\n" +
+	"\t_filetypeB\r\n" +
+	"\v_visibility\"[\n" +
 	"\fListResponse\x12)\n" +
 	"\x05items\x18\x01 \x03(\v2\x13.user_file.UserFileR\x05items\x12 \n" +
 	"\x04meta\x18\x02 \x01(\v2\f.common.MetaR\x04meta\"\x9b\x01\n" +

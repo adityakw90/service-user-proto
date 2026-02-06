@@ -40,9 +40,8 @@ message ListRequest {
 message FilterRequest {
   repeated string uids = 1;
   repeated string user_uid = 2;
-  optional bool public = 3;
-  optional string name = 4;
-  optional string query = 5;
+  optional string filetype = 3;
+  optional string visibility = 4;
 }
 
 // Response message containing a list of items.
