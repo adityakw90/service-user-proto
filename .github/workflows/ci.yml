@@ -24,8 +24,8 @@ jobs:
 
       - name: Install Go Plugins
         run: |
-          go install google.golang.org/protobuf/cmd/protoc-gen-go@1.36.11
-          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@1.6.1
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.6.1
 
       - name: Generate Code
         run: make go
