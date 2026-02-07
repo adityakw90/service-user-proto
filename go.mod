@@ -2,7 +2,7 @@ module github.com/adityakw90/service-user-proto
 
 go 1.25.5
 
-toolchain go1.25.6
+toolchain go1.25.7
 
 require (
 	google.golang.org/grpc v1.78.0
