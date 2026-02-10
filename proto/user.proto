@@ -30,7 +30,7 @@ message Profile {
 message Avatar {
   string uid = 1;
   string url = 2;
-  optional google.protobuf.Struct thumbnail = 9;
+  optional google.protobuf.Struct thumbnail = 3;
 }
 
 message Device {

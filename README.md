@@ -17,8 +17,11 @@ This repository defines the following gRPC services:
 Handles authentication and token management.
 
 - **Auth**: Authenticates a user and returns access and refresh tokens.
+- **GoogleOAuth**: Initiates OAuth flow with Google.
+- **HandleGoogleOAuth**: Handles OAuth callback and returns tokens/user info.
 - **RefreshToken**: Refreshes the access token using a valid refresh token.
 - **ValidateToken**: Validates an access token and returns user claims.
+- **RevokeToken**: Revokes access/refresh tokens.
 - **VerifyPin**: Verifies a user's PIN for sensitive actions.
 
 ### 2. UserService (`user.proto`)

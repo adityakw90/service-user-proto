@@ -204,7 +204,7 @@ type Avatar struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Uid           string                 `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
 	Url           string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
-	Thumbnail     *structpb.Struct       `protobuf:"bytes,9,opt,name=thumbnail,proto3,oneof" json:"thumbnail,omitempty"`
+	Thumbnail     *structpb.Struct       `protobuf:"bytes,3,opt,name=thumbnail,proto3,oneof" json:"thumbnail,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1305,7 +1305,7 @@ const file_proto_user_proto_rawDesc = "" +
 	"\x06Avatar\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x10\n" +
 	"\x03url\x18\x02 \x01(\tR\x03url\x12:\n" +
-	"\tthumbnail\x18\t \x01(\v2\x17.google.protobuf.StructH\x00R\tthumbnail\x88\x01\x01B\f\n" +
+	"\tthumbnail\x18\x03 \x01(\v2\x17.google.protobuf.StructH\x00R\tthumbnail\x88\x01\x01B\f\n" +
 	"\n" +
 	"_thumbnail\"\x9f\x02\n" +
 	"\x06Device\x12\x1d\n" +

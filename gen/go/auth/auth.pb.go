@@ -77,8 +77,8 @@ func (x *Token) GetRefreshToken() string {
 
 type AuthRequest struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
-	Identifier        string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`                               // Username or Email
-	IdentifierType    string                 `protobuf:"bytes,2,opt,name=identifier_type,json=identifierType,proto3" json:"identifier_type,omitempty"` // Username or Email
+	Identifier        string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`                               // The login identifier value (username or email)
+	IdentifierType    string                 `protobuf:"bytes,2,opt,name=identifier_type,json=identifierType,proto3" json:"identifier_type,omitempty"` // Type of identifier: "username" or "email"
 	Password          string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	DeviceFingerprint *string                `protobuf:"bytes,4,opt,name=device_fingerprint,json=deviceFingerprint,proto3,oneof" json:"device_fingerprint,omitempty"`
 	DeviceName        *string                `protobuf:"bytes,5,opt,name=device_name,json=deviceName,proto3,oneof" json:"device_name,omitempty"`

@@ -14,8 +14,8 @@ message Token {
 }
 
 message AuthRequest {
-  string identifier = 1; // Username or Email
-  string identifier_type = 2; // Username or Email
+  string identifier = 1;  // The login identifier value (username or email)
+  string identifier_type = 2; // Type of identifier: "username" or "email"
   string password = 3;
   optional string device_fingerprint = 4;
   optional string device_name = 5;
