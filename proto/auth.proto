@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/adityakw90/service-user-proto/gen/go/auth";
+
+
+import "google/protobuf/struct.proto";
+
+// Token message.
+message Token {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message AuthRequest {
+  string identifier = 1;  // The login identifier value (username or email)
+  string identifier_type = 2; // Type of identifier: "username" or "email"
+  string password = 3;
+  optional string device_fingerprint = 4;
+  optional string device_name = 5;
+  optional string device_ip = 6;
+  optional google.protobuf.Struct extra = 7;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message ValidateTokenRequest {
+  string access_token = 1;
+}
+
+message ValidateTokenResponse {
+  string uid = 1;
+  string identifier = 2;
+  string identifier_type = 3;
+  optional google.protobuf.Struct claims = 4;
+}
+
+message VerifyPinRequest {
+  string uid = 1; // user uid
+  string code = 2; // pin code
+}
+
+message VerifyPinResponse {
+  bool valid = 1;
+}
+
+// OAuth messages
+message GoogleOAuthRequest {
+  string redirect_uri = 1;
+}
+
+message GoogleOAuthResponse {
+  string authorization_url = 1;
+}
+
+message HandleGoogleOAuthRequest {
+  string code = 1;
+  string redirect_uri = 2;
+}
+
+// Token revocation messages
+message RevokeTokenRequest {
+  string token = 1;
+  string token_type = 2; // "access" or "refresh"
+}
+
+message RevokeTokenResponse {
+  bool success = 1;
+}
+
+service AuthService {
+  // Authenticates a user and returns tokens.
+  rpc Auth(AuthRequest) returns (Token);
+
+  // Initiates Google OAuth flow.
+  rpc GoogleOAuth(GoogleOAuthRequest) returns (GoogleOAuthResponse);
+
+  // Handles the OAuth callback.
+  rpc HandleGoogleOAuth(HandleGoogleOAuthRequest) returns (Token);
+
+  // Refreshes the access token using a refresh token.
+  rpc RefreshToken(RefreshTokenRequest) returns (Token);
+
+  // Validate the Access Token
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+
+  // Revokes a token.
+  rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
+
+  // Verifies the User PIN for sensitive actions.
+  rpc VerifyPin(VerifyPinRequest) returns (VerifyPinResponse);
+}

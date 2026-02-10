@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/adityakw90/service-user-proto/gen/go/user";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "proto/common.proto";
+
+message User {
+  string uid = 1;           // UUIDv7
+  string username = 2;
+  string email = 3;
+  int32 status = 4;         // 1=Active, 0=Inactive, etc.
+  google.protobuf.Timestamp created_at = 5;    // ISO 8601
+  google.protobuf.Timestamp updated_at = 6;   // ISO 8601
+  google.protobuf.Timestamp deleted_at = 7;   // ISO 8601
+}
+
+message Profile {
+  string uid = 1; // user uid
+  string first_name = 2;
+  string last_name = 3;
+  string bio = 4;
+  optional Avatar avatar = 5; // computed avatar url
+  google.protobuf.Struct attributes = 6;
+}
+
+message Avatar {
+  string uid = 1;
+  string url = 2;
+  optional google.protobuf.Struct thumbnail = 3;
+}
+
+message Device {
+  string device_uid = 1;
+  string device_name = 2;
+  string ip_address = 3;
+  google.protobuf.Timestamp last_active_at = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp revoked_at = 6;
+}
+
+// Request message for List User.
+message ListRequest {
+  common.Pagination pagination = 1;
+  FilterRequest filter=2;
+}
+
+// Filter message for request List User.
+message FilterRequest {
+  repeated string uids = 1;
+  optional string username = 2;
+  optional string email = 3;
+  optional int32 status = 4;
+  optional bool exists = 5;
+  optional string query = 6;
+}
+
+// Response message containing a list of items.
+message ListResponse {
+  repeated User items = 1;
+  common.Meta meta = 2;  // Use Meta from the imported common.proto
+}
+
+message GetRequest {
+  string uid = 1;
+}
+
+message AddRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message AddResponse {
+  string uid = 1;
+}
+
+message UpdateRequest {
+  string uid = 1;
+  optional string username = 2;
+  optional string email = 3;
+  optional string password = 4;
+  optional int32 status = 5;
+}
+
+message DeleteRequest {
+  string uid = 1;
+}
+
+message GetProfileRequest {
+  string user_uid = 1;
+}
+
+message ChangePasswordRequest {
+  string uid = 1; // user uid
+  string current_password = 2;
+  string new_password = 3;
+  string confirm_password = 4;
+}
+
+message UpdateProfileRequest {
+  string user_uid = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string bio = 4;
+  optional bytes avatar = 5;
+  google.protobuf.Struct attributes = 6;
+}
+
+message UpdatePinRequest {
+  string user_uid = 1;
+  string pin = 2;
+}
+
+message ListDevicesRequest {
+  string user_uid = 1;
+  common.Pagination pagination = 2;
+  FilterDeviceRequest filter=3;
+}
+
+message FilterDeviceRequest {
+  repeated string device_uids = 1;
+  optional string device_name = 2;
+  optional bool revoked = 3;
+}
+
+message ListDevicesResponse {
+  repeated Device items = 1;
+  common.Meta meta = 2;
+}
+
+message RevokeDeviceRequest {
+  string user_uid = 1;
+  string device_uid = 2;
+}
+
+service UserService {
+  // list user
+  rpc List(ListRequest) returns (ListResponse);
+
+  // GET user
+  rpc Get(GetRequest) returns (User);
+
+  // Crud method
+  rpc Add(AddRequest) returns (AddResponse);
+  rpc Update(UpdateRequest) returns (common.Success);
+  rpc Delete(DeleteRequest) returns (common.Success);
+
+  // user password
+  rpc ChangePassword(ChangePasswordRequest) returns (common.Success);
+
+  // user profile
+  rpc GetProfile(GetProfileRequest) returns (Profile);
+  rpc UpdateProfile(UpdateProfileRequest) returns (common.Success);
+
+  // user pin
+  rpc UpdatePin(UpdatePinRequest) returns (common.Success);
+
+  // user device
+  rpc ListDevice(ListDevicesRequest) returns (ListDevicesResponse);
+  rpc RevokeDevice(RevokeDeviceRequest) returns (common.Success);
+}

@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package device;
+
+option go_package = "github.com/adityakw90/service-user-proto/gen/go/device";
+
+
+import "google/protobuf/timestamp.proto";
+import "proto/common.proto";
+
+// Message
+message Device {
+  string uid = 1;
+  string device_fingerprint = 2;
+  string device_name = 3;
+  google.protobuf.Timestamp created_at = 4;
+
+  // extra field
+  optional int64 total_user = 5;
+}
+
+message ListRequest {
+  common.Pagination pagination = 1;
+  FilterRequest filter = 2;
+}
+
+message FilterRequest {
+  repeated string uids = 1;
+  optional string device_fingerprint = 2;
+  optional string device_name = 3;
+}
+
+message ListResponse {
+  repeated Device items = 1;
+  common.Meta meta = 2;
+}
+
+message GetRequest {
+  string uid = 1;
+}
+
+message DeleteRequest {
+  string uid = 1;
+}
+
+// Device service definition.
+service DeviceService {
+  // List device
+  rpc List(ListRequest) returns (ListResponse);
+  // Get device by uid
+  rpc Get(GetRequest) returns (Device);
+  // Delete device by uid
+  rpc Delete(DeleteRequest) returns (common.Success);
+}
