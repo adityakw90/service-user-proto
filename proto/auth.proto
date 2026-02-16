@@ -57,9 +57,9 @@ message GoogleOAuthResponse {
 }
 
 message HandleGoogleOAuthRequest {
-  string code = 1;
+  string redirect_uri = 1;
   string state = 2;
-  string redirect_uri = 3;
+  string code = 3;
 }
 
 // Token revocation messages

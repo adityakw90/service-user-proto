@@ -518,9 +518,9 @@ func (x *GoogleOAuthResponse) GetState() string {
 
 type HandleGoogleOAuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	RedirectUri   string                 `protobuf:"bytes,1,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
 	State         string                 `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
-	RedirectUri   string                 `protobuf:"bytes,3,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
+	Code          string                 `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -555,9 +555,9 @@ func (*HandleGoogleOAuthRequest) Descriptor() ([]byte, []int) {
 	return file_proto_auth_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *HandleGoogleOAuthRequest) GetCode() string {
+func (x *HandleGoogleOAuthRequest) GetRedirectUri() string {
 	if x != nil {
-		return x.Code
+		return x.RedirectUri
 	}
 	return ""
 }
@@ -569,9 +569,9 @@ func (x *HandleGoogleOAuthRequest) GetState() string {
 	return ""
 }
 
-func (x *HandleGoogleOAuthRequest) GetRedirectUri() string {
+func (x *HandleGoogleOAuthRequest) GetCode() string {
 	if x != nil {
-		return x.RedirectUri
+		return x.Code
 	}
 	return ""
 }
@@ -719,10 +719,10 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\x13GoogleOAuthResponse\x12+\n" +
 	"\x11authorization_url\x18\x01 \x01(\tR\x10authorizationUrl\x12\x14\n" +
 	"\x05state\x18\x02 \x01(\tR\x05state\"g\n" +
-	"\x18HandleGoogleOAuthRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\x12\x14\n" +
-	"\x05state\x18\x02 \x01(\tR\x05state\x12!\n" +
-	"\fredirect_uri\x18\x03 \x01(\tR\vredirectUri\"I\n" +
+	"\x18HandleGoogleOAuthRequest\x12!\n" +
+	"\fredirect_uri\x18\x01 \x01(\tR\vredirectUri\x12\x14\n" +
+	"\x05state\x18\x02 \x01(\tR\x05state\x12\x12\n" +
+	"\x04code\x18\x03 \x01(\tR\x04code\"I\n" +
 	"\x12RevokeTokenRequest\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x1d\n" +
 	"\n" +
