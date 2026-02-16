@@ -4,10 +4,9 @@ package auth;
 
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/auth";
 
-
 import "google/protobuf/struct.proto";
 
-// Token message.
+// Token message
 message Token {
   string access_token = 1;
   string refresh_token = 2;
@@ -15,7 +14,7 @@ message Token {
 
 message AuthRequest {
   string identifier = 1;  // The login identifier value (username or email)
-  string identifier_type = 2; // Type of identifier: "username" or "email"
+  string identifier_type = 2;  // Type of identifier: "username" or "email"
   string password = 3;
   optional string device_fingerprint = 4;
   optional string device_name = 5;
@@ -54,11 +53,13 @@ message GoogleOAuthRequest {
 
 message GoogleOAuthResponse {
   string authorization_url = 1;
+  string state = 2;
 }
 
 message HandleGoogleOAuthRequest {
-  string code = 1;
-  string redirect_uri = 2;
+  string redirect_uri = 1;
+  string state = 2;
+  string code = 3;
 }
 
 // Token revocation messages
@@ -81,15 +82,15 @@ service AuthService {
   // Handles the OAuth callback.
   rpc HandleGoogleOAuth(HandleGoogleOAuthRequest) returns (Token);
 
-  // Refreshes the access token using a refresh token.
+  // Refreshes an access token using a refresh token.
   rpc RefreshToken(RefreshTokenRequest) returns (Token);
 
-  // Validate the Access Token
+  // Validates an access token.
   rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
 
   // Revokes a token.
   rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
 
-  // Verifies the User PIN for sensitive actions.
+  // Verifies a User PIN for sensitive actions.
   rpc VerifyPin(VerifyPinRequest) returns (VerifyPinResponse);
 }

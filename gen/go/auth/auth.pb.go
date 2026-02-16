@@ -22,7 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Token message.
+// Token message
 type Token struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
@@ -467,6 +467,7 @@ func (x *GoogleOAuthRequest) GetRedirectUri() string {
 type GoogleOAuthResponse struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	AuthorizationUrl string                 `protobuf:"bytes,1,opt,name=authorization_url,json=authorizationUrl,proto3" json:"authorization_url,omitempty"`
+	State            string                 `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -508,10 +509,18 @@ func (x *GoogleOAuthResponse) GetAuthorizationUrl() string {
 	return ""
 }
 
+func (x *GoogleOAuthResponse) GetState() string {
+	if x != nil {
+		return x.State
+	}
+	return ""
+}
+
 type HandleGoogleOAuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
-	RedirectUri   string                 `protobuf:"bytes,2,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
+	RedirectUri   string                 `protobuf:"bytes,1,opt,name=redirect_uri,json=redirectUri,proto3" json:"redirect_uri,omitempty"`
+	State         string                 `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
+	Code          string                 `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -546,16 +555,23 @@ func (*HandleGoogleOAuthRequest) Descriptor() ([]byte, []int) {
 	return file_proto_auth_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *HandleGoogleOAuthRequest) GetCode() string {
+func (x *HandleGoogleOAuthRequest) GetRedirectUri() string {
 	if x != nil {
-		return x.Code
+		return x.RedirectUri
 	}
 	return ""
 }
 
-func (x *HandleGoogleOAuthRequest) GetRedirectUri() string {
+func (x *HandleGoogleOAuthRequest) GetState() string {
 	if x != nil {
-		return x.RedirectUri
+		return x.State
+	}
+	return ""
+}
+
+func (x *HandleGoogleOAuthRequest) GetCode() string {
+	if x != nil {
+		return x.Code
 	}
 	return ""
 }
@@ -699,12 +715,14 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\x11VerifyPinResponse\x12\x14\n" +
 	"\x05valid\x18\x01 \x01(\bR\x05valid\"7\n" +
 	"\x12GoogleOAuthRequest\x12!\n" +
-	"\fredirect_uri\x18\x01 \x01(\tR\vredirectUri\"B\n" +
+	"\fredirect_uri\x18\x01 \x01(\tR\vredirectUri\"X\n" +
 	"\x13GoogleOAuthResponse\x12+\n" +
-	"\x11authorization_url\x18\x01 \x01(\tR\x10authorizationUrl\"Q\n" +
-	"\x18HandleGoogleOAuthRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\x12!\n" +
-	"\fredirect_uri\x18\x02 \x01(\tR\vredirectUri\"I\n" +
+	"\x11authorization_url\x18\x01 \x01(\tR\x10authorizationUrl\x12\x14\n" +
+	"\x05state\x18\x02 \x01(\tR\x05state\"g\n" +
+	"\x18HandleGoogleOAuthRequest\x12!\n" +
+	"\fredirect_uri\x18\x01 \x01(\tR\vredirectUri\x12\x14\n" +
+	"\x05state\x18\x02 \x01(\tR\x05state\x12\x12\n" +
+	"\x04code\x18\x03 \x01(\tR\x04code\"I\n" +
 	"\x12RevokeTokenRequest\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x1d\n" +
 	"\n" +

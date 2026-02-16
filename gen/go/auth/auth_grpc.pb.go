@@ -38,13 +38,13 @@ type AuthServiceClient interface {
 	GoogleOAuth(ctx context.Context, in *GoogleOAuthRequest, opts ...grpc.CallOption) (*GoogleOAuthResponse, error)
 	// Handles the OAuth callback.
 	HandleGoogleOAuth(ctx context.Context, in *HandleGoogleOAuthRequest, opts ...grpc.CallOption) (*Token, error)
-	// Refreshes the access token using a refresh token.
+	// Refreshes an access token using a refresh token.
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*Token, error)
-	// Validate the Access Token
+	// Validates an access token.
 	ValidateToken(ctx context.Context, in *ValidateTokenRequest, opts ...grpc.CallOption) (*ValidateTokenResponse, error)
 	// Revokes a token.
 	RevokeToken(ctx context.Context, in *RevokeTokenRequest, opts ...grpc.CallOption) (*RevokeTokenResponse, error)
-	// Verifies the User PIN for sensitive actions.
+	// Verifies a User PIN for sensitive actions.
 	VerifyPin(ctx context.Context, in *VerifyPinRequest, opts ...grpc.CallOption) (*VerifyPinResponse, error)
 }
 
@@ -136,13 +136,13 @@ type AuthServiceServer interface {
 	GoogleOAuth(context.Context, *GoogleOAuthRequest) (*GoogleOAuthResponse, error)
 	// Handles the OAuth callback.
 	HandleGoogleOAuth(context.Context, *HandleGoogleOAuthRequest) (*Token, error)
-	// Refreshes the access token using a refresh token.
+	// Refreshes an access token using a refresh token.
 	RefreshToken(context.Context, *RefreshTokenRequest) (*Token, error)
-	// Validate the Access Token
+	// Validates an access token.
 	ValidateToken(context.Context, *ValidateTokenRequest) (*ValidateTokenResponse, error)
 	// Revokes a token.
 	RevokeToken(context.Context, *RevokeTokenRequest) (*RevokeTokenResponse, error)
-	// Verifies the User PIN for sensitive actions.
+	// Verifies a User PIN for sensitive actions.
 	VerifyPin(context.Context, *VerifyPinRequest) (*VerifyPinResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
