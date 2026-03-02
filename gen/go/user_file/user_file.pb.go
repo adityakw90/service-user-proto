@@ -700,7 +700,7 @@ var File_proto_user_file_proto protoreflect.FileDescriptor
 
 const file_proto_user_file_proto_rawDesc = "" +
 	"\n" +
-	"\x15proto/user_file.proto\x12\tuser_file\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x12proto/common.proto\"\xef\x02\n" +
+	"\x15proto/user_file.proto\x12\x0euser.user_file\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x12proto/common.proto\"\xef\x02\n" +
 	"\bUserFile\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x19\n" +
 	"\buser_uid\x18\x02 \x01(\tR\auserUid\x12\x1b\n" +
@@ -721,12 +721,12 @@ const file_proto_user_file_proto_rawDesc = "" +
 	"_thumbnail\"\x1e\n" +
 	"\n" +
 	"GetRequest\x12\x10\n" +
-	"\x03uid\x18\x01 \x01(\tR\x03uid\"s\n" +
-	"\vListRequest\x122\n" +
+	"\x03uid\x18\x01 \x01(\tR\x03uid\"}\n" +
+	"\vListRequest\x127\n" +
 	"\n" +
-	"pagination\x18\x01 \x01(\v2\x12.common.PaginationR\n" +
-	"pagination\x120\n" +
-	"\x06filter\x18\x02 \x01(\v2\x18.user_file.FilterRequestR\x06filter\"\xa0\x01\n" +
+	"pagination\x18\x01 \x01(\v2\x17.user.common.PaginationR\n" +
+	"pagination\x125\n" +
+	"\x06filter\x18\x02 \x01(\v2\x1d.user.user_file.FilterRequestR\x06filter\"\xa0\x01\n" +
 	"\rFilterRequest\x12\x12\n" +
 	"\x04uids\x18\x01 \x03(\tR\x04uids\x12\x19\n" +
 	"\buser_uid\x18\x02 \x03(\tR\auserUid\x12\x1f\n" +
@@ -735,10 +735,10 @@ const file_proto_user_file_proto_rawDesc = "" +
 	"visibility\x18\x04 \x01(\tH\x01R\n" +
 	"visibility\x88\x01\x01B\v\n" +
 	"\t_filetypeB\r\n" +
-	"\v_visibility\"[\n" +
-	"\fListResponse\x12)\n" +
-	"\x05items\x18\x01 \x03(\v2\x13.user_file.UserFileR\x05items\x12 \n" +
-	"\x04meta\x18\x02 \x01(\v2\f.common.MetaR\x04meta\"\x9b\x01\n" +
+	"\v_visibility\"e\n" +
+	"\fListResponse\x12.\n" +
+	"\x05items\x18\x01 \x03(\v2\x18.user.user_file.UserFileR\x05items\x12%\n" +
+	"\x04meta\x18\x02 \x01(\v2\x11.user.common.MetaR\x04meta\"\x9b\x01\n" +
 	"\n" +
 	"AddRequest\x12\x19\n" +
 	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x12\n" +
@@ -764,13 +764,13 @@ const file_proto_user_file_proto_rawDesc = "" +
 	"\rDeleteRequest\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\"*\n" +
 	"\x0eDeleteResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xb1\x02\n" +
-	"\x0fUserFileService\x121\n" +
-	"\x03Get\x12\x15.user_file.GetRequest\x1a\x13.user_file.UserFile\x127\n" +
-	"\x04List\x12\x16.user_file.ListRequest\x1a\x17.user_file.ListResponse\x124\n" +
-	"\x03Add\x12\x15.user_file.AddRequest\x1a\x16.user_file.AddResponse\x12=\n" +
-	"\x06Update\x12\x18.user_file.UpdateRequest\x1a\x19.user_file.UpdateResponse\x12=\n" +
-	"\x06Delete\x12\x18.user_file.DeleteRequest\x1a\x19.user_file.DeleteResponseB;Z9github.com/adityakw90/service-user-proto/gen/go/user_fileb\x06proto3"
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xe3\x02\n" +
+	"\x0fUserFileService\x12;\n" +
+	"\x03Get\x12\x1a.user.user_file.GetRequest\x1a\x18.user.user_file.UserFile\x12A\n" +
+	"\x04List\x12\x1b.user.user_file.ListRequest\x1a\x1c.user.user_file.ListResponse\x12>\n" +
+	"\x03Add\x12\x1a.user.user_file.AddRequest\x1a\x1b.user.user_file.AddResponse\x12G\n" +
+	"\x06Update\x12\x1d.user.user_file.UpdateRequest\x1a\x1e.user.user_file.UpdateResponse\x12G\n" +
+	"\x06Delete\x12\x1d.user.user_file.DeleteRequest\x1a\x1e.user.user_file.DeleteResponseB;Z9github.com/adityakw90/service-user-proto/gen/go/user_fileb\x06proto3"
 
 var (
 	file_proto_user_file_proto_rawDescOnce sync.Once
@@ -786,39 +786,39 @@ func file_proto_user_file_proto_rawDescGZIP() []byte {
 
 var file_proto_user_file_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_proto_user_file_proto_goTypes = []any{
-	(*UserFile)(nil),              // 0: user_file.UserFile
-	(*GetRequest)(nil),            // 1: user_file.GetRequest
-	(*ListRequest)(nil),           // 2: user_file.ListRequest
-	(*FilterRequest)(nil),         // 3: user_file.FilterRequest
-	(*ListResponse)(nil),          // 4: user_file.ListResponse
-	(*AddRequest)(nil),            // 5: user_file.AddRequest
-	(*AddResponse)(nil),           // 6: user_file.AddResponse
-	(*UpdateRequest)(nil),         // 7: user_file.UpdateRequest
-	(*UpdateResponse)(nil),        // 8: user_file.UpdateResponse
-	(*DeleteRequest)(nil),         // 9: user_file.DeleteRequest
-	(*DeleteResponse)(nil),        // 10: user_file.DeleteResponse
+	(*UserFile)(nil),              // 0: user.user_file.UserFile
+	(*GetRequest)(nil),            // 1: user.user_file.GetRequest
+	(*ListRequest)(nil),           // 2: user.user_file.ListRequest
+	(*FilterRequest)(nil),         // 3: user.user_file.FilterRequest
+	(*ListResponse)(nil),          // 4: user.user_file.ListResponse
+	(*AddRequest)(nil),            // 5: user.user_file.AddRequest
+	(*AddResponse)(nil),           // 6: user.user_file.AddResponse
+	(*UpdateRequest)(nil),         // 7: user.user_file.UpdateRequest
+	(*UpdateResponse)(nil),        // 8: user.user_file.UpdateResponse
+	(*DeleteRequest)(nil),         // 9: user.user_file.DeleteRequest
+	(*DeleteResponse)(nil),        // 10: user.user_file.DeleteResponse
 	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
 	(*structpb.Struct)(nil),       // 12: google.protobuf.Struct
-	(*common.Pagination)(nil),     // 13: common.Pagination
-	(*common.Meta)(nil),           // 14: common.Meta
+	(*common.Pagination)(nil),     // 13: user.common.Pagination
+	(*common.Meta)(nil),           // 14: user.common.Meta
 }
 var file_proto_user_file_proto_depIdxs = []int32{
-	11, // 0: user_file.UserFile.created_at:type_name -> google.protobuf.Timestamp
-	12, // 1: user_file.UserFile.thumbnail:type_name -> google.protobuf.Struct
-	13, // 2: user_file.ListRequest.pagination:type_name -> common.Pagination
-	3,  // 3: user_file.ListRequest.filter:type_name -> user_file.FilterRequest
-	0,  // 4: user_file.ListResponse.items:type_name -> user_file.UserFile
-	14, // 5: user_file.ListResponse.meta:type_name -> common.Meta
-	1,  // 6: user_file.UserFileService.Get:input_type -> user_file.GetRequest
-	2,  // 7: user_file.UserFileService.List:input_type -> user_file.ListRequest
-	5,  // 8: user_file.UserFileService.Add:input_type -> user_file.AddRequest
-	7,  // 9: user_file.UserFileService.Update:input_type -> user_file.UpdateRequest
-	9,  // 10: user_file.UserFileService.Delete:input_type -> user_file.DeleteRequest
-	0,  // 11: user_file.UserFileService.Get:output_type -> user_file.UserFile
-	4,  // 12: user_file.UserFileService.List:output_type -> user_file.ListResponse
-	6,  // 13: user_file.UserFileService.Add:output_type -> user_file.AddResponse
-	8,  // 14: user_file.UserFileService.Update:output_type -> user_file.UpdateResponse
-	10, // 15: user_file.UserFileService.Delete:output_type -> user_file.DeleteResponse
+	11, // 0: user.user_file.UserFile.created_at:type_name -> google.protobuf.Timestamp
+	12, // 1: user.user_file.UserFile.thumbnail:type_name -> google.protobuf.Struct
+	13, // 2: user.user_file.ListRequest.pagination:type_name -> user.common.Pagination
+	3,  // 3: user.user_file.ListRequest.filter:type_name -> user.user_file.FilterRequest
+	0,  // 4: user.user_file.ListResponse.items:type_name -> user.user_file.UserFile
+	14, // 5: user.user_file.ListResponse.meta:type_name -> user.common.Meta
+	1,  // 6: user.user_file.UserFileService.Get:input_type -> user.user_file.GetRequest
+	2,  // 7: user.user_file.UserFileService.List:input_type -> user.user_file.ListRequest
+	5,  // 8: user.user_file.UserFileService.Add:input_type -> user.user_file.AddRequest
+	7,  // 9: user.user_file.UserFileService.Update:input_type -> user.user_file.UpdateRequest
+	9,  // 10: user.user_file.UserFileService.Delete:input_type -> user.user_file.DeleteRequest
+	0,  // 11: user.user_file.UserFileService.Get:output_type -> user.user_file.UserFile
+	4,  // 12: user.user_file.UserFileService.List:output_type -> user.user_file.ListResponse
+	6,  // 13: user.user_file.UserFileService.Add:output_type -> user.user_file.AddResponse
+	8,  // 14: user.user_file.UserFileService.Update:output_type -> user.user_file.UpdateResponse
+	10, // 15: user.user_file.UserFileService.Delete:output_type -> user.user_file.DeleteResponse
 	11, // [11:16] is the sub-list for method output_type
 	6,  // [6:11] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name

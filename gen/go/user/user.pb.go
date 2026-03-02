@@ -1279,7 +1279,7 @@ var File_proto_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_proto_rawDesc = "" +
 	"\n" +
-	"\x10proto/user.proto\x12\x04user\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x12proto/common.proto\"\x93\x02\n" +
+	"\x10proto/user.proto\x12\tuser.user\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x12proto/common.proto\"\x93\x02\n" +
 	"\x04User\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
@@ -1290,14 +1290,14 @@ const file_proto_user_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x129\n" +
 	"\n" +
-	"deleted_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tdeletedAt\"\xd8\x01\n" +
+	"deleted_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tdeletedAt\"\xdd\x01\n" +
 	"\aProfile\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x03 \x01(\tR\blastName\x12\x10\n" +
-	"\x03bio\x18\x04 \x01(\tR\x03bio\x12)\n" +
-	"\x06avatar\x18\x05 \x01(\v2\f.user.AvatarH\x00R\x06avatar\x88\x01\x01\x127\n" +
+	"\x03bio\x18\x04 \x01(\tR\x03bio\x12.\n" +
+	"\x06avatar\x18\x05 \x01(\v2\x11.user.user.AvatarH\x00R\x06avatar\x88\x01\x01\x127\n" +
 	"\n" +
 	"attributes\x18\x06 \x01(\v2\x17.google.protobuf.StructR\n" +
 	"attributesB\t\n" +
@@ -1319,12 +1319,12 @@ const file_proto_user_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"revoked_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\trevokedAt\"n\n" +
-	"\vListRequest\x122\n" +
+	"revoked_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\trevokedAt\"x\n" +
+	"\vListRequest\x127\n" +
 	"\n" +
-	"pagination\x18\x01 \x01(\v2\x12.common.PaginationR\n" +
-	"pagination\x12+\n" +
-	"\x06filter\x18\x02 \x01(\v2\x13.user.FilterRequestR\x06filter\"\xeb\x01\n" +
+	"pagination\x18\x01 \x01(\v2\x17.user.common.PaginationR\n" +
+	"pagination\x120\n" +
+	"\x06filter\x18\x02 \x01(\v2\x18.user.user.FilterRequestR\x06filter\"\xeb\x01\n" +
 	"\rFilterRequest\x12\x12\n" +
 	"\x04uids\x18\x01 \x03(\tR\x04uids\x12\x1f\n" +
 	"\busername\x18\x02 \x01(\tH\x00R\busername\x88\x01\x01\x12\x19\n" +
@@ -1336,11 +1336,10 @@ const file_proto_user_proto_rawDesc = "" +
 	"\x06_emailB\t\n" +
 	"\a_statusB\t\n" +
 	"\a_existsB\b\n" +
-	"\x06_query\"R\n" +
-	"\fListResponse\x12 \n" +
-	"\x05items\x18\x01 \x03(\v2\n" +
-	".user.UserR\x05items\x12 \n" +
-	"\x04meta\x18\x02 \x01(\v2\f.common.MetaR\x04meta\"\x1e\n" +
+	"\x06_query\"\\\n" +
+	"\fListResponse\x12%\n" +
+	"\x05items\x18\x01 \x03(\v2\x0f.user.user.UserR\x05items\x12%\n" +
+	"\x04meta\x18\x02 \x01(\v2\x11.user.common.MetaR\x04meta\"\x1e\n" +
 	"\n" +
 	"GetRequest\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\"Z\n" +
@@ -1383,13 +1382,13 @@ const file_proto_user_proto_rawDesc = "" +
 	"\a_avatar\"?\n" +
 	"\x10UpdatePinRequest\x12\x19\n" +
 	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x10\n" +
-	"\x03pin\x18\x02 \x01(\tR\x03pin\"\x96\x01\n" +
+	"\x03pin\x18\x02 \x01(\tR\x03pin\"\xa0\x01\n" +
 	"\x12ListDevicesRequest\x12\x19\n" +
-	"\buser_uid\x18\x01 \x01(\tR\auserUid\x122\n" +
+	"\buser_uid\x18\x01 \x01(\tR\auserUid\x127\n" +
 	"\n" +
-	"pagination\x18\x02 \x01(\v2\x12.common.PaginationR\n" +
-	"pagination\x121\n" +
-	"\x06filter\x18\x03 \x01(\v2\x19.user.FilterDeviceRequestR\x06filter\"\x97\x01\n" +
+	"pagination\x18\x02 \x01(\v2\x17.user.common.PaginationR\n" +
+	"pagination\x126\n" +
+	"\x06filter\x18\x03 \x01(\v2\x1e.user.user.FilterDeviceRequestR\x06filter\"\x97\x01\n" +
 	"\x13FilterDeviceRequest\x12\x1f\n" +
 	"\vdevice_uids\x18\x01 \x03(\tR\n" +
 	"deviceUids\x12$\n" +
@@ -1398,29 +1397,28 @@ const file_proto_user_proto_rawDesc = "" +
 	"\arevoked\x18\x03 \x01(\bH\x01R\arevoked\x88\x01\x01B\x0e\n" +
 	"\f_device_nameB\n" +
 	"\n" +
-	"\b_revoked\"[\n" +
-	"\x13ListDevicesResponse\x12\"\n" +
-	"\x05items\x18\x01 \x03(\v2\f.user.DeviceR\x05items\x12 \n" +
-	"\x04meta\x18\x02 \x01(\v2\f.common.MetaR\x04meta\"O\n" +
+	"\b_revoked\"e\n" +
+	"\x13ListDevicesResponse\x12'\n" +
+	"\x05items\x18\x01 \x03(\v2\x11.user.user.DeviceR\x05items\x12%\n" +
+	"\x04meta\x18\x02 \x01(\v2\x11.user.common.MetaR\x04meta\"O\n" +
 	"\x13RevokeDeviceRequest\x12\x19\n" +
 	"\buser_uid\x18\x01 \x01(\tR\auserUid\x12\x1d\n" +
 	"\n" +
-	"device_uid\x18\x02 \x01(\tR\tdeviceUid2\xd6\x04\n" +
-	"\vUserService\x12-\n" +
-	"\x04List\x12\x11.user.ListRequest\x1a\x12.user.ListResponse\x12#\n" +
-	"\x03Get\x12\x10.user.GetRequest\x1a\n" +
-	".user.User\x12*\n" +
-	"\x03Add\x12\x10.user.AddRequest\x1a\x11.user.AddResponse\x12.\n" +
-	"\x06Update\x12\x13.user.UpdateRequest\x1a\x0f.common.Success\x12.\n" +
-	"\x06Delete\x12\x13.user.DeleteRequest\x1a\x0f.common.Success\x12>\n" +
-	"\x0eChangePassword\x12\x1b.user.ChangePasswordRequest\x1a\x0f.common.Success\x124\n" +
+	"device_uid\x18\x02 \x01(\tR\tdeviceUid2\xc4\x05\n" +
+	"\vUserService\x127\n" +
+	"\x04List\x12\x16.user.user.ListRequest\x1a\x17.user.user.ListResponse\x12-\n" +
+	"\x03Get\x12\x15.user.user.GetRequest\x1a\x0f.user.user.User\x124\n" +
+	"\x03Add\x12\x15.user.user.AddRequest\x1a\x16.user.user.AddResponse\x128\n" +
+	"\x06Update\x12\x18.user.user.UpdateRequest\x1a\x14.user.common.Success\x128\n" +
+	"\x06Delete\x12\x18.user.user.DeleteRequest\x1a\x14.user.common.Success\x12H\n" +
+	"\x0eChangePassword\x12 .user.user.ChangePasswordRequest\x1a\x14.user.common.Success\x12>\n" +
 	"\n" +
-	"GetProfile\x12\x17.user.GetProfileRequest\x1a\r.user.Profile\x12<\n" +
-	"\rUpdateProfile\x12\x1a.user.UpdateProfileRequest\x1a\x0f.common.Success\x124\n" +
-	"\tUpdatePin\x12\x16.user.UpdatePinRequest\x1a\x0f.common.Success\x12A\n" +
+	"GetProfile\x12\x1c.user.user.GetProfileRequest\x1a\x12.user.user.Profile\x12F\n" +
+	"\rUpdateProfile\x12\x1f.user.user.UpdateProfileRequest\x1a\x14.user.common.Success\x12>\n" +
+	"\tUpdatePin\x12\x1b.user.user.UpdatePinRequest\x1a\x14.user.common.Success\x12K\n" +
 	"\n" +
-	"ListDevice\x12\x18.user.ListDevicesRequest\x1a\x19.user.ListDevicesResponse\x12:\n" +
-	"\fRevokeDevice\x12\x19.user.RevokeDeviceRequest\x1a\x0f.common.SuccessB6Z4github.com/adityakw90/service-user-proto/gen/go/userb\x06proto3"
+	"ListDevice\x12\x1d.user.user.ListDevicesRequest\x1a\x1e.user.user.ListDevicesResponse\x12D\n" +
+	"\fRevokeDevice\x12\x1e.user.user.RevokeDeviceRequest\x1a\x14.user.common.SuccessB6Z4github.com/adityakw90/service-user-proto/gen/go/userb\x06proto3"
 
 var (
 	file_proto_user_proto_rawDescOnce sync.Once
@@ -1436,73 +1434,73 @@ func file_proto_user_proto_rawDescGZIP() []byte {
 
 var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_proto_user_proto_goTypes = []any{
-	(*User)(nil),                  // 0: user.User
-	(*Profile)(nil),               // 1: user.Profile
-	(*Avatar)(nil),                // 2: user.Avatar
-	(*Device)(nil),                // 3: user.Device
-	(*ListRequest)(nil),           // 4: user.ListRequest
-	(*FilterRequest)(nil),         // 5: user.FilterRequest
-	(*ListResponse)(nil),          // 6: user.ListResponse
-	(*GetRequest)(nil),            // 7: user.GetRequest
-	(*AddRequest)(nil),            // 8: user.AddRequest
-	(*AddResponse)(nil),           // 9: user.AddResponse
-	(*UpdateRequest)(nil),         // 10: user.UpdateRequest
-	(*DeleteRequest)(nil),         // 11: user.DeleteRequest
-	(*GetProfileRequest)(nil),     // 12: user.GetProfileRequest
-	(*ChangePasswordRequest)(nil), // 13: user.ChangePasswordRequest
-	(*UpdateProfileRequest)(nil),  // 14: user.UpdateProfileRequest
-	(*UpdatePinRequest)(nil),      // 15: user.UpdatePinRequest
-	(*ListDevicesRequest)(nil),    // 16: user.ListDevicesRequest
-	(*FilterDeviceRequest)(nil),   // 17: user.FilterDeviceRequest
-	(*ListDevicesResponse)(nil),   // 18: user.ListDevicesResponse
-	(*RevokeDeviceRequest)(nil),   // 19: user.RevokeDeviceRequest
+	(*User)(nil),                  // 0: user.user.User
+	(*Profile)(nil),               // 1: user.user.Profile
+	(*Avatar)(nil),                // 2: user.user.Avatar
+	(*Device)(nil),                // 3: user.user.Device
+	(*ListRequest)(nil),           // 4: user.user.ListRequest
+	(*FilterRequest)(nil),         // 5: user.user.FilterRequest
+	(*ListResponse)(nil),          // 6: user.user.ListResponse
+	(*GetRequest)(nil),            // 7: user.user.GetRequest
+	(*AddRequest)(nil),            // 8: user.user.AddRequest
+	(*AddResponse)(nil),           // 9: user.user.AddResponse
+	(*UpdateRequest)(nil),         // 10: user.user.UpdateRequest
+	(*DeleteRequest)(nil),         // 11: user.user.DeleteRequest
+	(*GetProfileRequest)(nil),     // 12: user.user.GetProfileRequest
+	(*ChangePasswordRequest)(nil), // 13: user.user.ChangePasswordRequest
+	(*UpdateProfileRequest)(nil),  // 14: user.user.UpdateProfileRequest
+	(*UpdatePinRequest)(nil),      // 15: user.user.UpdatePinRequest
+	(*ListDevicesRequest)(nil),    // 16: user.user.ListDevicesRequest
+	(*FilterDeviceRequest)(nil),   // 17: user.user.FilterDeviceRequest
+	(*ListDevicesResponse)(nil),   // 18: user.user.ListDevicesResponse
+	(*RevokeDeviceRequest)(nil),   // 19: user.user.RevokeDeviceRequest
 	(*timestamppb.Timestamp)(nil), // 20: google.protobuf.Timestamp
 	(*structpb.Struct)(nil),       // 21: google.protobuf.Struct
-	(*common.Pagination)(nil),     // 22: common.Pagination
-	(*common.Meta)(nil),           // 23: common.Meta
-	(*common.Success)(nil),        // 24: common.Success
+	(*common.Pagination)(nil),     // 22: user.common.Pagination
+	(*common.Meta)(nil),           // 23: user.common.Meta
+	(*common.Success)(nil),        // 24: user.common.Success
 }
 var file_proto_user_proto_depIdxs = []int32{
-	20, // 0: user.User.created_at:type_name -> google.protobuf.Timestamp
-	20, // 1: user.User.updated_at:type_name -> google.protobuf.Timestamp
-	20, // 2: user.User.deleted_at:type_name -> google.protobuf.Timestamp
-	2,  // 3: user.Profile.avatar:type_name -> user.Avatar
-	21, // 4: user.Profile.attributes:type_name -> google.protobuf.Struct
-	21, // 5: user.Avatar.thumbnail:type_name -> google.protobuf.Struct
-	20, // 6: user.Device.last_active_at:type_name -> google.protobuf.Timestamp
-	20, // 7: user.Device.created_at:type_name -> google.protobuf.Timestamp
-	20, // 8: user.Device.revoked_at:type_name -> google.protobuf.Timestamp
-	22, // 9: user.ListRequest.pagination:type_name -> common.Pagination
-	5,  // 10: user.ListRequest.filter:type_name -> user.FilterRequest
-	0,  // 11: user.ListResponse.items:type_name -> user.User
-	23, // 12: user.ListResponse.meta:type_name -> common.Meta
-	21, // 13: user.UpdateProfileRequest.attributes:type_name -> google.protobuf.Struct
-	22, // 14: user.ListDevicesRequest.pagination:type_name -> common.Pagination
-	17, // 15: user.ListDevicesRequest.filter:type_name -> user.FilterDeviceRequest
-	3,  // 16: user.ListDevicesResponse.items:type_name -> user.Device
-	23, // 17: user.ListDevicesResponse.meta:type_name -> common.Meta
-	4,  // 18: user.UserService.List:input_type -> user.ListRequest
-	7,  // 19: user.UserService.Get:input_type -> user.GetRequest
-	8,  // 20: user.UserService.Add:input_type -> user.AddRequest
-	10, // 21: user.UserService.Update:input_type -> user.UpdateRequest
-	11, // 22: user.UserService.Delete:input_type -> user.DeleteRequest
-	13, // 23: user.UserService.ChangePassword:input_type -> user.ChangePasswordRequest
-	12, // 24: user.UserService.GetProfile:input_type -> user.GetProfileRequest
-	14, // 25: user.UserService.UpdateProfile:input_type -> user.UpdateProfileRequest
-	15, // 26: user.UserService.UpdatePin:input_type -> user.UpdatePinRequest
-	16, // 27: user.UserService.ListDevice:input_type -> user.ListDevicesRequest
-	19, // 28: user.UserService.RevokeDevice:input_type -> user.RevokeDeviceRequest
-	6,  // 29: user.UserService.List:output_type -> user.ListResponse
-	0,  // 30: user.UserService.Get:output_type -> user.User
-	9,  // 31: user.UserService.Add:output_type -> user.AddResponse
-	24, // 32: user.UserService.Update:output_type -> common.Success
-	24, // 33: user.UserService.Delete:output_type -> common.Success
-	24, // 34: user.UserService.ChangePassword:output_type -> common.Success
-	1,  // 35: user.UserService.GetProfile:output_type -> user.Profile
-	24, // 36: user.UserService.UpdateProfile:output_type -> common.Success
-	24, // 37: user.UserService.UpdatePin:output_type -> common.Success
-	18, // 38: user.UserService.ListDevice:output_type -> user.ListDevicesResponse
-	24, // 39: user.UserService.RevokeDevice:output_type -> common.Success
+	20, // 0: user.user.User.created_at:type_name -> google.protobuf.Timestamp
+	20, // 1: user.user.User.updated_at:type_name -> google.protobuf.Timestamp
+	20, // 2: user.user.User.deleted_at:type_name -> google.protobuf.Timestamp
+	2,  // 3: user.user.Profile.avatar:type_name -> user.user.Avatar
+	21, // 4: user.user.Profile.attributes:type_name -> google.protobuf.Struct
+	21, // 5: user.user.Avatar.thumbnail:type_name -> google.protobuf.Struct
+	20, // 6: user.user.Device.last_active_at:type_name -> google.protobuf.Timestamp
+	20, // 7: user.user.Device.created_at:type_name -> google.protobuf.Timestamp
+	20, // 8: user.user.Device.revoked_at:type_name -> google.protobuf.Timestamp
+	22, // 9: user.user.ListRequest.pagination:type_name -> user.common.Pagination
+	5,  // 10: user.user.ListRequest.filter:type_name -> user.user.FilterRequest
+	0,  // 11: user.user.ListResponse.items:type_name -> user.user.User
+	23, // 12: user.user.ListResponse.meta:type_name -> user.common.Meta
+	21, // 13: user.user.UpdateProfileRequest.attributes:type_name -> google.protobuf.Struct
+	22, // 14: user.user.ListDevicesRequest.pagination:type_name -> user.common.Pagination
+	17, // 15: user.user.ListDevicesRequest.filter:type_name -> user.user.FilterDeviceRequest
+	3,  // 16: user.user.ListDevicesResponse.items:type_name -> user.user.Device
+	23, // 17: user.user.ListDevicesResponse.meta:type_name -> user.common.Meta
+	4,  // 18: user.user.UserService.List:input_type -> user.user.ListRequest
+	7,  // 19: user.user.UserService.Get:input_type -> user.user.GetRequest
+	8,  // 20: user.user.UserService.Add:input_type -> user.user.AddRequest
+	10, // 21: user.user.UserService.Update:input_type -> user.user.UpdateRequest
+	11, // 22: user.user.UserService.Delete:input_type -> user.user.DeleteRequest
+	13, // 23: user.user.UserService.ChangePassword:input_type -> user.user.ChangePasswordRequest
+	12, // 24: user.user.UserService.GetProfile:input_type -> user.user.GetProfileRequest
+	14, // 25: user.user.UserService.UpdateProfile:input_type -> user.user.UpdateProfileRequest
+	15, // 26: user.user.UserService.UpdatePin:input_type -> user.user.UpdatePinRequest
+	16, // 27: user.user.UserService.ListDevice:input_type -> user.user.ListDevicesRequest
+	19, // 28: user.user.UserService.RevokeDevice:input_type -> user.user.RevokeDeviceRequest
+	6,  // 29: user.user.UserService.List:output_type -> user.user.ListResponse
+	0,  // 30: user.user.UserService.Get:output_type -> user.user.User
+	9,  // 31: user.user.UserService.Add:output_type -> user.user.AddResponse
+	24, // 32: user.user.UserService.Update:output_type -> user.common.Success
+	24, // 33: user.user.UserService.Delete:output_type -> user.common.Success
+	24, // 34: user.user.UserService.ChangePassword:output_type -> user.common.Success
+	1,  // 35: user.user.UserService.GetProfile:output_type -> user.user.Profile
+	24, // 36: user.user.UserService.UpdateProfile:output_type -> user.common.Success
+	24, // 37: user.user.UserService.UpdatePin:output_type -> user.common.Success
+	18, // 38: user.user.UserService.ListDevice:output_type -> user.user.ListDevicesResponse
+	24, // 39: user.user.UserService.RevokeDevice:output_type -> user.common.Success
 	29, // [29:40] is the sub-list for method output_type
 	18, // [18:29] is the sub-list for method input_type
 	18, // [18:18] is the sub-list for extension type_name

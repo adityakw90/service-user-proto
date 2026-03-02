@@ -20,17 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_List_FullMethodName           = "/user.UserService/List"
-	UserService_Get_FullMethodName            = "/user.UserService/Get"
-	UserService_Add_FullMethodName            = "/user.UserService/Add"
-	UserService_Update_FullMethodName         = "/user.UserService/Update"
-	UserService_Delete_FullMethodName         = "/user.UserService/Delete"
-	UserService_ChangePassword_FullMethodName = "/user.UserService/ChangePassword"
-	UserService_GetProfile_FullMethodName     = "/user.UserService/GetProfile"
-	UserService_UpdateProfile_FullMethodName  = "/user.UserService/UpdateProfile"
-	UserService_UpdatePin_FullMethodName      = "/user.UserService/UpdatePin"
-	UserService_ListDevice_FullMethodName     = "/user.UserService/ListDevice"
-	UserService_RevokeDevice_FullMethodName   = "/user.UserService/RevokeDevice"
+	UserService_List_FullMethodName           = "/user.user.UserService/List"
+	UserService_Get_FullMethodName            = "/user.user.UserService/Get"
+	UserService_Add_FullMethodName            = "/user.user.UserService/Add"
+	UserService_Update_FullMethodName         = "/user.user.UserService/Update"
+	UserService_Delete_FullMethodName         = "/user.user.UserService/Delete"
+	UserService_ChangePassword_FullMethodName = "/user.user.UserService/ChangePassword"
+	UserService_GetProfile_FullMethodName     = "/user.user.UserService/GetProfile"
+	UserService_UpdateProfile_FullMethodName  = "/user.user.UserService/UpdateProfile"
+	UserService_UpdatePin_FullMethodName      = "/user.user.UserService/UpdatePin"
+	UserService_ListDevice_FullMethodName     = "/user.user.UserService/ListDevice"
+	UserService_RevokeDevice_FullMethodName   = "/user.user.UserService/RevokeDevice"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -463,7 +463,7 @@ func _UserService_RevokeDevice_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.UserService",
+	ServiceName: "user.user.UserService",
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

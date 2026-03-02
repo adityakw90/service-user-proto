@@ -243,7 +243,7 @@ var File_proto_common_proto protoreflect.FileDescriptor
 
 const file_proto_common_proto_rawDesc = "" +
 	"\n" +
-	"\x12proto/common.proto\x12\x06common\"\a\n" +
+	"\x12proto/common.proto\x12\vuser.common\"\a\n" +
 	"\x05Empty\"#\n" +
 	"\aSuccess\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"\\\n" +
@@ -273,10 +273,10 @@ func file_proto_common_proto_rawDescGZIP() []byte {
 
 var file_proto_common_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_common_proto_goTypes = []any{
-	(*Empty)(nil),      // 0: common.Empty
-	(*Success)(nil),    // 1: common.Success
-	(*Meta)(nil),       // 2: common.Meta
-	(*Pagination)(nil), // 3: common.Pagination
+	(*Empty)(nil),      // 0: user.common.Empty
+	(*Success)(nil),    // 1: user.common.Success
+	(*Meta)(nil),       // 2: user.common.Meta
+	(*Pagination)(nil), // 3: user.common.Pagination
 }
 var file_proto_common_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

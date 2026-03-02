@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package common;
+package user.common;
 
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/common";
 

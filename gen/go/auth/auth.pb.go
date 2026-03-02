@@ -677,7 +677,7 @@ var File_proto_auth_proto protoreflect.FileDescriptor
 
 const file_proto_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x10proto/auth.proto\x12\x04auth\x1a\x1cgoogle/protobuf/struct.proto\"O\n" +
+	"\x10proto/auth.proto\x12\tuser.auth\x1a\x1cgoogle/protobuf/struct.proto\"O\n" +
 	"\x05Token\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\xe1\x02\n" +
@@ -728,15 +728,15 @@ const file_proto_auth_proto_rawDesc = "" +
 	"\n" +
 	"token_type\x18\x02 \x01(\tR\ttokenType\"/\n" +
 	"\x13RevokeTokenResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xbf\x03\n" +
-	"\vAuthService\x12&\n" +
-	"\x04Auth\x12\x11.auth.AuthRequest\x1a\v.auth.Token\x12B\n" +
-	"\vGoogleOAuth\x12\x18.auth.GoogleOAuthRequest\x1a\x19.auth.GoogleOAuthResponse\x12@\n" +
-	"\x11HandleGoogleOAuth\x12\x1e.auth.HandleGoogleOAuthRequest\x1a\v.auth.Token\x126\n" +
-	"\fRefreshToken\x12\x19.auth.RefreshTokenRequest\x1a\v.auth.Token\x12H\n" +
-	"\rValidateToken\x12\x1a.auth.ValidateTokenRequest\x1a\x1b.auth.ValidateTokenResponse\x12B\n" +
-	"\vRevokeToken\x12\x18.auth.RevokeTokenRequest\x1a\x19.auth.RevokeTokenResponse\x12<\n" +
-	"\tVerifyPin\x12\x16.auth.VerifyPinRequest\x1a\x17.auth.VerifyPinResponseB6Z4github.com/adityakw90/service-user-proto/gen/go/authb\x06proto3"
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\x85\x04\n" +
+	"\vAuthService\x120\n" +
+	"\x04Auth\x12\x16.user.auth.AuthRequest\x1a\x10.user.auth.Token\x12L\n" +
+	"\vGoogleOAuth\x12\x1d.user.auth.GoogleOAuthRequest\x1a\x1e.user.auth.GoogleOAuthResponse\x12J\n" +
+	"\x11HandleGoogleOAuth\x12#.user.auth.HandleGoogleOAuthRequest\x1a\x10.user.auth.Token\x12@\n" +
+	"\fRefreshToken\x12\x1e.user.auth.RefreshTokenRequest\x1a\x10.user.auth.Token\x12R\n" +
+	"\rValidateToken\x12\x1f.user.auth.ValidateTokenRequest\x1a .user.auth.ValidateTokenResponse\x12L\n" +
+	"\vRevokeToken\x12\x1d.user.auth.RevokeTokenRequest\x1a\x1e.user.auth.RevokeTokenResponse\x12F\n" +
+	"\tVerifyPin\x12\x1b.user.auth.VerifyPinRequest\x1a\x1c.user.auth.VerifyPinResponseB6Z4github.com/adityakw90/service-user-proto/gen/go/authb\x06proto3"
 
 var (
 	file_proto_auth_proto_rawDescOnce sync.Once
@@ -752,37 +752,37 @@ func file_proto_auth_proto_rawDescGZIP() []byte {
 
 var file_proto_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_proto_auth_proto_goTypes = []any{
-	(*Token)(nil),                    // 0: auth.Token
-	(*AuthRequest)(nil),              // 1: auth.AuthRequest
-	(*RefreshTokenRequest)(nil),      // 2: auth.RefreshTokenRequest
-	(*ValidateTokenRequest)(nil),     // 3: auth.ValidateTokenRequest
-	(*ValidateTokenResponse)(nil),    // 4: auth.ValidateTokenResponse
-	(*VerifyPinRequest)(nil),         // 5: auth.VerifyPinRequest
-	(*VerifyPinResponse)(nil),        // 6: auth.VerifyPinResponse
-	(*GoogleOAuthRequest)(nil),       // 7: auth.GoogleOAuthRequest
-	(*GoogleOAuthResponse)(nil),      // 8: auth.GoogleOAuthResponse
-	(*HandleGoogleOAuthRequest)(nil), // 9: auth.HandleGoogleOAuthRequest
-	(*RevokeTokenRequest)(nil),       // 10: auth.RevokeTokenRequest
-	(*RevokeTokenResponse)(nil),      // 11: auth.RevokeTokenResponse
+	(*Token)(nil),                    // 0: user.auth.Token
+	(*AuthRequest)(nil),              // 1: user.auth.AuthRequest
+	(*RefreshTokenRequest)(nil),      // 2: user.auth.RefreshTokenRequest
+	(*ValidateTokenRequest)(nil),     // 3: user.auth.ValidateTokenRequest
+	(*ValidateTokenResponse)(nil),    // 4: user.auth.ValidateTokenResponse
+	(*VerifyPinRequest)(nil),         // 5: user.auth.VerifyPinRequest
+	(*VerifyPinResponse)(nil),        // 6: user.auth.VerifyPinResponse
+	(*GoogleOAuthRequest)(nil),       // 7: user.auth.GoogleOAuthRequest
+	(*GoogleOAuthResponse)(nil),      // 8: user.auth.GoogleOAuthResponse
+	(*HandleGoogleOAuthRequest)(nil), // 9: user.auth.HandleGoogleOAuthRequest
+	(*RevokeTokenRequest)(nil),       // 10: user.auth.RevokeTokenRequest
+	(*RevokeTokenResponse)(nil),      // 11: user.auth.RevokeTokenResponse
 	(*structpb.Struct)(nil),          // 12: google.protobuf.Struct
 }
 var file_proto_auth_proto_depIdxs = []int32{
-	12, // 0: auth.AuthRequest.extra:type_name -> google.protobuf.Struct
-	12, // 1: auth.ValidateTokenResponse.claims:type_name -> google.protobuf.Struct
-	1,  // 2: auth.AuthService.Auth:input_type -> auth.AuthRequest
-	7,  // 3: auth.AuthService.GoogleOAuth:input_type -> auth.GoogleOAuthRequest
-	9,  // 4: auth.AuthService.HandleGoogleOAuth:input_type -> auth.HandleGoogleOAuthRequest
-	2,  // 5: auth.AuthService.RefreshToken:input_type -> auth.RefreshTokenRequest
-	3,  // 6: auth.AuthService.ValidateToken:input_type -> auth.ValidateTokenRequest
-	10, // 7: auth.AuthService.RevokeToken:input_type -> auth.RevokeTokenRequest
-	5,  // 8: auth.AuthService.VerifyPin:input_type -> auth.VerifyPinRequest
-	0,  // 9: auth.AuthService.Auth:output_type -> auth.Token
-	8,  // 10: auth.AuthService.GoogleOAuth:output_type -> auth.GoogleOAuthResponse
-	0,  // 11: auth.AuthService.HandleGoogleOAuth:output_type -> auth.Token
-	0,  // 12: auth.AuthService.RefreshToken:output_type -> auth.Token
-	4,  // 13: auth.AuthService.ValidateToken:output_type -> auth.ValidateTokenResponse
-	11, // 14: auth.AuthService.RevokeToken:output_type -> auth.RevokeTokenResponse
-	6,  // 15: auth.AuthService.VerifyPin:output_type -> auth.VerifyPinResponse
+	12, // 0: user.auth.AuthRequest.extra:type_name -> google.protobuf.Struct
+	12, // 1: user.auth.ValidateTokenResponse.claims:type_name -> google.protobuf.Struct
+	1,  // 2: user.auth.AuthService.Auth:input_type -> user.auth.AuthRequest
+	7,  // 3: user.auth.AuthService.GoogleOAuth:input_type -> user.auth.GoogleOAuthRequest
+	9,  // 4: user.auth.AuthService.HandleGoogleOAuth:input_type -> user.auth.HandleGoogleOAuthRequest
+	2,  // 5: user.auth.AuthService.RefreshToken:input_type -> user.auth.RefreshTokenRequest
+	3,  // 6: user.auth.AuthService.ValidateToken:input_type -> user.auth.ValidateTokenRequest
+	10, // 7: user.auth.AuthService.RevokeToken:input_type -> user.auth.RevokeTokenRequest
+	5,  // 8: user.auth.AuthService.VerifyPin:input_type -> user.auth.VerifyPinRequest
+	0,  // 9: user.auth.AuthService.Auth:output_type -> user.auth.Token
+	8,  // 10: user.auth.AuthService.GoogleOAuth:output_type -> user.auth.GoogleOAuthResponse
+	0,  // 11: user.auth.AuthService.HandleGoogleOAuth:output_type -> user.auth.Token
+	0,  // 12: user.auth.AuthService.RefreshToken:output_type -> user.auth.Token
+	4,  // 13: user.auth.AuthService.ValidateToken:output_type -> user.auth.ValidateTokenResponse
+	11, // 14: user.auth.AuthService.RevokeToken:output_type -> user.auth.RevokeTokenResponse
+	6,  // 15: user.auth.AuthService.VerifyPin:output_type -> user.auth.VerifyPinResponse
 	9,  // [9:16] is the sub-list for method output_type
 	2,  // [2:9] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name

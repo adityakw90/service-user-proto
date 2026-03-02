@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserFileService_Get_FullMethodName    = "/user_file.UserFileService/Get"
-	UserFileService_List_FullMethodName   = "/user_file.UserFileService/List"
-	UserFileService_Add_FullMethodName    = "/user_file.UserFileService/Add"
-	UserFileService_Update_FullMethodName = "/user_file.UserFileService/Update"
-	UserFileService_Delete_FullMethodName = "/user_file.UserFileService/Delete"
+	UserFileService_Get_FullMethodName    = "/user.user_file.UserFileService/Get"
+	UserFileService_List_FullMethodName   = "/user.user_file.UserFileService/List"
+	UserFileService_Add_FullMethodName    = "/user.user_file.UserFileService/Add"
+	UserFileService_Update_FullMethodName = "/user.user_file.UserFileService/Update"
+	UserFileService_Delete_FullMethodName = "/user.user_file.UserFileService/Delete"
 )
 
 // UserFileServiceClient is the client API for UserFileService service.
@@ -250,7 +250,7 @@ func _UserFileService_Delete_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UserFileService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user_file.UserFileService",
+	ServiceName: "user.user_file.UserFileService",
 	HandlerType: (*UserFileServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
