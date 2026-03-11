@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v5.28.1
-// source: proto/device.proto
+// source: device.proto
 
 package device
 
@@ -38,7 +38,7 @@ type Device struct {
 
 func (x *Device) Reset() {
 	*x = Device{}
-	mi := &file_proto_device_proto_msgTypes[0]
+	mi := &file_device_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -50,7 +50,7 @@ func (x *Device) String() string {
 func (*Device) ProtoMessage() {}
 
 func (x *Device) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_device_proto_msgTypes[0]
+	mi := &file_device_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +63,7 @@ func (x *Device) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Device.ProtoReflect.Descriptor instead.
 func (*Device) Descriptor() ([]byte, []int) {
-	return file_proto_device_proto_rawDescGZIP(), []int{0}
+	return file_device_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Device) GetUid() string {
@@ -111,7 +111,7 @@ type ListRequest struct {
 
 func (x *ListRequest) Reset() {
 	*x = ListRequest{}
-	mi := &file_proto_device_proto_msgTypes[1]
+	mi := &file_device_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -123,7 +123,7 @@ func (x *ListRequest) String() string {
 func (*ListRequest) ProtoMessage() {}
 
 func (x *ListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_device_proto_msgTypes[1]
+	mi := &file_device_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -136,7 +136,7 @@ func (x *ListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListRequest.ProtoReflect.Descriptor instead.
 func (*ListRequest) Descriptor() ([]byte, []int) {
-	return file_proto_device_proto_rawDescGZIP(), []int{1}
+	return file_device_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ListRequest) GetPagination() *common.Pagination {
@@ -164,7 +164,7 @@ type FilterRequest struct {
 
 func (x *FilterRequest) Reset() {
 	*x = FilterRequest{}
-	mi := &file_proto_device_proto_msgTypes[2]
+	mi := &file_device_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -176,7 +176,7 @@ func (x *FilterRequest) String() string {
 func (*FilterRequest) ProtoMessage() {}
 
 func (x *FilterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_device_proto_msgTypes[2]
+	mi := &file_device_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -189,7 +189,7 @@ func (x *FilterRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FilterRequest.ProtoReflect.Descriptor instead.
 func (*FilterRequest) Descriptor() ([]byte, []int) {
-	return file_proto_device_proto_rawDescGZIP(), []int{2}
+	return file_device_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *FilterRequest) GetUids() []string {
@@ -223,7 +223,7 @@ type ListResponse struct {
 
 func (x *ListResponse) Reset() {
 	*x = ListResponse{}
-	mi := &file_proto_device_proto_msgTypes[3]
+	mi := &file_device_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -235,7 +235,7 @@ func (x *ListResponse) String() string {
 func (*ListResponse) ProtoMessage() {}
 
 func (x *ListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_device_proto_msgTypes[3]
+	mi := &file_device_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -248,7 +248,7 @@ func (x *ListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListResponse.ProtoReflect.Descriptor instead.
 func (*ListResponse) Descriptor() ([]byte, []int) {
-	return file_proto_device_proto_rawDescGZIP(), []int{3}
+	return file_device_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ListResponse) GetItems() []*Device {
@@ -274,7 +274,7 @@ type GetRequest struct {
 
 func (x *GetRequest) Reset() {
 	*x = GetRequest{}
-	mi := &file_proto_device_proto_msgTypes[4]
+	mi := &file_device_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -286,7 +286,7 @@ func (x *GetRequest) String() string {
 func (*GetRequest) ProtoMessage() {}
 
 func (x *GetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_device_proto_msgTypes[4]
+	mi := &file_device_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -299,7 +299,7 @@ func (x *GetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRequest.ProtoReflect.Descriptor instead.
 func (*GetRequest) Descriptor() ([]byte, []int) {
-	return file_proto_device_proto_rawDescGZIP(), []int{4}
+	return file_device_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetRequest) GetUid() string {
@@ -318,7 +318,7 @@ type DeleteRequest struct {
 
 func (x *DeleteRequest) Reset() {
 	*x = DeleteRequest{}
-	mi := &file_proto_device_proto_msgTypes[5]
+	mi := &file_device_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -330,7 +330,7 @@ func (x *DeleteRequest) String() string {
 func (*DeleteRequest) ProtoMessage() {}
 
 func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_device_proto_msgTypes[5]
+	mi := &file_device_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +343,7 @@ func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
 func (*DeleteRequest) Descriptor() ([]byte, []int) {
-	return file_proto_device_proto_rawDescGZIP(), []int{5}
+	return file_device_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *DeleteRequest) GetUid() string {
@@ -353,11 +353,11 @@ func (x *DeleteRequest) GetUid() string {
 	return ""
 }
 
-var File_proto_device_proto protoreflect.FileDescriptor
+var File_device_proto protoreflect.FileDescriptor
 
-const file_proto_device_proto_rawDesc = "" +
+const file_device_proto_rawDesc = "" +
 	"\n" +
-	"\x12proto/device.proto\x12\vuser.device\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12proto/common.proto\"\xd8\x01\n" +
+	"\fdevice.proto\x12\vuser.device\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\fcommon.proto\"\xd8\x01\n" +
 	"\x06Device\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\tR\x03uid\x12-\n" +
 	"\x12device_fingerprint\x18\x02 \x01(\tR\x11deviceFingerprint\x12\x1f\n" +
@@ -394,19 +394,19 @@ const file_proto_device_proto_rawDesc = "" +
 	"\x06Delete\x12\x1a.user.device.DeleteRequest\x1a\x14.user.common.SuccessB8Z6github.com/adityakw90/service-user-proto/gen/go/deviceb\x06proto3"
 
 var (
-	file_proto_device_proto_rawDescOnce sync.Once
-	file_proto_device_proto_rawDescData []byte
+	file_device_proto_rawDescOnce sync.Once
+	file_device_proto_rawDescData []byte
 )
 
-func file_proto_device_proto_rawDescGZIP() []byte {
-	file_proto_device_proto_rawDescOnce.Do(func() {
-		file_proto_device_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_device_proto_rawDesc), len(file_proto_device_proto_rawDesc)))
+func file_device_proto_rawDescGZIP() []byte {
+	file_device_proto_rawDescOnce.Do(func() {
+		file_device_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_device_proto_rawDesc), len(file_device_proto_rawDesc)))
 	})
-	return file_proto_device_proto_rawDescData
+	return file_device_proto_rawDescData
 }
 
-var file_proto_device_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_proto_device_proto_goTypes = []any{
+var file_device_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_device_proto_goTypes = []any{
 	(*Device)(nil),                // 0: user.device.Device
 	(*ListRequest)(nil),           // 1: user.device.ListRequest
 	(*FilterRequest)(nil),         // 2: user.device.FilterRequest
@@ -418,7 +418,7 @@ var file_proto_device_proto_goTypes = []any{
 	(*common.Meta)(nil),           // 8: user.common.Meta
 	(*common.Success)(nil),        // 9: user.common.Success
 }
-var file_proto_device_proto_depIdxs = []int32{
+var file_device_proto_depIdxs = []int32{
 	6, // 0: user.device.Device.created_at:type_name -> google.protobuf.Timestamp
 	7, // 1: user.device.ListRequest.pagination:type_name -> user.common.Pagination
 	2, // 2: user.device.ListRequest.filter:type_name -> user.device.FilterRequest
@@ -437,28 +437,28 @@ var file_proto_device_proto_depIdxs = []int32{
 	0, // [0:5] is the sub-list for field type_name
 }
 
-func init() { file_proto_device_proto_init() }
-func file_proto_device_proto_init() {
-	if File_proto_device_proto != nil {
+func init() { file_device_proto_init() }
+func file_device_proto_init() {
+	if File_device_proto != nil {
 		return
 	}
-	file_proto_device_proto_msgTypes[0].OneofWrappers = []any{}
-	file_proto_device_proto_msgTypes[2].OneofWrappers = []any{}
+	file_device_proto_msgTypes[0].OneofWrappers = []any{}
+	file_device_proto_msgTypes[2].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_device_proto_rawDesc), len(file_proto_device_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_device_proto_rawDesc), len(file_device_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_proto_device_proto_goTypes,
-		DependencyIndexes: file_proto_device_proto_depIdxs,
-		MessageInfos:      file_proto_device_proto_msgTypes,
+		GoTypes:           file_device_proto_goTypes,
+		DependencyIndexes: file_device_proto_depIdxs,
+		MessageInfos:      file_device_proto_msgTypes,
 	}.Build()
-	File_proto_device_proto = out.File
-	file_proto_device_proto_goTypes = nil
-	file_proto_device_proto_depIdxs = nil
+	File_device_proto = out.File
+	file_device_proto_goTypes = nil
+	file_device_proto_depIdxs = nil
 }

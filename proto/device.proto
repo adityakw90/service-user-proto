@@ -4,9 +4,8 @@ package user.device;
 
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/device";
 
-
 import "google/protobuf/timestamp.proto";
-import "proto/common.proto";
+import "common.proto";
 
 // Message
 message Device {
@@ -20,7 +19,7 @@ message Device {
 }
 
 message ListRequest {
-  common.Pagination pagination = 1;
+  user.common.Pagination pagination = 1;
   FilterRequest filter = 2;
 }
 
@@ -32,7 +31,7 @@ message FilterRequest {
 
 message ListResponse {
   repeated Device items = 1;
-  common.Meta meta = 2;
+  user.common.Meta meta = 2;
 }
 
 message GetRequest {
@@ -50,5 +49,5 @@ service DeviceService {
   // Get device by uid
   rpc Get(GetRequest) returns (Device);
   // Delete device by uid
-  rpc Delete(DeleteRequest) returns (common.Success);
+  rpc Delete(DeleteRequest) returns (user.common.Success);
 }

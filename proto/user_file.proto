@@ -6,7 +6,7 @@ option go_package = "github.com/adityakw90/service-user-proto/gen/go/user_file";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
-import "proto/common.proto";  // Import the common proto
+import "common.proto";  // Import the common proto
 
 
 // UserFile message.
@@ -32,7 +32,7 @@ message GetRequest {
 
 // Request message for List UserFile.
 message ListRequest {
-  common.Pagination pagination = 1;
+  user.common.Pagination pagination = 1;
   FilterRequest filter=2;
 }
 
@@ -47,7 +47,7 @@ message FilterRequest {
 // Response message containing a list of items.
 message ListResponse {
   repeated UserFile items = 1;
-  common.Meta meta = 2;  // Use Meta from the imported common.proto
+  user.common.Meta meta = 2;  // Use Meta from the imported common.proto
 }
 
 // Request message for Add UserFile.
