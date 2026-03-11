@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             v5.28.1
-// source: device.proto
+// source: user/device.proto
 
 package device
 
@@ -204,5 +204,5 @@ var DeviceService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "device.proto",
+	Metadata: "user/device.proto",
 }
