@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             v5.28.1
-// source: proto/auth.proto
+// source: auth.proto
 
 package auth
 
@@ -19,13 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_Auth_FullMethodName              = "/auth.AuthService/Auth"
-	AuthService_GoogleOAuth_FullMethodName       = "/auth.AuthService/GoogleOAuth"
-	AuthService_HandleGoogleOAuth_FullMethodName = "/auth.AuthService/HandleGoogleOAuth"
-	AuthService_RefreshToken_FullMethodName      = "/auth.AuthService/RefreshToken"
-	AuthService_ValidateToken_FullMethodName     = "/auth.AuthService/ValidateToken"
-	AuthService_RevokeToken_FullMethodName       = "/auth.AuthService/RevokeToken"
-	AuthService_VerifyPin_FullMethodName         = "/auth.AuthService/VerifyPin"
+	AuthService_Auth_FullMethodName              = "/user.auth.AuthService/Auth"
+	AuthService_GoogleOAuth_FullMethodName       = "/user.auth.AuthService/GoogleOAuth"
+	AuthService_HandleGoogleOAuth_FullMethodName = "/user.auth.AuthService/HandleGoogleOAuth"
+	AuthService_RefreshToken_FullMethodName      = "/user.auth.AuthService/RefreshToken"
+	AuthService_ValidateToken_FullMethodName     = "/user.auth.AuthService/ValidateToken"
+	AuthService_RevokeToken_FullMethodName       = "/user.auth.AuthService/RevokeToken"
+	AuthService_VerifyPin_FullMethodName         = "/user.auth.AuthService/VerifyPin"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -326,7 +326,7 @@ func _AuthService_VerifyPin_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AuthService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.AuthService",
+	ServiceName: "user.auth.AuthService",
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -359,5 +359,5 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/auth.proto",
+	Metadata: "auth.proto",
 }

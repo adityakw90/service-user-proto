@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             v5.28.1
-// source: proto/device.proto
+// source: device.proto
 
 package device
 
@@ -20,9 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	DeviceService_List_FullMethodName   = "/device.DeviceService/List"
-	DeviceService_Get_FullMethodName    = "/device.DeviceService/Get"
-	DeviceService_Delete_FullMethodName = "/device.DeviceService/Delete"
+	DeviceService_List_FullMethodName   = "/user.device.DeviceService/List"
+	DeviceService_Get_FullMethodName    = "/user.device.DeviceService/Get"
+	DeviceService_Delete_FullMethodName = "/user.device.DeviceService/Delete"
 )
 
 // DeviceServiceClient is the client API for DeviceService service.
@@ -187,7 +187,7 @@ func _DeviceService_Delete_Handler(srv interface{}, ctx context.Context, dec fun
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var DeviceService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "device.DeviceService",
+	ServiceName: "user.device.DeviceService",
 	HandlerType: (*DeviceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -204,5 +204,5 @@ var DeviceService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/device.proto",
+	Metadata: "device.proto",
 }
