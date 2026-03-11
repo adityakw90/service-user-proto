@@ -6,7 +6,7 @@ option go_package = "github.com/adityakw90/service-user-proto/gen/go/user";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
-import "common.proto";
+import "user/common.proto";
 
 message User {
   string uid = 1;           // UUIDv7

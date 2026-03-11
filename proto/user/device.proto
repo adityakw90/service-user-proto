@@ -5,7 +5,7 @@ package user.device;
 option go_package = "github.com/adityakw90/service-user-proto/gen/go/device";
 
 import "google/protobuf/timestamp.proto";
-import "common.proto";
+import "user/common.proto";
 
 // Message
 message Device {
