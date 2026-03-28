@@ -1,12 +1,20 @@
-.PHONY: go clean deps
+.PHONY: go py all clean deps go-deps py-deps
 
-deps:
-	@echo "Installing dependencies..."
+# Dependencies
+deps: go-deps py-deps
+
+go-deps:
+	@echo "Installing Go protobuf plugins..."
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.6.1
-	@echo "Dependencies installed successfully."
+	@echo "Go dependencies installed successfully."
 
-# Generate Go code for all proto files
+py-deps:
+	@echo "Installing Python protobuf dependencies via Poetry..."
+	@poetry install --no-root
+	@echo "Python dependencies installed successfully."
+
+# Individual language generation
 go:
 	@echo "Generating Go code for all proto files..."
 	@mkdir -p gen/go
@@ -16,6 +24,22 @@ go:
 		--go-grpc_out=. --go-grpc_opt=module=github.com/adityakw90/service-user-proto \
 		proto/**/*.proto
 	@echo "Go code generated successfully."
+
+py:
+	@echo "Generating Python code for all proto files..."
+	@mkdir -p gen/python/service_user_proto
+	@poetry run python3 -m grpc_tools.protoc \
+		--proto_path=proto \
+		--python_out=gen/python \
+		--grpc_python_out=gen/python \
+		proto/**/*.proto
+	@touch gen/python/service_user_proto/__init__.py
+	@find gen/python -type d -exec touch {}/__init__.py \;
+	@touch gen/python/service_user_proto/py.typed
+	@echo "Python code generated successfully."
+
+# Generate all
+all: go py
 
 clean:
 	@echo "Cleaning generated code..."
