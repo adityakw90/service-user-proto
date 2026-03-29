@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "service-user-proto"
-version = "0.1.0"
+version = "0.1.4"
 description = "Protocol Buffer definitions and gRPC contracts for User Service"
 authors = [
 	"Aditya <aditya.kw90@gmail.com>",
