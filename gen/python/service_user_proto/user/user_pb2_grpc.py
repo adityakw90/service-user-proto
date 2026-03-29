@@ -3,8 +3,8 @@
 import grpc
 import warnings
 
-from user import common_pb2 as user_dot_common__pb2
-from user import user_pb2 as user_dot_user__pb2
+from service_user_proto.common import common_pb2 as user_dot_common__pb2
+from . import user_pb2 as user_dot_user__pb2
 
 GRPC_GENERATED_VERSION = '1.78.0'
 GRPC_VERSION = grpc.__version__

@@ -34,11 +34,10 @@ py:
 		--proto_path=proto \
 		--python_out=gen/python/service_user_proto \
 		--grpc_python_out=gen/python/service_user_proto \
-		proto/user/*.proto
-	@touch gen/python/service_user_proto/__init__.py
-	@find gen/python/service_user_proto -type d -exec touch {}/__init__.py \;
-	@touch gen/python/service_user_proto/py.typed
-	@echo "Python code generated successfully."
+		proto/**/*.proto
+	@echo "Fixing Python imports and restructuring..."
+	@poetry run python scripts/fix_python_imports.py
+	@echo "Python code generated and fixed successfully."
 
 # Generate all
 all: go py

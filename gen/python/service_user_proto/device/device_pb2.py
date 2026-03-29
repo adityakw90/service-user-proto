@@ -23,7 +23,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from user import common_pb2 as user_dot_common__pb2
+from service_user_proto.common import common_pb2 as user_dot_common__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11user/device.proto\x12\x0buser.device\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11user/common.proto\"\x9e\x01\n\x06\x44\x65vice\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x1a\n\x12\x64\x65vice_fingerprint\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65vice_name\x18\x03 \x01(\t\x12.\n\ncreated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x17\n\ntotal_user\x18\x05 \x01(\x03H\x00\x88\x01\x01\x42\r\n\x0b_total_user\"f\n\x0bListRequest\x12+\n\npagination\x18\x01 \x01(\x0b\x32\x17.user.common.Pagination\x12*\n\x06\x66ilter\x18\x02 \x01(\x0b\x32\x1a.user.device.FilterRequest\"\x7f\n\rFilterRequest\x12\x0c\n\x04uids\x18\x01 \x03(\t\x12\x1f\n\x12\x64\x65vice_fingerprint\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65vice_name\x18\x03 \x01(\tH\x01\x88\x01\x01\x42\x15\n\x13_device_fingerprintB\x0e\n\x0c_device_name\"S\n\x0cListResponse\x12\"\n\x05items\x18\x01 \x03(\x0b\x32\x13.user.device.Device\x12\x1f\n\x04meta\x18\x02 \x01(\x0b\x32\x11.user.common.Meta\"\x19\n\nGetRequest\x12\x0b\n\x03uid\x18\x01 \x01(\t\"\x1c\n\rDeleteRequest\x12\x0b\n\x03uid\x18\x01 \x01(\t2\xbd\x01\n\rDeviceService\x12;\n\x04List\x12\x18.user.device.ListRequest\x1a\x19.user.device.ListResponse\x12\x33\n\x03Get\x12\x17.user.device.GetRequest\x1a\x13.user.device.Device\x12:\n\x06\x44\x65lete\x12\x1a.user.device.DeleteRequest\x1a\x14.user.common.SuccessB8Z6github.com/adityakw90/service-user-proto/gen/go/deviceb\x06proto3')
