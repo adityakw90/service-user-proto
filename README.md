@@ -118,7 +118,7 @@ make py
 
 This command will:
 
-1. Install Python dependencies via Poetry (if needed)
+1. Ensure Python dependencies are installed (`make py-deps`)
 2. Create the `gen/python` directory if it doesn't exist
 3. Compile all `.proto` files using Python's gRPC tools
 4. Run a post-processing script to organize the code into service-based directories

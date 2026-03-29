@@ -12,6 +12,7 @@ This script:
 import os
 import re
 import shutil
+import sys
 from pathlib import Path
 from typing import Dict, List, Set
 
@@ -80,7 +81,11 @@ def fix_imports_in_file(file_path: Path, base_dir: Path) -> None:
         # Match: from user import {other_service}_pb2 as ...
         content = re.sub(
             r"from user import " + other_service + r"_pb2 as (\S+)",
-            r"from service_user_proto." + other_service + r" import " + other_service + r"_pb2 as \1",
+            r"from service_user_proto."
+            + other_service
+            + r" import "
+            + other_service
+            + r"_pb2 as \1",
             content,
         )
 
@@ -172,7 +177,9 @@ def cleanup_user_directory(base_dir: Path) -> None:
             shutil.rmtree(user_dir)
             print(f"Removed empty directory: {user_dir}")
         else:
-            print(f"Warning: user directory not empty, contains: {[f.name for f in files]}")
+            print(
+                f"Warning: user directory not empty, contains: {[f.name for f in files]}"
+            )
 
 
 def main() -> None:
@@ -184,11 +191,11 @@ def main() -> None:
 
     if not base_dir.exists():
         print(f"Error: Base directory {base_dir} does not exist!")
-        return
+        sys.exit(1)
 
     if not user_dir.exists():
         print(f"Error: User directory {user_dir} does not exist!")
-        return
+        sys.exit(1)
 
     # Step 1: Create service directories
     print("\n=== Step 1: Creating service directories ===")
@@ -216,11 +223,13 @@ def main() -> None:
     cleanup_user_directory(base_dir)
 
     print("\n=== Python proto import fix complete! ===")
-    print(f"\nNew structure:")
+    print("\nNew structure:")
     for service in SERVICES:
         service_dir = base_dir / service
         if service_dir.exists():
-            files = [f.name for f in service_dir.glob("*.py") if f.name != "__init__.py"]
+            files = [
+                f.name for f in service_dir.glob("*.py") if f.name != "__init__.py"
+            ]
             print(f"  {service}/: {', '.join(files)}")
 
 

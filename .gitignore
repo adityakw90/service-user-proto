@@ -2,4 +2,4 @@
 /.claude
 
 # Python
-__pycache__
+__pycache__/
