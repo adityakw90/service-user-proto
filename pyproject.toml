@@ -14,10 +14,10 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.12"
 protobuf = "^6.33.6"
+grpcio = "^1.78.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.0"
-grpcio = "^1.78.0"
 grpcio-tools = "^1.78.0"
 
 [build-system]
