@@ -9,12 +9,11 @@ This script:
 4. Creates __init__.py files in each directory
 """
 
-import os
 import re
 import shutil
 import sys
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Dict, List
 
 
 # Service folders we want to create
@@ -98,7 +97,7 @@ def fix_imports_in_file(file_path: Path, base_dir: Path) -> None:
 
 def fix_all_imports(base_dir: Path, moved_files: Dict[str, List[str]]) -> None:
     """Fix imports in all moved files."""
-    for service, files in moved_files.items():
+    for _, files in moved_files.items():
         for file_path_str in files:
             file_path = Path(file_path_str)
             fix_imports_in_file(file_path, base_dir)
