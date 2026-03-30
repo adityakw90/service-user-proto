@@ -150,17 +150,28 @@ This package contains the generated Python code for the User Service gRPC API.
 def update_service_init_files(base_dir: Path) -> None:
     """Update service-level __init__.py files to expose pb2 and pb2_grpc."""
     for service in SERVICES:
-        init_file = base_dir / service / "__init__.py"
-        content = f"""\"\"\"{service.capitalize()} service proto definitions.\"\"\"
+        service_dir = base_dir / service
+        init_file = service_dir / "__init__.py"
+        has_pb2 = (service_dir / f"{service}_pb2.py").exists()
+        has_pb2_grpc = (service_dir / f"{service}_pb2_grpc.py").exists()
 
-from service_user_proto.{service} import {service}_pb2
-from service_user_proto.{service} import {service}_pb2_grpc
+        lines = [f'"""{service.capitalize()} service proto definitions."""', ""]
+        exports: List[str] = []
 
-__all__ = [
-    '{service}_pb2',
-    '{service}_pb2_grpc',
-]
-"""
+        if has_pb2:
+            lines.append(f"from . import {service}_pb2")
+            exports.append(f"'{service}_pb2'")
+        if has_pb2_grpc:
+            lines.append(f"from . import {service}_pb2_grpc")
+            exports.append(f"'{service}_pb2_grpc'")
+
+        lines.extend(["", "__all__ = ["])
+        for export in exports:
+            lines.append(f"    {export},")
+        lines.append("]")
+        lines.append("")
+        content = "\n".join(lines)
+
         with open(init_file, "w") as f:
             f.write(content)
         print(f"Updated: {init_file}")
