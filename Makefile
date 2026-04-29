@@ -11,6 +11,8 @@ go-deps:
 
 py-deps:
 	@echo "Installing Python protobuf dependencies..."
+	@mkdir -p gen/python/service_user_proto
+	@touch gen/python/service_user_proto/__init__.py
 	@poetry env use 3.12
 	@poetry install
 	@echo "Python dependencies installed successfully."
